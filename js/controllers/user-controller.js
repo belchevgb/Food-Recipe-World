@@ -35,6 +35,14 @@ var app = app || {};
                     app.notificator.showNotification(app.messages.LOGIN_FAILED, 'error');
                 })
         }
+
+        getFriends() {
+            app.userModel
+                .getFriends(localStorage.userId)
+                .then(success => {
+
+                });
+        }
     }
 
     app.userController = new UserController();

@@ -18,6 +18,10 @@ var app = app || {};
             app.pageController.loadRegisterPage(context, MAIN_CONTENT_SELECTOR);
         });
 
+        this.get(app.appUrls.FRIENDS_URL, function (context) {
+            app.userController.getFriends();
+        });
+
 
         // Events
         this.bind('redirectToUrl', function (event, url) {

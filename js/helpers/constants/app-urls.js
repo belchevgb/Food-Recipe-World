@@ -5,11 +5,13 @@ var app = app || {};
 
     const BASE_URL = '#/',
         LOGIN_URL = '#/login',
-        REGISTER_URL = `#/register`;
+        REGISTER_URL = '#/register',
+        FRIENDS_URL = '#/friends';
 
     app.appUrls = {
         BASE_URL,
         LOGIN_URL,
-        REGISTER_URL
+        REGISTER_URL,
+        FRIENDS_URL
     };
 }());

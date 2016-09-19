@@ -15,6 +15,17 @@ var app = app || {};
                 .post(app.kinveyUrls.KINVEY_LOGIN_USER_URL, headers, data)
                 .then(success => {
                     localStorage.authKey = success._kmd.authtoken;
+                    localStorage.userId = success._id;
+                });
+        }
+
+        getFriends() {
+            let headers = app.headers.getKinveyHeaders(false, true),
+                url = `${app.kinveyUrls.KINVEY_USER_URL}${localStorage.userId}`;
+
+            return app.requester.get(url, headers)
+                .then(success => {
+                    console.log(success);
                 });
         }
     }
