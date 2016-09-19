@@ -34,7 +34,12 @@ var app = app || {};
 
     class PageView {
         showHomePage(context, selector) {
+            let $selectedElement = $(selector);
 
+            $selectedElement.empty();
+            return $.get('templates/home-page.handlebars', htmlTemplate => {
+                $selectedElement.append(htmlTemplate);
+            });
         }
 
         showLoginPage(context, selector) {

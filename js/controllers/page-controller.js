@@ -5,7 +5,7 @@ var app = app || {};
 
     class PageController {
         loadHomePage(context, selector) {
-
+            return app.pageView.showHomePage(context, selector);
         }
 
         loadLoginPage(context, selector) {
