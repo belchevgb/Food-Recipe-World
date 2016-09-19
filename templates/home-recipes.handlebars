@@ -1,99 +1,118 @@
-<div id="guest-recipe-container" class="col-md-8">
-    {{#each recipes}}
-    <div class="home-recipe-container" recipe-id="{{this.id}}">
-        <div class="recipe-{{this.id}}">
-            <h3 class="recipe-title">{{this.title}}</h3>
-            <img src="{{this.image}}" alt="{{this.title}} recipe" class="img-responsive img-rounded">
+<div id="guest-recipe-container" class="col-md-12">
 
+    <div class="row">
+        {{#each recipes}}
+        <div class="col-md-offset-2 col-md-8">
+            <div class="thumbnail">
+                <div class="caption">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="text-center">{{this.title}}</h3>
+                            <p class="text-center">
+                                <button class="btn {{#if this.veryHealthy}}btn-success{{else}}btn-danger{{/if}} btn-just-icon recipe-status">
+                                    <i class="material-icons">favorite</i>
+                                </button>
 
-            <div class="recipe-buttons-container">
-                <a id="btn-ingredients-{{this.id}}" class="btn btn-info btn-round recipe-buttons" data-toggle="modal" data-target="#ingredients-modal-{{this.id}}">
-                    <i class="material-icons">shopping_basket</i> Ingredients
-                </a>
+                                <button class="btn {{#if this.vegetarian}}btn-success{{else}}btn-danger{{/if}} btn-just-icon recipe-status">
+                                    <img src="../images/vegetable-icon.png" alt="Vegetarian" class="recipe-status-icon">
+                                </button>
 
-                <a id="btn-instructions-{{this.id}}" class="btn btn-info btn-round recipe-buttons" data-toggle="modal" data-target="#instuctions-modal-{{this.id}}">
-                    <i class="material-icons">receipt</i> Instructions
-                </a>
+                                <button class="btn btn-warning btn-just-icon recipe-status servings-btn">
+                                    <img src="../images/servings-icon.png" alt="Servings" class="recipe-status-icon">
+                                    <span class="servings-icon">{{this.servings}}</span>
+                                </button>
 
-                <button class="btn {{#if this.veryHealthy}}btn-success{{else}}btn-danger{{/if}} btn-just-icon recipe-status">
-                    <i class="material-icons">favorite</i>
-                </button>
+                                {{#if this.readyInMinutes}}
+                                <button class="btn btn-success btn-just-icon recipe-status servings-btn">
+                                    <img src="../images/timer-icon.png" alt="Ready in time" class="recipe-status-icon"/>
+                                    <span class="servings-icon">{{this.readyInMinutes}}m</span>
+                                </button>
+                                {{/if}}
+                            </p>
+                        </div>
 
-                <button class="btn {{#if this.vegetarian}}btn-success{{else}}btn-danger{{/if}} btn-just-icon recipe-status">
-                    <img src="../images/vegetable-icon.png" alt="Vegetarian" class="recipe-status-icon">
-                </button>
-
-                <button class="btn btn-warning btn-just-icon recipe-status servings-btn">
-                    <img src="../images/servings-icon.png" alt="Servings" class="recipe-status-icon">
-                    <span class="servings-icon">{{this.servings}}</span>
-                </button>
-            </div>
-        </div>
-
-
-
-        <!-- Ingredients modal -->
-        <div class="modal fade" id="ingredients-modal-{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Ingredients for {{this.title}}</h4>
+                        <div class="col-md-6">
+                            <img alt="{{this.title}}" class="img-responsive img-thumbnail" style="max-height:200px" src="{{this.image}}" data-holder-rendered="true">
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <ul class="with-tick">
-                            {{#each this.extendedIngredients}}
-                            <li>{{originalString}}</li>
-                            {{/each}}
-                        </ul>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a id="btn-ingredients-{{this.id}}" class="btn btn-info btn-round recipe-buttons" data-toggle="modal" data-target="#ingredients-modal-{{this.id}}">
+                                <i class="material-icons">shopping_basket</i> Ingredients
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a id="btn-instructions-{{this.id}}" class="btn btn-info btn-round recipe-buttons" data-toggle="modal" data-target="#instuctions-modal-{{this.id}}">
+                                <i class="material-icons">receipt</i> Instructions
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Instuctions modal -->
-        <div class="modal fade" id="instuctions-modal-{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Instructions for {{this.title}}</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div>
-                            <div>
-                                {{#if this.instructions}}
-
-                                <p>{{this.instructions}}</p>
-                                {{else}}
-                                <div class="alert alert-warning">
-                                    <div class="container-fluid">
-                                        <div class="alert-icon">
-                                            <i class="material-icons">warning</i>
-                                        </div>
-                                        <strong>We're sorry!</strong> The server has no instructions for this recipe.
-                                    </div>
-                                </div>
-                                {{/if}}
-                            </div>
-                            <h4>Ingredients for {{this.title}}</h4>
-                            <ul class="inline-list">
+            <!-- Ingredients modal -->
+            <div class="modal fade" id="ingredients-modal-{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Ingredients for {{this.title}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="with-tick">
                                 {{#each this.extendedIngredients}}
                                 <li>{{originalString}}</li>
                                 {{/each}}
                             </ul>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+            <!-- Instuctions modal -->
+            <div class="modal fade" id="instuctions-modal-{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Instructions for {{this.title}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <div>
+                                    {{#if this.instructions}}
+                                    <p>{{this.instructions}}</p>
+                                    {{else}}
+                                    <div class="alert alert-warning">
+                                        <div class="container-fluid">
+                                            <div class="alert-icon">
+                                                <i class="material-icons">warning</i>
+                                            </div>
+                                            <strong>We're sorry!</strong> The server has no instructions for this recipe.
+                                        </div>
+                                    </div>
+                                    {{/if}}
+                                </div>
+                                <h4>Ingredients for {{this.title}}</h4>
+                                <ul class="inline-list">
+                                    {{#each this.extendedIngredients}}
+                                    <li>{{originalString}}</li>
+                                    {{/each}}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        {{/each}}
     </div>
-
-    {{/each}}
 </div>
+
