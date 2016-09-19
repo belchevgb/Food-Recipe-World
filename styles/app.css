@@ -1,0 +1,12 @@
+body {
+    background-color: white;
+}
+
+#register-form, #login-form {
+    float: none;
+    margin: 0 auto;
+}
+
+#register-form, #login-form input {
+    margin-bottom: 20px;
+}

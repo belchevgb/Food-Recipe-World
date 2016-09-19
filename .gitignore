@@ -1,0 +1,7 @@
+# Typings
+typings/
+typings.json
+
+# Webstorm
+.idea/
+bower_components/
