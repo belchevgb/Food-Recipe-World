@@ -33,12 +33,15 @@ var app = app || {};
     }
 
     class PageView {
-        showHomePage(context, selector) {
+        showHomePage(context, selector, data) {
             let $selectedElement = $(selector);
 
             $selectedElement.empty();
-            return $.get('templates/home-page.handlebars', htmlTemplate => {
-                $selectedElement.append(htmlTemplate);
+            return $.get('templates/home-recipes.handlebars', htmlTemplate => {
+                let template = Handlebars.compile(htmlTemplate),
+                    html = template(data);
+
+                $selectedElement.append(html);
             });
         }
 

@@ -40,3 +40,59 @@ body {
 .form-control, label {
     color: white !important;
 }
+
+.home-recipe-container {
+    height: 300px;
+    margin-bottom: 50px !important;
+    z-index: 100;
+}
+
+#guest-recipe-container {
+    padding: 10px;
+    float: none;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+}
+
+.home-recipe-container img {
+    width: 50%;
+    height: 200px;
+    z-index: 100;
+    display: inline-block;
+    float: left;
+}
+
+.recipe-title {
+    color: black;
+    text-decoration: none;
+    z-index: 100;
+}
+
+.recipe-buttons-container {
+    float: right;
+    width: 200px;
+}
+
+.recipe-buttons {
+    display: block;
+    max-width: 100%;
+}
+
+i {
+    width: 20px;
+    position: absolute;
+}
+
+.recipe-status-icon {
+    width: 20px !important;
+    height: 19px !important;
+}
+
+.servings-icon {
+    display: none;
+}
+
+.servings-btn:hover .servings-icon {
+    display: inline;
+}
