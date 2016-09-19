@@ -1,5 +1,29 @@
+@font-face {
+    font-family: LogoFont;
+    src: url('../fonts/logo-font.ttf');
+}
+
 body {
-    background-color: white;
+    height: 100%;
+    overflow: auto;
+    background: url("../images/background.jpg") no-repeat center center fixed;
+    background-size: 100% 100%;
+}
+
+header a {
+    color: black !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+}
+
+#app-logo {
+    font-family: LogoFont;
+    font-size: 65px !important;
+    font-weight: normal !important;
+}
+
+#logo {
+    float: left !important;
 }
 
 #register-form, #login-form {
