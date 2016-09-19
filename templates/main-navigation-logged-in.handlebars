@@ -1,0 +1,42 @@
+<nav class="navbar navbar-transparent">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-transparent">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-header" id="logo">
+                <a class="navbar-brand" href="#/" id="app-logo">Food World</a>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="example-navbar-transparent">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="material-icons">account_circle</i>
+                        {{localStorage.username}}
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li class="dropdown-header">Dropdown header</li>
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                Logout
+                                <!--<i class="material-icons">power_settings_new</i>-->
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

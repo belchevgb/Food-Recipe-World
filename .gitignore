@@ -5,3 +5,7 @@ typings.json
 # Webstorm
 .idea/
 bower_components/
+
+# Visual Studio
+.vs/
+Food-Recipe-World.sln

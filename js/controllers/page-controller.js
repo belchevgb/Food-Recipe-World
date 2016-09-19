@@ -22,6 +22,14 @@ var app = app || {};
                 });
         }
 
+        loadMainNavigationWhenUserIsLoggedIn(context, selector, data) {
+            return app.pageView.showMainNavigationWhenUserIsLoggedIn(context, selector, data);
+        }
+
+        loadMainNavigationWhenNoUserIsLoggedIn(context, selector, data) {
+            return app.pageView.showMainNavigationWhenNoUserIsLoggedIn(context, selector, data);
+        }
+
         loadLoginPage(context, selector) {
             return app.pageView.showLoginPage(context, selector);
         }

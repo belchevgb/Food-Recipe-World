@@ -3,10 +3,17 @@ var app = app || {};
 (function () {
     'use strict';
 
-    const MAIN_CONTENT_SELECTOR = '#content';
+    const MAIN_CONTENT_SELECTOR = '#content',
+          MAIN_NAVIGATION_SELECTOR= '#main-navigation';
+
 
     let router = new Sammy(function () {
         this.get(app.appUrls.BASE_URL, function (context) {
+            if (localStorage.authKey) {
+                app.pageController.loadMainNavigationWhenUserIsLoggedIn(content, MAIN_NAVIGATION_SELECTOR,{});
+            } else {
+                app.pageController.loadMainNavigationWhenUserIsLoggedIn(content, MAIN_NAVIGATION_SELECTOR, {});
+            }
             app.pageController.loadHomePage(context, MAIN_CONTENT_SELECTOR);
         });
 
