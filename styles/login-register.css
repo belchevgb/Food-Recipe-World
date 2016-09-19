@@ -1,0 +1,20 @@
+#register-form, #login-form {
+    float: none;
+    margin: 0 auto;
+    color: black !important;
+    margin-top: 50px;
+}
+
+#register-form, #login-form input {
+    margin-bottom: 20px;
+}
+
+#btn-login, #btn-register {
+    background: transparent !important;
+    color: white !important;
+    font-size: 20px;
+}
+
+.form-control, label {
+    color: white !important;
+}
