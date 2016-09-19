@@ -19,3 +19,10 @@ body {
 #logo {
     float: left !important;
 }
+
+.ingredient-img {
+    max-width: 50px;
+    max-height: 50px;
+    margin: 5px;
+    display: block;
+}

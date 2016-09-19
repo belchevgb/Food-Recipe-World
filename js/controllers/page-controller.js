@@ -12,6 +12,7 @@ var app = app || {};
             app.recipeModel
                 .getGuestRecipes()
                 .then(response => {
+                    console.log(response);
                     return app.pageView.showHomePage(context, selector, response)
                 })
                 .then(success => {
