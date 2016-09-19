@@ -10,7 +10,7 @@ var app = app || {};
                 confirmPassword = $('#tb-register-confirm-password').val();
 
             if (confirmPassword !== password) {
-                notificator.showNotification(app.constants.INVALID_CONFIRM_PASSWORD, 'error');
+                notificator.showNotification(app.messages.INVALID_CONFIRM_PASSWORD, 'error');
             } else {
                 context.trigger('registerUser', {
                     username,

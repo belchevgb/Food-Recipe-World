@@ -3,9 +3,9 @@ var app = app || {};
 (function () {
     'use strict';
 
-    function redirectToHome() {
+    function redirect(url) {
         Sammy(function () {
-            this.trigger('redirectToUrl', app.constants.BASE_URL);
+            this.trigger('redirectToUrl', url);
         });
     }
 
@@ -14,12 +14,12 @@ var app = app || {};
             app.userModel
                 .registerUser(data)
                 .then(success => {
-                    app.notificator.showNotification(app.constants.REGISTRATION_SUCCESSFUL, 'success');
+                    app.notificator.showNotification(app.messages.REGISTRATION_SUCCESSFUL, 'success');
                     setTimeout(function () {
-                        redirectToHome();
+                        redirect(app.appUrls.LOGIN_URL);
                     }, 500);
                 }, error => {
-                    app.notificator.showNotification(app.constants.REGISTRATION_FAILED, 'error');
+                    app.notificator.showNotification(app.messages.REGISTRATION_FAILED, 'error');
                 })
         }
 
@@ -27,12 +27,12 @@ var app = app || {};
             app.userModel
                 .loginUser(data)
                 .then(success => {
-                    app.notificator.showNotification(app.constants.LOGIN_SUCCESSFUL, 'success');
+                    app.notificator.showNotification(app.messages.LOGIN_SUCCESSFUL, 'success');
                     setTimeout(function () {
-                        redirectToHome();
+                        redirect(app.appUrls.BASE_URL);
                     }, 500);
                 }, error => {
-                    app.notificator.showNotification(app.constants.LOGIN_FAILED, 'error');
+                    app.notificator.showNotification(app.messages.LOGIN_FAILED, 'error');
                 })
         }
     }

@@ -4,7 +4,7 @@ var app = app || {};
     'use strict';
 
     class Headers {
-        getHeaders(sendData, userCredentials) {
+        getKinveyHeaders(sendData, userCredentials) {
             let headers = {};
 
             if (sendData) {
@@ -14,10 +14,21 @@ var app = app || {};
             if (userCredentials) {
                 headers.Authorization = `Basic ${localStorage.authKey}`;
             } else {
-                let token = btoa(`${app.constants.APP_KEY}:${app.constants.APP_SECRET}`);
+                let token = btoa(`${app.appKeys.APP_KEY}:${app.appKeys.APP_SECRET}`);
                 headers.Authorization = `Basic ${token}`;
             }
 
+            return headers;
+        }
+
+        getSpoonacularHeaders(sendData) {
+            let headers = {};
+
+            if (sendData) {
+                headers['Content-Type'] = 'application/json';
+            }
+
+            headers['X-Mashape-Key'] = app.appKeys.SPOONACULAR_KEY;
             return headers;
         }
     }

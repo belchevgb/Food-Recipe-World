@@ -3,17 +3,19 @@ var app = app || {};
 (function () {
     'use strict';
 
+    const MAIN_CONTENT_SELECTOR = '#content';
+
     let router = new Sammy(function () {
-        this.get(app.constants.BASE_URL, function (context) {
-            app.pageController.loadHomePage(context, app.constants.MAIN_CONTENT_SELECTOR);
+        this.get(app.appUrls.BASE_URL, function (context) {
+            app.pageController.loadHomePage(context, MAIN_CONTENT_SELECTOR);
         });
 
-        this.get(app.constants.LOGIN_URL, function (context) {
-            app.pageController.loadLoginPage(context, app.constants.MAIN_CONTENT_SELECTOR);
+        this.get(app.appUrls.LOGIN_URL, function (context) {
+            app.pageController.loadLoginPage(context, MAIN_CONTENT_SELECTOR);
         });
 
-        this.get(app.constants.REGISTER_URL, function (context) {
-            app.pageController.loadRegisterPage(context, app.constants.MAIN_CONTENT_SELECTOR);
+        this.get(app.appUrls.REGISTER_URL, function (context) {
+            app.pageController.loadRegisterPage(context, MAIN_CONTENT_SELECTOR);
         });
 
 
@@ -31,5 +33,5 @@ var app = app || {};
         });
     });
 
-    router.run(app.constants.BASE_URL);
+    router.run(app.appUrls.BASE_URL);
 }());
