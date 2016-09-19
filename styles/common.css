@@ -1,4 +1,4 @@
-@font-face {
+﻿@font-face {
     font-family: LogoFont;
     src: url('../fonts/logo-font.ttf');
 }
@@ -26,3 +26,32 @@ body {
     margin: 5px;
     display: block;
 }
+
+
+
+ul.with-tick {
+    padding-left: 20px;
+    text-indent: 2px;
+    list-style: none;
+    list-style-position: outside;
+}
+
+    ul.with-tick > li:before {
+        content: '✔';
+        margin-left: -1em;
+        margin-right: .100em;
+    }
+
+.inline-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+    .inline-list > li {
+        display: inline;
+    }
+
+        .inline-list > li:before {
+            content: none;
+        }
