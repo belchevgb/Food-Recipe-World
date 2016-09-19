@@ -45,6 +45,32 @@ var app = app || {};
             });
         }
 
+        showMainNavigationWhenUserIsLoggedIn(context, selector, data) {
+            let $selectedElement = $(selector);
+
+            $selectedElement.empty();
+            return $.get('templates/main-navigation-logged-in.handlebars',
+                    htmlTemplate => {
+                        let template = Handlebars.compile(htmlTemplate),
+                            html = template(data);
+
+                        $selectedElement.append(html);
+                    });
+        }
+
+        showMainNavigationWhenNoUserIsLoggedIn(context, selector, data) {
+            let $selectedElement = $(selector);
+
+            $selectedElement.empty();
+            return $.get('templates/main-navigation-not-logged-in.handlebars',
+                   htmlTemplate => {
+                       let template = Handlebars.compile(htmlTemplate),
+                           html = template(data);
+
+                       $selectedElement.append(html);
+                   });
+        }
+
         showLoginPage(context, selector) {
             let $selectedElement = $(selector);
 

@@ -2148,7 +2148,8 @@ legend {
 }
 .navbar .dropdown-menu li > a:hover, .navbar .dropdown-menu li > a:focus, .navbar.navbar-default .dropdown-menu li > a:hover, .navbar.navbar-default .dropdown-menu li > a:focus {
   color: #FFFFFF;
-  background-color: #9c27b0;
+  /*background-color: #9c27b0;*/
+    background-color: #03a9f4;
 }
 .navbar .dropdown-menu .active > a, .navbar.navbar-default .dropdown-menu .active > a {
   background-color: #9c27b0;

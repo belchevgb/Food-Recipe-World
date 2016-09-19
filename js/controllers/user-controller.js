@@ -27,6 +27,7 @@ var app = app || {};
             app.userModel
                 .loginUser(data)
                 .then(success => {
+                    localStorage.username = success.username;
                     app.notificator.showNotification(app.messages.LOGIN_SUCCESSFUL, 'success');
                     setTimeout(function () {
                         redirect(app.appUrls.BASE_URL);
