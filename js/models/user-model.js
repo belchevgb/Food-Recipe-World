@@ -19,6 +19,12 @@ var app = app || {};
                 });
         }
 
+        logoutUser() {
+            let headers = app.headers.getKinveyHeaders(false,true);
+            return app.requester
+                .post(app.appKeys.KINVEY_LOGOUT_USER_URL, headers);
+        }
+
         getFriends() {
             let headers = app.headers.getKinveyHeaders(false, true),
                 url = `${app.kinveyUrls.KINVEY_USER_URL}${localStorage.userId}`;

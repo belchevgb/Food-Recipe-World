@@ -32,30 +32,43 @@ var app = app || {};
         });
     }
 
+    function logoutUserEvent() {
+
+        $('#btn-logout')
+            .on('click', function () {
+                Sammy(function() {
+                    this.trigger('logoutUser');
+                });
+            });
+    }
+
     class PageView {
         showHomePage(context, selector, data) {
             let $selectedElement = $(selector);
 
             $selectedElement.empty();
-            return $.get('templates/home-recipes.handlebars', htmlTemplate => {
-                let template = Handlebars.compile(htmlTemplate),
-                    html = template(data);
+            return $.get('templates/home-recipes.handlebars',
+                htmlTemplate => {
+                    let template = Handlebars.compile(htmlTemplate),
+                        html = template(data);
 
-                $selectedElement.append(html);
-            });
+                    $selectedElement.append(html);
+                });
         }
 
         showMainNavigationWhenUserIsLoggedIn(context, selector, data) {
             let $selectedElement = $(selector);
 
             $selectedElement.empty();
+            
             return $.get('templates/main-navigation-logged-in.handlebars',
-                    htmlTemplate => {
-                        let template = Handlebars.compile(htmlTemplate),
-                            html = template(data);
+                htmlTemplate => {
+                    let template = Handlebars.compile(htmlTemplate),
+                        html = template(data);
 
-                        $selectedElement.append(html);
-                    });
+                    $selectedElement.append(html);
+                    logoutUserEvent(context);
+                });
         }
 
         showMainNavigationWhenNoUserIsLoggedIn(context, selector, data) {
@@ -63,32 +76,34 @@ var app = app || {};
 
             $selectedElement.empty();
             return $.get('templates/main-navigation-not-logged-in.handlebars',
-                   htmlTemplate => {
-                       let template = Handlebars.compile(htmlTemplate),
-                           html = template(data);
+                htmlTemplate => {
+                    let template = Handlebars.compile(htmlTemplate),
+                        html = template(data);
 
-                       $selectedElement.append(html);
-                   });
+                    $selectedElement.append(html);
+                });
         }
 
         showLoginPage(context, selector) {
             let $selectedElement = $(selector);
 
             $selectedElement.empty();
-            return $.get('templates/login.handlebars', htmlTemplate => {
-                $selectedElement.append(htmlTemplate);
-                loginUserEvent(context);
-            });
+            return $.get('templates/login.handlebars',
+                htmlTemplate => {
+                    $selectedElement.append(htmlTemplate);
+                    loginUserEvent(context);
+                });
         }
 
         showRegisterPage(context, selector) {
             let $selectedElement = $(selector);
 
             $selectedElement.empty();
-            return $.get('templates/register.handlebars', htmlTemplate => {
-                $selectedElement.append(htmlTemplate);
-                registerUserEvent(context);
-            });
+            return $.get('templates/register.handlebars',
+                htmlTemplate => {
+                    $selectedElement.append(htmlTemplate);
+                    registerUserEvent(context);
+                });
         }
     }
 

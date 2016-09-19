@@ -28,7 +28,7 @@ var app = app || {};
         this.get(app.appUrls.FRIENDS_URL, function (context) {
             app.userController.getFriends();
         });
-
+        
 
         // Events
         this.bind('redirectToUrl', function (event, url) {
@@ -41,6 +41,10 @@ var app = app || {};
 
         this.bind('loginUser', function (event, data) {
             app.userController.loginUser(data);
+        });
+
+        this.bind('logoutUser', function(event,data) {
+            app.userController.logoutUser();
         });
     });
 

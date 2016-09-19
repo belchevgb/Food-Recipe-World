@@ -37,6 +37,16 @@ var app = app || {};
                 })
         }
 
+        logoutUser() {
+            app.userModel.logoutUser()
+                .then(success => {
+                    localStorage.clear();
+                    Sammy(function () {
+                        this.trigger("redirectToUrl", app.appUrls.BASE_URL);
+                    });
+                });
+        }
+
         getFriends() {
             app.userModel
                 .getFriends(localStorage.userId)
