@@ -12,7 +12,7 @@ var app = app || {};
             }
 
             if (userCredentials) {
-                headers.Authorization = `Basic ${localStorage.authKey}`;
+                headers.Authorization = `Kinvey ${localStorage.authKey}`;
             } else {
                 let token = btoa(`${app.appKeys.APP_KEY}:${app.appKeys.APP_SECRET}`);
                 headers.Authorization = `Basic ${token}`;

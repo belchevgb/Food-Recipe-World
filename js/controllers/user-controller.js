@@ -27,7 +27,9 @@ var app = app || {};
             app.userModel
                 .loginUser(data)
                 .then(success => {
-                    localStorage.username = success.username;
+                    localStorage.setItem('username', success.username);
+                    localStorage.setItem('userId', success._id);
+                    localStorage.setItem('authKey', success._kmd.authtoken);
                     app.notificator.showNotification(app.messages.LOGIN_SUCCESSFUL, 'success');
                     setTimeout(function () {
                         redirect(app.appUrls.BASE_URL);
@@ -41,17 +43,12 @@ var app = app || {};
             app.userModel.logoutUser()
                 .then(success => {
                     localStorage.clear();
-                    Sammy(function () {
-                        this.trigger("redirectToUrl", app.appUrls.BASE_URL);
-                    });
-                });
-        }
-
-        getFriends() {
-            app.userModel
-                .getFriends(localStorage.userId)
-                .then(success => {
-
+                    app.notificator.showNotification(app.messages.LOGOUT_SUCCESSFUL, 'success');
+                    setTimeout(function () {
+                        Sammy(function () {
+                            this.trigger("redirectToUrl", app.appUrls.BASE_URL);
+                        });
+                    }, 500);
                 });
         }
     }

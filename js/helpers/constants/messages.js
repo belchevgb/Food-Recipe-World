@@ -10,7 +10,8 @@ var app = app || {};
 
     // SUCCESS MESSAGES
     const REGISTRATION_SUCCESSFUL = 'Registration successful!',
-        LOGIN_SUCCESSFUL = 'Login successful!';
+        LOGIN_SUCCESSFUL = 'Login successful!',
+        LOGOUT_SUCCESSFUL = 'Logout successful!';
 
     app.messages = {
         INVALID_CONFIRM_PASSWORD,
@@ -18,6 +19,7 @@ var app = app || {};
         LOGIN_FAILED,
 
         REGISTRATION_SUCCESSFUL,
-        LOGIN_SUCCESSFUL
+        LOGIN_SUCCESSFUL,
+        LOGOUT_SUCCESSFUL
     };
 }());

@@ -4,16 +4,17 @@ var app = app || {};
     'use strict';
 
     const MAIN_CONTENT_SELECTOR = '#content',
-          MAIN_NAVIGATION_SELECTOR= '#main-navigation';
+          MAIN_NAVIGATION_SELECTOR = '#main-navigation';
 
 
     let router = new Sammy(function () {
         this.get(app.appUrls.BASE_URL, function (context) {
             if (localStorage.authKey) {
-                app.pageController.loadMainNavigationWhenUserIsLoggedIn(content, MAIN_NAVIGATION_SELECTOR,{});
-            } else {
                 app.pageController.loadMainNavigationWhenUserIsLoggedIn(content, MAIN_NAVIGATION_SELECTOR, {});
+            } else {
+                app.pageController.loadMainNavigationWhenNoUserIsLoggedIn(content, MAIN_NAVIGATION_SELECTOR, {});
             }
+
             app.pageController.loadHomePage(context, MAIN_CONTENT_SELECTOR);
         });
 
@@ -28,7 +29,7 @@ var app = app || {};
         this.get(app.appUrls.FRIENDS_URL, function (context) {
             app.userController.getFriends();
         });
-        
+
 
         // Events
         this.bind('redirectToUrl', function (event, url) {
@@ -43,7 +44,7 @@ var app = app || {};
             app.userController.loginUser(data);
         });
 
-        this.bind('logoutUser', function(event,data) {
+        this.bind('logoutUser', function (event, data) {
             app.userController.logoutUser();
         });
     });
