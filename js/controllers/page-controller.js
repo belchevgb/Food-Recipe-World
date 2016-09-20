@@ -7,18 +7,45 @@ import $ from 'jquery';
 let $loader = $('#loader-wrapper');
 
 class PageController {
+
     loadHomePage(context, selector) {
         $loader.show();
         recipeModel
             .getGuestRecipes()
             .then(response => {
-                return pageView.showHomePage(context, selector, response)
+                console.log(response);
+                return pageView.showHomePage(context, selector, response);
             })
             .then(success => {
                 setTimeout(function () {
                     $loader.fadeOut(500);
                 }, 1000);
             });
+    }
+
+    loadRecipeSearchResult(selector,data) {
+        recipeModel
+            .getRecipes(data)
+            .then(response => {
+                return pageView.showRecipeSearchResult(selector, response);
+            })
+            .then(success => {
+                setTimeout(function() {
+                    $loader.fadeOut(500);
+                },1000);
+            });
+    }
+    
+    loadSearchedRecipeById(data) {
+        recipeModel
+            .getSearchedRecipeById(data)
+            .then(response => {
+                return pageView.showSearchedRecipeInstuctions(response);
+            });
+    }
+
+    loadRecipeSearchMenu(context,selector) {
+        return pageView.showRecipeSearchMenu(context,selector);
     }
 
     loadMainNavigationWhenUserIsLoggedIn(context, selector, data) {

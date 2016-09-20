@@ -7,19 +7,27 @@ import {userController} from 'user-controller';
 import {headers} from 'headers';
 
 let MAIN_CONTENT_SELECTOR = '#content',
-    MAIN_NAVIGATION_SELECTOR = '#main-navigation';
+    MAIN_NAVIGATION_SELECTOR = '#main-navigation',
+    MAIN_RECIPE_SEARCH_MENU_SELECTOR = '#recipe-search';
 
-function loadHeader(context) {
+function loadHeader(context,data) {
     if (localStorage.authKey) {
-        pageController.loadMainNavigationWhenUserIsLoggedIn(context, MAIN_NAVIGATION_SELECTOR, {});
+        pageController.loadMainNavigationWhenUserIsLoggedIn(context, MAIN_NAVIGATION_SELECTOR, data);
     } else {
         pageController.loadMainNavigationWhenNoUserIsLoggedIn(context, MAIN_NAVIGATION_SELECTOR, {});
     }
 }
 
+function loadRecipeSearchMenu(context,selector) {
+    if (localStorage.authKey) {
+        pageController.loadRecipeSearchMenu(context, selector);
+    }
+}
+
 let router = new Sammy(function () {
     this.get(appUrls.BASE_URL, function (context) {
-        loadHeader(context);
+        loadHeader(context,localStorage);
+        loadRecipeSearchMenu(context,MAIN_RECIPE_SEARCH_MENU_SELECTOR);
         pageController.loadHomePage(context, MAIN_CONTENT_SELECTOR);
     });
 
@@ -62,6 +70,15 @@ let router = new Sammy(function () {
 
     this.bind('searchUsers', function (event, data) {
         userController.getFoundUser(MAIN_CONTENT_SELECTOR, data);
+    });
+
+    this.bind('recipeSearch',function(event, data) {
+        //console.log(data);
+        pageController.loadRecipeSearchResult(MAIN_CONTENT_SELECTOR, data);
+    });
+
+    this.bind('getSearchedRecipeById', function(event, data) {
+        pageController.loadSearchedRecipeById(data);
     });
 });
 
