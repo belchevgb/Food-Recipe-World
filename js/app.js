@@ -4,7 +4,7 @@ var app = app || {};
     'use strict';
 
     const MAIN_CONTENT_SELECTOR = '#content',
-          MAIN_NAVIGATION_SELECTOR = '#main-navigation';
+        MAIN_NAVIGATION_SELECTOR = '#main-navigation';
 
 
     let router = new Sammy(function () {
@@ -46,6 +46,10 @@ var app = app || {};
 
         this.bind('logoutUser', function (event, data) {
             app.userController.logoutUser();
+        });
+
+        this.bind('searchUsers', function (event, data) {
+            app.userController.getFoundUser(data);
         });
     });
 

@@ -32,11 +32,20 @@ var app = app || {};
         });
     }
 
+    function searchUsersEvent() {
+        $('#btn-search-users').on('click', function () {
+            let searchData = $('#tb-search-user').val();
+            Sammy(function () {
+                this.trigger('searchUsers', searchData);
+            });
+        });
+    }
+
     function logoutUserEvent() {
 
         $('#btn-logout')
             .on('click', function () {
-                Sammy(function() {
+                Sammy(function () {
                     this.trigger('logoutUser');
                 });
             });
@@ -60,7 +69,7 @@ var app = app || {};
             let $selectedElement = $(selector);
 
             $selectedElement.empty();
-            
+
             return $.get('templates/main-navigation-logged-in.handlebars',
                 htmlTemplate => {
                     let template = Handlebars.compile(htmlTemplate),
@@ -68,6 +77,7 @@ var app = app || {};
 
                     $selectedElement.append(html);
                     logoutUserEvent(context);
+                    searchUsersEvent();
                 });
         }
 

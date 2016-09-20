@@ -51,6 +51,14 @@ var app = app || {};
                     }, 500);
                 });
         }
+
+        getFoundUser(data) {
+            app.userModel
+                .findUser(data)
+                .then(success => {
+                    console.log(success);
+                });
+        }
     }
 
     app.userController = new UserController();
