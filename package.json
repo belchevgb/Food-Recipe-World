@@ -1,0 +1,23 @@
+{
+  "name": "food-recipe-world",
+  "version": "1.0.0",
+  "description": "",
+  "main": "config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/belchevgb/Food-Recipe-World.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/belchevgb/Food-Recipe-World/issues"
+  },
+  "homepage": "https://github.com/belchevgb/Food-Recipe-World#readme",
+  "dependencies": {
+    "systemjs": "^0.19.38",
+    "systemjs-plugin-babel": "0.0.15"
+  }
+}
