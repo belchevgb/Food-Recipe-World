@@ -10,7 +10,7 @@
                                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                                 <div class="dropdown-menu dropdown-menu-right" role="menu" style="background-color: #03a9f4;">
                                     <form class="contact-form" role="form">
-                                        <div class="label-floating is-empty">
+                                        <fieldset class="">
                                             <label for="search-recipe-diet">Diet</label>
                                             <select id="search-recipe-diet" class="form-control">
                                                 <!-- pescetarian, lacto vegetarian, ovo vegetarian, vegan, and vegetarian. -->
@@ -20,24 +20,25 @@
                                                 <option value="vegan">Vegan</option>
                                                 <option value="vegetarian">Vegetarian</option>
                                             </select>
-                                        </div>
-                                        <div class="label-floating is-empty">
-                                            <label for="search-recipe-numberOfRecipes">Number</label>
+                                        </fieldset>
+                                        <fieldset class="">
+                                            <label for="search-recipe-numberOfRecipes">Number (1-100)</label>
                                             <input id="search-recipe-numberOfRecipes" class="form-control" type="number" min="1" max="100" />
-                                        </div>
-                                        <div class="label-floating is-empty">
+                                        </fieldset>
+                                        <fieldset class="">
                                             <label class="control-label" for="search-recipe-cuisine">Cuisine</label>
                                             <input id="search-recipe-cuisine" class="form-control" type="text" />
-                                            <span class="material-input"></span>
-                                        </div>
+                                        </fieldset>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <button type="button" class="btn btn-warning" data-toggle="popover" data-placement="top" title="Cuisine" data-content="The cuisine(s) of the recipes. One or more (comma separated) of the following: african, chinese, japanese, korean, vietnamese, thai, indian, british, irish, french, italian, mexican, spanish, middle eastern, jewish, american, cajun, southern, greek, german, nordic, eastern european, caribbean, or latin american.">Need help?</button>
-                                                <div class="text-center"></div>
+                                            <div class="col-md-12">
+                                                <p>
+                                                    The cuisine(s) of the recipes. One or more (comma separated)<br/>
+                                                    of the following: african, chinese, japanese, korean, vietnamese,<br/>
+                                                    thai, indian, british, irish, french, italian, mexican, spanish,<br/>
+                                                    middle eastern, jewish, american, cajun, southern, greek, german,<br/>
+                                                    nordic, eastern european, caribbean, or latin american
+                                                </p>
                                             </div>
-                                            <!--<div class="col-md-6">
-                                                <div class="text-center"><button id="search-recipe-btn-detailed" type="submit" class="btn btn-success"><i class="material-icons">search</i></button></div>
-                                            </div>-->
                                         </div>
                                     </form>
                                 </div>
