@@ -27,7 +27,12 @@ body {
     display: block;
 }
 
-
+.img-recipe {
+    max-height: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 ul.with-tick {
     padding-left: 20px;
@@ -55,3 +60,91 @@ ul.with-tick {
         .inline-list > li:before {
             content: none;
         }
+
+/*.users-search-results {
+    display: block;
+    padding: 4px;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    -ms-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-transition: border .2s ease-in-out;
+    -o-transition: border .2s ease-in-out;
+    -ms-transition: border .2s ease-in-out;
+    transition: border .2s ease-in-out;
+}*/
+
+
+.box {
+    position: relative;
+    border: 1px solid #BBB;
+    background: #EEE;
+}
+
+.ribbon {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    text-align: right;
+}
+
+    .ribbon span {
+        font-size: 10px;
+        font-weight: bold;
+        color: #FFF;
+        text-transform: uppercase;
+        text-align: center;
+        line-height: 20px;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        width: 100px;
+        display: block;
+        background: #03a9f4;
+        background: linear-gradient(#03a9f4 0%, #03a9f4 100%);
+        box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+        position: absolute;
+        top: 19px;
+        right: -21px;
+    }
+
+        .ribbon span::before {
+            content: "";
+            position: absolute;
+            left: 0px;
+            top: 100%;
+            z-index: -1;
+            border-left: 3px solid #03a9f4;
+            border-right: 3px solid transparent;
+            border-bottom: 3px solid transparent;
+            border-top: 3px solid #03a9f4;
+        }
+
+        .ribbon span::after {
+            content: "";
+            position: absolute;
+            right: 0px;
+            top: 100%;
+            z-index: -1;
+            border-left: 3px solid transparent;
+            border-right: 3px solid #03a9f4;
+            border-bottom: 3px solid transparent;
+            border-top: 3px solid #03a9f4;
+        }
+
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+.text-normalize {
+    text-transform: none;
+}
+
+.margin-right-10 {
+    margin-right: 10px;
+}
