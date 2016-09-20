@@ -136,7 +136,7 @@ class PageView {
     }
 
     showProfilePage(selector, data){
-        $.get('templates/profile.handlebars', function (htmlTemplate) {
+        return $.get('templates/profile.handlebars', function (htmlTemplate) {
             let $selectedElement = $(selector),
                 template = Handlebars.compile(htmlTemplate),
                 html = template(data);

@@ -42,7 +42,13 @@ class PageController {
     }
 
     loadProfilePage(selector, data) {
-        return pageView.showProfilePage(selector, data);
+        $loader.show();
+        return pageView.showProfilePage(selector, data)
+            .then(success => {
+                setTimeout(function() {
+                    $loader.fadeOut(500);
+                }, 1000);
+            });
     }
 }
 
