@@ -83,7 +83,6 @@ let router = new Sammy(function () {
     this.bind('getSearchedRecipeById', function(event, data) {
         pageController.loadSearchedRecipeById(data);
     });
-});
 
     this.bind('addRecipeToFavorites', function (event, data) {
         recipeController.getRecipeById(data)
@@ -95,15 +94,16 @@ let router = new Sammy(function () {
             });
     });
 
-    this.bind('addRecipeToLikes',function(event,data){
-        recipeController.getRecipeById(data)
-            .then(response=>{
-                return userController.addRecipeToLikes(response)
-            })
-            .then(response=>{
-                notificator.showNotification(messages.RECIPE_ADDED_TO_LIKES, 'success');
-            })
-    })
+    this.bind('addRecipeToLikes',
+        function(event, data) {
+            recipeController.getRecipeById(data)
+                .then(response => {
+                    return userController.addRecipeToLikes(response)
+                })
+                .then(response => {
+                    notificator.showNotification(messages.RECIPE_ADDED_TO_LIKES, 'success');
+                });
+        });
 
     this.bind('showFavoriteRecipes', function (event) {
         userController.getUserFavoriteRecipes()
@@ -115,9 +115,10 @@ let router = new Sammy(function () {
             });
     });
 
-    this.bind('showLikedRecipes',function(event){
+    this.bind('showLikedRecipes',
+        function(event) {
 
-    })
+        });
 });
 
 router.run(appUrls.BASE_URL);
