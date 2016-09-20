@@ -133,6 +133,17 @@ class PageView {
             $selectedElement.append(html);
         });
     }
+
+    showProfilePage(selector, data){
+        $.get('templates/profile.handlebars', function (htmlTemplate) {
+            let $selectedElement = $(selector),
+                template = Handlebars.compile(htmlTemplate),
+                html = template(data);
+
+            $selectedElement.empty();
+            $selectedElement.append(html);
+        });
+    }
 }
 
 let pageView = new PageView();

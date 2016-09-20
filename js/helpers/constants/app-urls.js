@@ -12,6 +12,7 @@ let appUrls = {
     LOGIN_URL,
     REGISTER_URL,
     FRIENDS_URL,
-    FOUND_USERS_URL
+    FOUND_USERS_URL,
+    PROFILE_URL
 };
 export {appUrls as appUrls};

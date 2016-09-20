@@ -40,6 +40,10 @@ class PageController {
     loadFoundUsersPage(selector, data) {
         return pageView.showFoundUsersPage(selector, data);
     }
+
+    loadProfilePage(selector, data) {
+        return pageView.showProfilePage(selector, data);
+    }
 }
 
 let pageController = new PageController();

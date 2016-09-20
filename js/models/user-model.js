@@ -27,6 +27,13 @@ class UserModel {
 
         return requester.get(url, headersToSend);
     }
+
+    getUserData(){
+        let headersToSend = headers.getKinveyHeaders(false, true),
+            url = kinveyUrls.KINVEY_USER_URL + '/' + localStorage.userId;
+
+        return requester.get(url, headersToSend);
+    }
 }
 
 let userModel = new UserModel();

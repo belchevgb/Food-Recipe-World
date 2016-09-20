@@ -35,6 +35,14 @@ let router = new Sammy(function () {
         pageController.loadFoundUsersPage(MAIN_CONTENT_SELECTOR, app.foundUsers);
     });
 
+    this.get(appUrls.PROFILE_URL, function (content) {
+        userController
+            .getUserData()
+            .then(response => {
+                pageController.loadProfilePage(MAIN_CONTENT_SELECTOR, response);
+            });
+    });
+
     // Events
     this.bind('redirectToUrl', function (event, url) {
         this.redirect(url);

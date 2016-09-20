@@ -66,6 +66,10 @@ class UserController {
                 });
             });
     }
+
+    getUserData(){
+        return userModel.getUserData();
+    }
 }
 
 let userController = new UserController();
