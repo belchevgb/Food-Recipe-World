@@ -52,11 +52,14 @@ var app = app || {};
                 });
         }
 
-        getFoundUser(data) {
+        getFoundUser(selector, data) {
             app.userModel
                 .findUser(data)
                 .then(success => {
-                    console.log(success);
+                    Sammy(function () {
+                        app.foundUsers = success;
+                        this.trigger('redirectToUrl', app.appUrls.FOUND_USERS_URL);
+                    });
                 });
         }
     }

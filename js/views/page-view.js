@@ -35,6 +35,7 @@ var app = app || {};
     function searchUsersEvent() {
         $('#btn-search-users').on('click', function () {
             let searchData = $('#tb-search-user').val();
+
             Sammy(function () {
                 this.trigger('searchUsers', searchData);
             });
@@ -42,7 +43,6 @@ var app = app || {};
     }
 
     function logoutUserEvent() {
-
         $('#btn-logout')
             .on('click', function () {
                 Sammy(function () {
@@ -114,6 +114,21 @@ var app = app || {};
                     $selectedElement.append(htmlTemplate);
                     registerUserEvent(context);
                 });
+        }
+
+        showFoundUsersPage(selector, data) {
+            data = {
+                users: data
+            };
+
+            $.get('templates/found-users.handlebars', function (htmlTemplate) {
+                let $selectedElement = $(selector),
+                    template = Handlebars.compile(htmlTemplate),
+                    html = template(data);
+
+                $selectedElement.empty();
+                $selectedElement.append(html);
+            });
         }
     }
 

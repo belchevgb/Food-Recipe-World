@@ -26,10 +26,9 @@ var app = app || {};
             app.pageController.loadRegisterPage(context, MAIN_CONTENT_SELECTOR);
         });
 
-        this.get(app.appUrls.FRIENDS_URL, function (context) {
-            app.userController.getFriends();
+        this.get(app.appUrls.FOUND_USERS_URL, function (context) {
+            app.pageController.loadFoundUsersPage(MAIN_CONTENT_SELECTOR, app.foundUsers);
         });
-
 
         // Events
         this.bind('redirectToUrl', function (event, url) {
@@ -49,7 +48,7 @@ var app = app || {};
         });
 
         this.bind('searchUsers', function (event, data) {
-            app.userController.getFoundUser(data);
+            app.userController.getFoundUser(MAIN_CONTENT_SELECTOR, data);
         });
     });
 

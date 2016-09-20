@@ -12,7 +12,6 @@ var app = app || {};
             app.recipeModel
                 .getGuestRecipes()
                 .then(response => {
-                    console.log(response);
                     return app.pageView.showHomePage(context, selector, response)
                 })
                 .then(success => {
@@ -36,6 +35,10 @@ var app = app || {};
 
         loadRegisterPage(context, selector) {
             return app.pageView.showRegisterPage(context, selector);
+        }
+
+        loadFoundUsersPage(selector, data) {
+            return app.pageView.showFoundUsersPage(selector, data);
         }
     }
 

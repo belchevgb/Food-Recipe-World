@@ -1,0 +1,10 @@
+<div>
+    {{#each users}}
+        <div id="user-container" user-id="{{this.id}}">
+            <button class="btn btn-primary btn-fab btn-fab-mini btn-round">
+                <i class="material-icons">face</i>
+            </button>
+            <h3>{{this.username}}</h3>
+        </div>
+    {{/each}}
+</div>
