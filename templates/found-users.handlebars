@@ -1,10 +1,28 @@
 <div>
-    {{#each users}}
-        <div id="user-container" user-id="{{this.id}}">
-            <button class="btn btn-primary btn-fab btn-fab-mini btn-round">
-                <i class="material-icons">face</i>
-            </button>
-            <h3>{{this.username}}</h3>
+    <ul class="list-group">
+        {{#if users}}
+        {{#each users}}
+        <li id="user-container" class="list-group-item" user-id="{{this.id}}">
+            {{this.username}}
+            {{#if this.friends.length}}
+            <!--<i class="material-icons">supervisor_account</i>-->
+            <span class="badge">Friends:  {{this.friends.length}}</span>
+            {{/if}}
+            <!--<i class="material-icons">supervisor_account</i>-->
+            <span class="badge">Recipes favorited: 12</span>
+        </li>
+        {{/each}}
+    </ul>
+    {{else}}
+    <div class="alert alert-warning">
+        <div class="container-fluid">
+            <div class="alert-icon">
+                <i class="material-icons">warning</i>
+            </div>
+            <b>It looks like the search didn't find a match to your query.</b>
         </div>
-    {{/each}}
+    </div>
+    {{/if}}
+
+
 </div>

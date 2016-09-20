@@ -57,7 +57,7 @@ function logoutUserEvent() {
 class PageView {
     showHomePage(context, selector, data) {
         let $selectedElement = $(selector);
-
+        //console.log(data);
         $selectedElement.empty();
         return $.get('templates/home-recipes.handlebars',
             htmlTemplate => {
@@ -120,6 +120,7 @@ class PageView {
     }
 
     showFoundUsersPage(selector, data) {
+        console.log(data);
         data = {
             users: data
         };
