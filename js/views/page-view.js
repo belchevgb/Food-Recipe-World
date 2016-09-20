@@ -89,6 +89,25 @@ function getInstructionsForSearchedRecipe() {
 
 }
 
+function addToFavoritesEvent() {
+    $('.btn-add-favorite').on('click', function () {
+        let recipeId = $(this).attr('recipe-id');
+
+        Sammy(function () {
+            this.trigger('addRecipeToFavorites', recipeId);
+        });
+    });
+}
+
+function addToLikesEvent(){
+    $('.btn-like').on('click',function(){
+        let recipeId = $(this).attr('recipe-id');
+        Sammy(function(){
+            this.trigger('addRecipeToLikes', recipeId);
+        })
+    })
+}
+
 class PageView {
     showHomePage(context, selector, data) {
         let $selectedElement = $(selector);
@@ -100,6 +119,8 @@ class PageView {
                     html = template(data);
 
                 $selectedElement.append(html);
+                addToFavoritesEvent();
+                addToLikesEvent();
             });
     }
 
@@ -217,7 +238,7 @@ class PageView {
     }
 
     showProfilePage(selector, data){
-        $.get('templates/profile.handlebars', function (htmlTemplate) {
+        return $.get('templates/profile.handlebars', function (htmlTemplate) {
             let $selectedElement = $(selector),
                 template = Handlebars.compile(htmlTemplate),
                 html = template(data);
@@ -226,7 +247,9 @@ class PageView {
             $selectedElement.append(html);
         });
     }
+
+
 }
 
 let pageView = new PageView();
-export {pageView as pageView};
+export {pageView};

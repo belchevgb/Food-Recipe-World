@@ -40,4 +40,4 @@ class Requester {
 }
 
 let requester = new Requester();
-export {requester as requester};
+export {requester};

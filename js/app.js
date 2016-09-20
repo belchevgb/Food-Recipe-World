@@ -5,6 +5,9 @@ import {appUrls} from 'app-urls';
 import {pageController} from 'page-controller';
 import {userController} from 'user-controller';
 import {headers} from 'headers';
+import {recipeController} from 'recipe-controller';
+import {notificator} from 'notificator';
+import {messages} from 'messages';
 
 let MAIN_CONTENT_SELECTOR = '#content',
     MAIN_NAVIGATION_SELECTOR = '#main-navigation',
@@ -82,6 +85,41 @@ let router = new Sammy(function () {
     });
 });
 
+    this.bind('addRecipeToFavorites', function (event, data) {
+        recipeController.getRecipeById(data)
+            .then(response => {
+                return userController.addRecipeToFavorites(response);
+            })
+            .then(response => {
+                notificator.showNotification(messages.RECIPE_ADDED_TO_FAVORITES, 'success');
+            });
+    });
+
+    this.bind('addRecipeToLikes',function(event,data){
+        recipeController.getRecipeById(data)
+            .then(response=>{
+                return userController.addRecipeToLikes(response)
+            })
+            .then(response=>{
+                notificator.showNotification(messages.RECIPE_ADDED_TO_LIKES, 'success');
+            })
+    })
+
+    this.bind('showFavoriteRecipes', function (event) {
+        userController.getUserFavoriteRecipes()
+            .then(response => {
+                let recipes = response.favoriteRecipes,
+                    favoriteRecipesSelector = '#favorite-recipes-container';
+
+                pageController.loadFavoriteRecipes(favoriteRecipesSelector, recipes);
+            });
+    });
+
+    this.bind('showLikedRecipes',function(event){
+
+    })
+});
+
 router.run(appUrls.BASE_URL);
 let app = {};
-export {app as app};
+export {app};

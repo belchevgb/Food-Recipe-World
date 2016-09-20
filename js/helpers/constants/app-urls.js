@@ -15,4 +15,4 @@ let appUrls = {
     FOUND_USERS_URL,
     PROFILE_URL
 };
-export {appUrls as appUrls};
+export {appUrls};

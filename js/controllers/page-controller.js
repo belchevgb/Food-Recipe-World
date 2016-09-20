@@ -69,9 +69,19 @@ class PageController {
     }
 
     loadProfilePage(selector, data) {
-        return pageView.showProfilePage(selector, data);
+        $loader.show();
+        return pageView.showProfilePage(selector, data)
+            .then(success => {
+                setTimeout(function () {
+                    $loader.fadeOut(500);
+                }, 1000);
+            });
+    }
+
+    loadFavoriteRecipes(selector, data) {
+        return pageView.showFavoriteRecipes(selector, data);
     }
 }
 
 let pageController = new PageController();
-export {pageController as pageController};
+export {pageController};

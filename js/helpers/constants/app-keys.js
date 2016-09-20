@@ -13,4 +13,4 @@ let appKeys = {
 
     SPOONACULAR_KEY
 };
-export {appKeys as appKeys};
+export {appKeys};

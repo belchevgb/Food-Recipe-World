@@ -35,7 +35,13 @@ class RecipeModel {
 
         return requester.get(urlToSend, headersToSend);
     }
+
+    getRecipeById(recipeId) {
+        let headersToSend = headers.getSpoonacularHeaders(false),
+            recipeUrl = `${spoonacularUrls.GET_RECIPE_URL}${recipeId}/information`;
+        return requester.get(recipeUrl, headersToSend);
+    }
 }
 
 let recipeModel = new RecipeModel();
-export {recipeModel as recipeModel};
+export {recipeModel};

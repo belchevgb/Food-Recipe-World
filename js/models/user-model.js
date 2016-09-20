@@ -34,7 +34,61 @@ class UserModel {
 
         return requester.get(url, headersToSend);
     }
+
+    addRecipeToFavorites(recipe) {
+        let headersToSend = headers.getKinveyHeaders(true, true),
+            userUrl = `${kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
+
+        return requester
+            .get(userUrl, headersToSend)
+            .then(response => {
+                let oldRecipes = response.favoriteRecipes;
+
+                oldRecipes.push(recipe);
+                let updatedRecipes = {
+                    "favoriteRecipes": oldRecipes,
+                    "likedRecipes": response.likedRecipes
+                };
+
+                return requester.put(userUrl, headersToSend, updatedRecipes);
+            });
+    }
+
+    addRecipeToLikes(recipe){
+        let headersToSend = headers.getKinveyHeaders(true,true),
+            userUrl = `${kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
+
+        return requester
+            .get(userUrl, headersToSend)
+            .then(response => {
+                let oldRecipes = response.likedRecipes;
+
+                oldRecipes.push(recipe);
+
+                let updatedRecipes = {
+                    "likedRecipes" : oldRecipes,
+                    "favoriteRecipes": response.favoriteRecipes
+                };
+
+                return requester.put(userUrl, headersToSend, updatedRecipes);
+            })
+
+    }
+
+    getUserFavoriteRecipes() {
+        let headersToSend = headers.getKinveyHeaders('false', true),
+            userUrl = `${kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
+
+        return requester.get(userUrl, headersToSend);
+    }
+
+    getUserLikedRecipes(){
+        let headersToSend = headers.getKinveyHeaders('false' , truse),
+            userUrl = `${kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
+
+        return requester.get(userUrl, headersToSend);
+    }
 }
 
 let userModel = new UserModel();
-export {userModel as userModel};
+export {userModel};

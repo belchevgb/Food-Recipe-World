@@ -70,7 +70,23 @@ class UserController {
     getUserData(){
         return userModel.getUserData();
     }
+
+    addRecipeToFavorites(recipe) {
+        return userModel.addRecipeToFavorites(recipe);
+    }
+
+    addRecipeToLikes(recipe){
+        return userModel.addRecipeToLikes(recipe);
+    }
+
+    getUserFavoriteRecipes() {
+        return userModel.getUserFavoriteRecipes();
+    }
+
+    getUserLikedRecipes(){
+        return userModel.getUserLikedRecipes();
+    }
 }
 
 let userController = new UserController();
-export {userController as userController};
+export {userController};
