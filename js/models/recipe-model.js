@@ -13,7 +13,6 @@ class RecipeModel {
     getRecipeById(recipeId) {
         let headersToSend = headers.getSpoonacularHeaders(false),
             recipeUrl = `${spoonacularUrls.GET_RECIPE_URL}${recipeId}/information`;
-
         return requester.get(recipeUrl, headersToSend);
     }
 }

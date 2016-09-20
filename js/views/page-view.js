@@ -17,9 +17,7 @@ function registerUserEvent(context) {
         } else {
             context.trigger('registerUser', {
                 username,
-                password,
-                favoriteRecipes: [],
-                likedRecipes: []
+                password
             });
         }
     });
@@ -66,18 +64,18 @@ function addToFavoritesEvent() {
     });
 }
 
-function showFavoritesEvent() {
-    $('#btn-favourites').on('click', function () {
-        Sammy(function () {
-            this.trigger('showFavoriteRecipes');
-        });
-    });
+function addToLikesEvent(){
+    $('.btn-like').on('click',function(){
+        let recipeId = $(this).attr('recipe-id');
+        Sammy(function(){
+            this.trigger('addRecipeToLikes', recipeId);
+        })
+    })
 }
 
 class PageView {
     showHomePage(context, selector, data) {
         let $selectedElement = $(selector);
-        //console.log(data);
         $selectedElement.empty();
         return $.get('templates/home-recipes.handlebars',
             htmlTemplate => {
@@ -86,6 +84,7 @@ class PageView {
 
                 $selectedElement.append(html);
                 addToFavoritesEvent();
+                addToLikesEvent();
             });
     }
 
@@ -156,7 +155,7 @@ class PageView {
         });
     }
 
-    showProfilePage(selector, data) {
+    showProfilePage(selector, data){
         return $.get('templates/profile.handlebars', function (htmlTemplate) {
             let $selectedElement = $(selector),
                 template = Handlebars.compile(htmlTemplate),
@@ -164,24 +163,10 @@ class PageView {
 
             $selectedElement.empty();
             $selectedElement.append(html);
-            showFavoritesEvent();
         });
     }
 
-    showFavoriteRecipes(selector, data) {
-        return $.get('templates/home-recipes.handlebars', htmlTemplate => {
-            let $selectedElement = $(selector),
-                favoriteRecipes = {
-                    recipes: data
-                },
-                template = Handlebars.compile(htmlTemplate),
-                html = template(favoriteRecipes);
 
-            console.log(favoriteRecipes);
-            $selectedElement.empty();
-            $selectedElement.append(html);
-        });
-    }
 }
 
 let pageView = new PageView();
