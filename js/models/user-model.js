@@ -1,32 +1,33 @@
-var app = app || {};
+'use strict';
 
-(function () {
-    'use strict';
+import {headers} from 'headers';
+import {requester} from 'requester';
+import {kinveyUrls} from 'kinvey-urls';
 
-    class UserModel {
-        registerUser(data) {
-            let headers = app.headers.getKinveyHeaders(true, false);
-            return app.requester.post(app.kinveyUrls.KINVEY_REGISTER_USER_URL, headers, data);
-        }
-
-        loginUser(data) {
-            let headers = app.headers.getKinveyHeaders(true, false);
-            return app.requester.post(app.kinveyUrls.KINVEY_LOGIN_USER_URL, headers, data);
-        }
-
-        logoutUser() {
-            let headers = app.headers.getKinveyHeaders(false, true);
-            return app.requester.post(app.kinveyUrls.KINVEY_LOGOUT_USER_URL, headers);
-        }
-
-        findUser(data) {
-            let headers = app.headers.getKinveyHeaders(false, true),
-                query = `?query={"username":"${data}"}`,
-                url = `${app.kinveyUrls.KINVEY_USER_URL}${query}`;
-
-            return app.requester.get(url, headers);
-        }
+class UserModel {
+    registerUser(data) {
+        let headersToSend = headers.getKinveyHeaders(true, false);
+        return requester.post(kinveyUrls.KINVEY_REGISTER_USER_URL, headersToSend, data);
     }
 
-    app.userModel = new UserModel();
-}());
+    loginUser(data) {
+        let headersToSend = headers.getKinveyHeaders(true, false);
+        return requester.post(kinveyUrls.KINVEY_LOGIN_USER_URL, headersToSend, data);
+    }
+
+    logoutUser() {
+        let headersToSend = headers.getKinveyHeaders(false, true);
+        return requester.post(kinveyUrls.KINVEY_LOGOUT_USER_URL, headersToSend);
+    }
+
+    findUser(data) {
+        let headersToSend = headers.getKinveyHeaders(false, true),
+            query = `?query={"username":"${data}"}`,
+            url = `${kinveyUrls.KINVEY_USER_URL}${query}`;
+
+        return requester.get(url, headersToSend);
+    }
+}
+
+let userModel = new UserModel();
+export {userModel as userModel};

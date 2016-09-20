@@ -1,68 +1,72 @@
-var app = app || {};
+'use strict';
 
-(function () {
-    'use strict';
+import Sammy from 'sammy';
+import {userModel} from 'user-model';
+import {notificator} from 'notificator';
+import {messages} from 'messages';
+import {appUrls} from 'app-urls';
+import {app} from 'app';
 
-    function redirect(url) {
-        Sammy(function () {
-            this.trigger('redirectToUrl', url);
-        });
+function redirect(url) {
+    Sammy(function () {
+        this.trigger('redirectToUrl', url);
+    });
+}
+
+class UserController {
+    registerUser(data) {
+        userModel
+            .registerUser(data)
+            .then(success => {
+                notificator.showNotification(messages.REGISTRATION_SUCCESSFUL, 'success');
+                setTimeout(function () {
+                    redirect(appUrls.LOGIN_URL);
+                }, 500);
+            }, error => {
+                notificator.showNotification(messages.REGISTRATION_FAILED, 'error');
+            });
     }
 
-    class UserController {
-        registerUser(data) {
-            app.userModel
-                .registerUser(data)
-                .then(success => {
-                    app.notificator.showNotification(app.messages.REGISTRATION_SUCCESSFUL, 'success');
-                    setTimeout(function () {
-                        redirect(app.appUrls.LOGIN_URL);
-                    }, 500);
-                }, error => {
-                    app.notificator.showNotification(app.messages.REGISTRATION_FAILED, 'error');
-                })
-        }
+    loginUser(data) {
+        userModel
+            .loginUser(data)
+            .then(success => {
+                localStorage.setItem('username', success.username);
+                localStorage.setItem('userId', success._id);
+                localStorage.setItem('authKey', success._kmd.authtoken);
+                notificator.showNotification(messages.LOGIN_SUCCESSFUL, 'success');
+                setTimeout(function () {
+                    redirect(appUrls.BASE_URL);
+                }, 500);
+            }, error => {
+                notificator.showNotification(messages.LOGIN_FAILED, 'error');
+            });
+    }
 
-        loginUser(data) {
-            app.userModel
-                .loginUser(data)
-                .then(success => {
-                    localStorage.setItem('username', success.username);
-                    localStorage.setItem('userId', success._id);
-                    localStorage.setItem('authKey', success._kmd.authtoken);
-                    app.notificator.showNotification(app.messages.LOGIN_SUCCESSFUL, 'success');
-                    setTimeout(function () {
-                        redirect(app.appUrls.BASE_URL);
-                    }, 500);
-                }, error => {
-                    app.notificator.showNotification(app.messages.LOGIN_FAILED, 'error');
-                })
-        }
-
-        logoutUser() {
-            app.userModel.logoutUser()
-                .then(success => {
-                    localStorage.clear();
-                    app.notificator.showNotification(app.messages.LOGOUT_SUCCESSFUL, 'success');
-                    setTimeout(function () {
-                        Sammy(function () {
-                            this.trigger("redirectToUrl", app.appUrls.BASE_URL);
-                        });
-                    }, 500);
-                });
-        }
-
-        getFoundUser(selector, data) {
-            app.userModel
-                .findUser(data)
-                .then(success => {
+    logoutUser() {
+        userModel.logoutUser()
+            .then(success => {
+                localStorage.clear();
+                notificator.showNotification(messages.LOGOUT_SUCCESSFUL, 'success');
+                setTimeout(function () {
                     Sammy(function () {
-                        app.foundUsers = success;
-                        this.trigger('redirectToUrl', app.appUrls.FOUND_USERS_URL);
+                        this.trigger("redirectToUrl", appUrls.BASE_URL);
                     });
-                });
-        }
+                }, 500);
+            });
     }
 
-    app.userController = new UserController();
-}());
+    getFoundUser(selector, data) {
+        userModel
+            .findUser(data)
+            .then(success => {
+                Sammy(function () {
+                    app.foundUsers = success;
+                    this.trigger('redirectToUrl', appUrls.FOUND_USERS_URL);
+                });
+            });
+    }
+}
+
+let userController = new UserController();
+export {userController as userController};

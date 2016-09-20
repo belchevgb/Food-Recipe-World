@@ -1,37 +1,36 @@
-var app = app || {};
+'use strict';
 
-(function () {
-    'use strict';
+import {appKeys} from 'app-keys';
 
-    class Headers {
-        getKinveyHeaders(sendData, userCredentials) {
-            let headers = {};
+class Headers {
+    getKinveyHeaders(sendData, userCredentials) {
+        let headers = {};
 
-            if (sendData) {
-                headers['Content-Type'] = 'application/json';
-            }
-
-            if (userCredentials) {
-                headers.Authorization = `Kinvey ${localStorage.authKey}`;
-            } else {
-                let token = btoa(`${app.appKeys.APP_KEY}:${app.appKeys.APP_SECRET}`);
-                headers.Authorization = `Basic ${token}`;
-            }
-
-            return headers;
+        if (sendData) {
+            headers['Content-Type'] = 'application/json';
         }
 
-        getSpoonacularHeaders(sendData) {
-            let headers = {};
-
-            if (sendData) {
-                headers['Content-Type'] = 'application/json';
-            }
-
-            headers['X-Mashape-Key'] = app.appKeys.SPOONACULAR_KEY;
-            return headers;
+        if (userCredentials) {
+            headers.Authorization = `Kinvey ${localStorage.authKey}`;
+        } else {
+            let token = btoa(`${appKeys.APP_KEY}:${appKeys.APP_SECRET}`);
+            headers.Authorization = `Basic ${token}`;
         }
+
+        return headers;
     }
 
-    app.headers = new Headers();
-}());
+    getSpoonacularHeaders(sendData) {
+        let headers = {};
+
+        if (sendData) {
+            headers['Content-Type'] = 'application/json';
+        }
+
+        headers['X-Mashape-Key'] = appKeys.SPOONACULAR_KEY;
+        return headers;
+    }
+}
+
+let headers = new Headers();
+export {headers as headers};

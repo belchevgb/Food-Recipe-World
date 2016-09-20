@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
@@ -24,6 +25,7 @@
     <script src="js/theme-scripts/material.min.js"></script>
     <script src="js/theme-scripts/material-kit.js"></script>
 </head>
+
 <body>
     <div id="loader-wrapper">
         <div id="loader"></div>
@@ -39,33 +41,8 @@
 
     </div>
 
-    <!-- Libraries -->
-    <script src="bower_components/cryptojslib/rollups/sha1.js"></script>
-    <script src="bower_components/handlebars/handlebars.min.js"></script>
-    <script src="bower_components/sammy/lib/min/sammy-latest.min.js"></script>
-    <script src="bower_components/toastr/toastr.min.js"></script>
-
-    <!-- Helpers -->
-    <script src="js/helpers/constants/app-keys.js"></script>
-    <script src="js/helpers/constants/kinvey-urls.js"></script>
-    <script src="js/helpers/constants/messages.js"></script>
-    <script src="js/helpers/constants/app-urls.js"></script>
-    <script src="js/helpers/constants/spoonacular-urls.js"></script>
-    <script src="js/helpers/headers.js"></script>
-    <script src="js/helpers/requester.js"></script>
-    <script src="js/helpers/notificator.js"></script>
-
-    <!-- Models -->
-    <script src="js/models/user-model.js"></script>
-    <script src="js/models/recipe-model.js"></script>
-
-    <!-- Views -->
-    <script src="js/views/page-view.js"></script>
-
-    <!-- Controllers -->
-    <script src="js/controllers/user-controller.js"></script>
-    <script src="js/controllers/page-controller.js"></script>
-
-    <script src="js/app.js"></script>
+    <script src="./node_modules/systemjs/dist/system.js"></script>
+    <script src="./config.js"></script>
 </body>
+
 </html>

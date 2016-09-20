@@ -1,46 +1,46 @@
-var app = app || {};
+'use strict';
 
-(function () {
-    'use strict';
+import {recipeModel} from 'recipe-model';
+import {pageView} from 'page-view';
+import $ from 'jquery';
 
-    const $loader = $('#loader-wrapper');
+let $loader = $('#loader-wrapper');
 
-    class PageController {
-        loadHomePage(context, selector) {
-            $loader.show();
-
-            app.recipeModel
-                .getGuestRecipes()
-                .then(response => {
-                    return app.pageView.showHomePage(context, selector, response)
-                })
-                .then(success => {
-                    setTimeout(function () {
-                        $loader.fadeOut(500);
-                    }, 1000);
-                });
-        }
-
-        loadMainNavigationWhenUserIsLoggedIn(context, selector, data) {
-            return app.pageView.showMainNavigationWhenUserIsLoggedIn(context, selector, data);
-        }
-
-        loadMainNavigationWhenNoUserIsLoggedIn(context, selector, data) {
-            return app.pageView.showMainNavigationWhenNoUserIsLoggedIn(context, selector, data);
-        }
-
-        loadLoginPage(context, selector) {
-            return app.pageView.showLoginPage(context, selector);
-        }
-
-        loadRegisterPage(context, selector) {
-            return app.pageView.showRegisterPage(context, selector);
-        }
-
-        loadFoundUsersPage(selector, data) {
-            return app.pageView.showFoundUsersPage(selector, data);
-        }
+class PageController {
+    loadHomePage(context, selector) {
+        $loader.show();
+        recipeModel
+            .getGuestRecipes()
+            .then(response => {
+                return pageView.showHomePage(context, selector, response)
+            })
+            .then(success => {
+                setTimeout(function () {
+                    $loader.fadeOut(500);
+                }, 1000);
+            });
     }
 
-    app.pageController = new PageController();
-}());
+    loadMainNavigationWhenUserIsLoggedIn(context, selector, data) {
+        return pageView.showMainNavigationWhenUserIsLoggedIn(context, selector, data);
+    }
+
+    loadMainNavigationWhenNoUserIsLoggedIn(context, selector, data) {
+        return pageView.showMainNavigationWhenNoUserIsLoggedIn(context, selector, data);
+    }
+
+    loadLoginPage(context, selector) {
+        return pageView.showLoginPage(context, selector);
+    }
+
+    loadRegisterPage(context, selector) {
+        return pageView.showRegisterPage(context, selector);
+    }
+
+    loadFoundUsersPage(selector, data) {
+        return pageView.showFoundUsersPage(selector, data);
+    }
+}
+
+let pageController = new PageController();
+export {pageController as pageController};

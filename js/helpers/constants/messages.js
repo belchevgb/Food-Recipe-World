@@ -1,25 +1,22 @@
-var app = app || {};
+'use strict';
 
-(function() {
-    'use strict';
+// ERROR MESSAGES
+let INVALID_CONFIRM_PASSWORD = 'The confirmation password is not the same as the password. Please try again.',
+    REGISTRATION_FAILED = 'Registration failed. Please try again.',
+    LOGIN_FAILED = 'Login failed. Please try again.';
 
-    // ERROR MESSAGES
-    const INVALID_CONFIRM_PASSWORD = 'The confirmation password is not the same as the password. Please try again.',
-        REGISTRATION_FAILED = 'Registration failed. Please try again.',
-        LOGIN_FAILED = 'Login failed. Please try again.';
+// SUCCESS MESSAGES
+let REGISTRATION_SUCCESSFUL = 'Registration successful!',
+    LOGIN_SUCCESSFUL = 'Login successful!',
+    LOGOUT_SUCCESSFUL = 'Logout successful!';
 
-    // SUCCESS MESSAGES
-    const REGISTRATION_SUCCESSFUL = 'Registration successful!',
-        LOGIN_SUCCESSFUL = 'Login successful!',
-        LOGOUT_SUCCESSFUL = 'Logout successful!';
+let messages = {
+    INVALID_CONFIRM_PASSWORD,
+    REGISTRATION_FAILED,
+    LOGIN_FAILED,
 
-    app.messages = {
-        INVALID_CONFIRM_PASSWORD,
-        REGISTRATION_FAILED,
-        LOGIN_FAILED,
-
-        REGISTRATION_SUCCESSFUL,
-        LOGIN_SUCCESSFUL,
-        LOGOUT_SUCCESSFUL
-    };
-}());
+    REGISTRATION_SUCCESSFUL,
+    LOGIN_SUCCESSFUL,
+    LOGOUT_SUCCESSFUL
+};
+export {messages as messages};
