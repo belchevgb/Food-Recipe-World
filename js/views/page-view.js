@@ -17,7 +17,9 @@ function registerUserEvent(context) {
         } else {
             context.trigger('registerUser', {
                 username,
-                password
+                password,
+                favoriteRecipes: [],
+                likedRecipes: []
             });
         }
     });
@@ -60,6 +62,14 @@ function addToFavoritesEvent() {
 
         Sammy(function () {
             this.trigger('addRecipeToFavorites', recipeId);
+        });
+    });
+}
+
+function showFavoritesEvent() {
+    $('#btn-favourites').on('click', function () {
+        Sammy(function () {
+            this.trigger('showFavoriteRecipes');
         });
     });
 }
@@ -146,12 +156,28 @@ class PageView {
         });
     }
 
-    showProfilePage(selector, data){
+    showProfilePage(selector, data) {
         return $.get('templates/profile.handlebars', function (htmlTemplate) {
             let $selectedElement = $(selector),
                 template = Handlebars.compile(htmlTemplate),
                 html = template(data);
 
+            $selectedElement.empty();
+            $selectedElement.append(html);
+            showFavoritesEvent();
+        });
+    }
+
+    showFavoriteRecipes(selector, data) {
+        return $.get('templates/home-recipes.handlebars', htmlTemplate => {
+            let $selectedElement = $(selector),
+                favoriteRecipes = {
+                    recipes: data
+                },
+                template = Handlebars.compile(htmlTemplate),
+                html = template(favoriteRecipes);
+
+            console.log(favoriteRecipes);
             $selectedElement.empty();
             $selectedElement.append(html);
         });

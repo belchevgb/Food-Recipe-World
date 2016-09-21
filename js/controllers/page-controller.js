@@ -45,10 +45,14 @@ class PageController {
         $loader.show();
         return pageView.showProfilePage(selector, data)
             .then(success => {
-                setTimeout(function() {
+                setTimeout(function () {
                     $loader.fadeOut(500);
                 }, 1000);
             });
+    }
+
+    loadFavoriteRecipes(selector, data) {
+        return pageView.showFavoriteRecipes(selector, data);
     }
 }
 

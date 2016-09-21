@@ -76,6 +76,16 @@ let router = new Sammy(function () {
                 notificator.showNotification(messages.RECIPE_ADDED_TO_FAVORITES, 'success');
             });
     });
+
+    this.bind('showFavoriteRecipes', function (event) {
+        userController.getUserFavoriteRecipes()
+            .then(response => {
+                let recipes = response.favoriteRecipes,
+                    favoriteRecipesSelector = '#favorite-recipes-container';
+
+                pageController.loadFavoriteRecipes(favoriteRecipesSelector, recipes);
+            });
+    });
 });
 
 router.run(appUrls.BASE_URL);

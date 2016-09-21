@@ -74,6 +74,10 @@ class UserController {
     addRecipeToFavorites(recipe) {
         return userModel.addRecipeToFavorites(recipe);
     }
+
+    getUserFavoriteRecipes() {
+        return userModel.getUserFavoriteRecipes();
+    }
 }
 
 let userController = new UserController();
