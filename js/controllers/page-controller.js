@@ -54,6 +54,10 @@ class PageController {
     loadFavoriteRecipes(selector, data) {
         return pageView.showFavoriteRecipes(selector, data);
     }
+
+    addNewRecipes(selector, data) {
+        return pageView.addNewRecipes(selector, data);
+    }
 }
 
 let pageController = new PageController();

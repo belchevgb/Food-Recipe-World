@@ -6,6 +6,10 @@ class RecipeController {
     getRecipeById(recipeId) {
         return recipeModel.getRecipeById(recipeId)
     }
+
+    getRandomRecipes() {
+        return recipeModel.getGuestRecipes();
+    }
 }
 
 let recipeController = new RecipeController();

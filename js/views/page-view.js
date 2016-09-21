@@ -64,13 +64,28 @@ function addToFavoritesEvent() {
     });
 }
 
-function addToLikesEvent(){
-    $('.btn-like').on('click',function(){
+function addToLikesEvent() {
+    $('.btn-like').on('click', function () {
         let recipeId = $(this).attr('recipe-id');
-        Sammy(function(){
+
+        Sammy(function () {
             this.trigger('addRecipeToLikes', recipeId);
-        })
-    })
+        });
+    });
+}
+
+function detectBottomOfThePage() {
+    $(window).scroll(function () {
+        let currentWindowHeight = $(window).scrollTop() + $(window).height(),
+            maxWindowHeight = $(document).height();
+
+        if (currentWindowHeight == maxWindowHeight) {
+            Sammy(function () {
+                $('#mini-loader').show();
+                this.trigger('loadMoreRecipes');
+            });
+        }
+    });
 }
 
 class PageView {
@@ -85,6 +100,7 @@ class PageView {
                 $selectedElement.append(html);
                 addToFavoritesEvent();
                 addToLikesEvent();
+                detectBottomOfThePage();
             });
     }
 
@@ -140,7 +156,6 @@ class PageView {
     }
 
     showFoundUsersPage(selector, data) {
-        console.log(data);
         data = {
             users: data
         };
@@ -155,7 +170,7 @@ class PageView {
         });
     }
 
-    showProfilePage(selector, data){
+    showProfilePage(selector, data) {
         return $.get('templates/profile.handlebars', function (htmlTemplate) {
             let $selectedElement = $(selector),
                 template = Handlebars.compile(htmlTemplate),
@@ -166,7 +181,21 @@ class PageView {
         });
     }
 
+    addNewRecipes(selector, data) {
+        return $.get('templates/home-recipes.handlebars', htmlTempalte => {
+            let $selectedElement = $(selector),
+                template = Handlebars.compile(htmlTempalte),
+                html = template(data);
 
+            $selectedElement.append(html);
+            addToFavoritesEvent();
+            addToLikesEvent();
+        });
+    }
+
+    hideMiniLoader() {
+        $('#mini-loader').fadeOut(700);
+    }
 }
 
 let pageView = new PageView();

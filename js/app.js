@@ -8,6 +8,7 @@ import {headers} from 'headers';
 import {recipeController} from 'recipe-controller';
 import {notificator} from 'notificator';
 import {messages} from 'messages';
+import {pageView} from 'page-view';
 
 let MAIN_CONTENT_SELECTOR = '#content',
     MAIN_NAVIGATION_SELECTOR = '#main-navigation';
@@ -77,14 +78,14 @@ let router = new Sammy(function () {
             });
     });
 
-    this.bind('addRecipeToLikes',function(event,data){
+    this.bind('addRecipeToLikes', function (event, data) {
         recipeController.getRecipeById(data)
-            .then(response=>{
+            .then(response => {
                 return userController.addRecipeToLikes(response)
             })
-            .then(response=>{
+            .then(response => {
                 notificator.showNotification(messages.RECIPE_ADDED_TO_LIKES, 'success');
-            })
+            });
     })
 
     this.bind('showFavoriteRecipes', function (event) {
@@ -97,9 +98,21 @@ let router = new Sammy(function () {
             });
     });
 
-    this.bind('showLikedRecipes',function(event){
+    this.bind('showLikedRecipes', function (event) {
 
-    })
+    });
+
+    this.bind('loadMoreRecipes', function (event) {
+        recipeController
+            .getRandomRecipes()
+            .then(response => {
+                pageController
+                    .addNewRecipes(MAIN_CONTENT_SELECTOR, response)
+                    .then(success => {
+                        pageView.hideMiniLoader();
+                    });
+            });
+    });
 });
 
 router.run(appUrls.BASE_URL);
