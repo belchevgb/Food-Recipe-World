@@ -199,6 +199,7 @@ class PageView {
 
                 $selectedElement.append(html);
                 getInstructionsForSearchedRecipe();
+                addToFavoritesEvent();
                 //todo reset form data
             });
     }
