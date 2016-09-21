@@ -2,8 +2,11 @@
     <ul class="list-group">
         {{#if users}}
         {{#each users}}
-        <li id="user-container" class="list-group-item" user-id="{{this.id}}">
-            {{this.username}}
+        <li id="username-container" class="list-group-item" user-id="{{this._id}}">
+            <h3 class="username-holder">{{this.username}}</h3>
+            <button class="btn btn-info btn-round" id="btn-user-favourites">
+                <i class="material-icons">favorite</i> Favourites
+            </button>
             {{#if this.friends.length}}
             <!--<i class="material-icons">supervisor_account</i>-->
             <span class="badge">Friends:  {{this.friends.length}}</span>

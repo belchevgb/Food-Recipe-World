@@ -86,6 +86,10 @@ class UserController {
     getUserLikedRecipes(){
         return userModel.getUserLikedRecipes();
     }
+
+    getFoundUserFavourites(userId) {
+        return userModel.getFoundUserFavourites(userId);
+    }
 }
 
 let userController = new UserController();
