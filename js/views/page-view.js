@@ -5,6 +5,7 @@ import {notificator} from 'notificator';
 import {messages} from 'messages';
 import Sammy from 'sammy';
 import Handlebars from 'handlebars';
+import {app} from 'app';
 
 function registerUserEvent(context) {
     $('#btn-register').on('click', () => {
@@ -57,35 +58,36 @@ function logoutUserEvent() {
 function recipeSearchEvent() {
     $('#search-recipe-btn-normal')
         .on('click',
-            function() {
-                let searchRecipeQuery = $('#search-recipe-query').val() || "",
-                    searchRecipeDiet = $('#search-recipe-diet').val() || "",
-                    searchRecipeNumberOfRecipes = $('#search-recipe-numberOfRecipes').val(),
-                    searchRecipeCuisine = $('#search-recipe-cuisine').val() || "";
+        function () {
+            let searchRecipeQuery = $('#search-recipe-query').val() || "",
+                searchRecipeDiet = $('#search-recipe-diet').val() || "",
+                searchRecipeNumberOfRecipes = $('#search-recipe-numberOfRecipes').val(),
+                searchRecipeCuisine = $('#search-recipe-cuisine').val() || "";
 
-                Sammy(function() {
-                    this.trigger('recipeSearch',
-                    {
-                        searchRecipeQuery,
-                        searchRecipeDiet,
-                        searchRecipeNumberOfRecipes,
-                        searchRecipeCuisine
-                    });
-                });
+            app.reasultOfRecipeSearch = {
+                searchRecipeQuery,
+                searchRecipeDiet,
+                searchRecipeNumberOfRecipes,
+                searchRecipeCuisine
+            };
+
+            Sammy(function () {
+                this.trigger('redirectToUrl', '#/found-recipes');
             });
+        });
 }
 
 
 function getInstructionsForSearchedRecipe() {
     $('#get-instruction')
         .on('click', '.btn.btn-info.btn-round.recipe-buttons',
-            function(event) {
-                let recipeId = $(event.target).data('recipe-id');
+        function (event) {
+            let recipeId = $(event.target).data('recipe-id');
 
-                Sammy(function() {
-                    this.trigger('getSearchedRecipeById', recipeId);
-                });
+            Sammy(function () {
+                this.trigger('getSearchedRecipeById', recipeId);
             });
+        });
 
 }
 
@@ -94,6 +96,7 @@ function addToFavoritesEvent() {
         let recipeId = $(this).attr('recipe-id');
 
         Sammy(function () {
+            notificator.showNotification(messages.RECIPE_ADDED_TO_FAVORITES, 'success');
             this.trigger('addRecipeToFavorites', recipeId);
         });
     });
@@ -104,6 +107,7 @@ function addToLikesEvent() {
         let recipeId = $(this).attr('recipe-id');
 
         Sammy(function () {
+            notificator.showNotification(messages.RECIPE_ADDED_TO_LIKES, 'success');
             this.trigger('addRecipeToLikes', recipeId);
         });
     });
@@ -140,18 +144,18 @@ class PageView {
             });
     }
 
-    showRecipeSearchMenu(context, selector,data) {
+    showRecipeSearchMenu(context, selector, data) {
         let $selectedElement = $(selector);
 
         $selectedElement.empty();
         return $.get('templates/home-recipes-search.handlebars',
-        htmTemplate => {
-            let template = Handlebars.compile(htmTemplate),
-                html = template(data);
+            htmTemplate => {
+                let template = Handlebars.compile(htmTemplate),
+                    html = template(data);
 
-            $selectedElement.append(html);
-            recipeSearchEvent();
-        });
+                $selectedElement.append(html);
+                recipeSearchEvent();
+            });
     }
 
     showRecipeSearchResult(selector, data) {
@@ -170,11 +174,8 @@ class PageView {
     }
 
     showSearchedRecipeInstuctions(data) {
-        console.log(data);
-        let buttonToEdit = $("#btn-instructions-" + data.id);
-        console.log(buttonToEdit);
-
-        let $selectedElement = $("#btn-instructions-" + data.id);
+        let buttonToEdit = $("#btn-instructions-" + data.id),
+            $selectedElement = $("#btn-instructions-" + data.id);
 
         return $.get('templates/disply-searched-recipe.handlebars',
             htmlTemplate => {
@@ -188,7 +189,6 @@ class PageView {
 
     showMainNavigationWhenUserIsLoggedIn(context, selector, data) {
         let $selectedElement = $(selector);
-        console.log(data);
         $selectedElement.empty();
 
         return $.get('templates/main-navigation-logged-in.handlebars',
@@ -267,8 +267,11 @@ class PageView {
         return $.get('templates/home-recipes.handlebars', htmlTempalte => {
             let $selectedElement = $(selector),
                 template = Handlebars.compile(htmlTempalte),
-                html = template(data);
+                html = template(data),
+                $body = $('body');
 
+            $body.off('click', '.btn-like');
+            $body.off('click', '.btn-add-favorite');
             $selectedElement.append(html);
             addToFavoritesEvent();
             addToLikesEvent();

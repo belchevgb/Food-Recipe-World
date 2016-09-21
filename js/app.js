@@ -62,6 +62,10 @@ let router = new Sammy(function () {
             });
     });
 
+    this.get('#/found-recipes', function () {
+        pageController.loadRecipeSearchResult(MAIN_CONTENT_SELECTOR, app.reasultOfRecipeSearch);
+    });
+
     // Events
     this.bind('redirectToUrl', function (event, url) {
         this.redirect(url);
@@ -83,10 +87,9 @@ let router = new Sammy(function () {
         userController.getFoundUser(MAIN_CONTENT_SELECTOR, data);
     });
 
-    this.bind('recipeSearch', function (event, data) {
-        //console.log(data);
+    /* this.bind('recipeSearch', function (event, data) {
         pageController.loadRecipeSearchResult(MAIN_CONTENT_SELECTOR, data);
-    });
+    }); */
 
     this.bind('getSearchedRecipeById', function (event, data) {
         pageController.loadSearchedRecipeById(data);
@@ -96,21 +99,15 @@ let router = new Sammy(function () {
         recipeController.getRecipeById(data)
             .then(response => {
                 return userController.addRecipeToFavorites(response);
-            })
-            .then(response => {
-                notificator.showNotification(messages.RECIPE_ADDED_TO_FAVORITES, 'success');
             });
     });
 
     this.bind('addRecipeToLikes', function (event, data) {
         recipeController.getRecipeById(data)
             .then(response => {
-                return userController.addRecipeToLikes(response)
-            })
-            .then(response => {
-                notificator.showNotification(messages.RECIPE_ADDED_TO_LIKES, 'success');
+                return userController.addRecipeToLikes(response);
             });
-    })
+    });
 
     this.bind('showFavoriteRecipes', function (event) {
         userController.getUserFavoriteRecipes()

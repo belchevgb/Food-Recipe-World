@@ -10,6 +10,20 @@ body {
     background-size: 100% 100%;
 }
 
+.navigation {
+    width: 100% !important;
+    position: absolute;
+    top: 0;
+}
+
+#search-recipe-query {
+    color: white !important;
+}
+
+#recipe-search-container {
+    margin-top: 5%;
+}
+
 #app-logo {
     font-family: LogoFont;
     font-size: 65px !important;

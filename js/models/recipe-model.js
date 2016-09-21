@@ -10,6 +10,7 @@ class RecipeModel {
         let headersToSend = headers.getSpoonacularHeaders(false);
         return requester.get(spoonacularUrls.FIVE_RANDOM_RECIPES_URL, headersToSend);
     }
+    
     getRecipes(data) {
 
         if (!data.searchRecipeQuery) {

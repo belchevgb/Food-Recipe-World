@@ -13,7 +13,6 @@ class PageController {
         recipeModel
             .getGuestRecipes()
             .then(response => {
-                console.log(response);
                 return pageView.showHomePage(context, selector, response);
             })
             .then(success => {
@@ -23,19 +22,19 @@ class PageController {
             });
     }
 
-    loadRecipeSearchResult(selector,data) {
+    loadRecipeSearchResult(selector, data) {
         recipeModel
             .getRecipes(data)
             .then(response => {
                 return pageView.showRecipeSearchResult(selector, response);
             })
             .then(success => {
-                setTimeout(function() {
+                setTimeout(function () {
                     $loader.fadeOut(500);
-                },1000);
+                }, 1000);
             });
     }
-    
+
     loadSearchedRecipeById(data) {
         recipeModel
             .getSearchedRecipeById(data)
@@ -44,8 +43,8 @@ class PageController {
             });
     }
 
-    loadRecipeSearchMenu(context,selector) {
-        return pageView.showRecipeSearchMenu(context,selector);
+    loadRecipeSearchMenu(context, selector) {
+        return pageView.showRecipeSearchMenu(context, selector);
     }
 
     loadMainNavigationWhenUserIsLoggedIn(context, selector, data) {
