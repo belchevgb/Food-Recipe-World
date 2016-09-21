@@ -75,6 +75,10 @@ class UserController {
         return userModel.addRecipeToFavorites(recipe);
     }
 
+    removeRecipeFromFavorites(recipe) {
+        return userModel.removeRecipeFromFavorites(recipe);
+    }
+
     addRecipeToLikes(recipe){
         return userModel.addRecipeToLikes(recipe);
     }

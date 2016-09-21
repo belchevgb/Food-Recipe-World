@@ -12,6 +12,7 @@ let REGISTRATION_SUCCESSFUL = 'Registration successful!',
     LOGIN_SUCCESSFUL = 'Login successful!',
     LOGOUT_SUCCESSFUL = 'Logout successful!',
     RECIPE_ADDED_TO_FAVORITES = 'The recipe was added successfuly to Favorites!',
+    RECIPE_REMOVED_FROM_FAVORITES = 'The recipe was successfully removed from Favorites!',
     RECIPE_ADDED_TO_LIKES = 'This recipe was liked and added to Liked list in your profile!';
 
 let messages = {
@@ -25,6 +26,7 @@ let messages = {
     LOGIN_SUCCESSFUL,
     LOGOUT_SUCCESSFUL,
     RECIPE_ADDED_TO_FAVORITES,
+    RECIPE_REMOVED_FROM_FAVORITES,
     RECIPE_ADDED_TO_LIKES
 };
 export {messages};
