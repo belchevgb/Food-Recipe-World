@@ -54,6 +54,41 @@ function logoutUserEvent() {
         });
 }
 
+function recipeSearchEvent() {
+    $('#search-recipe-btn-normal')
+        .on('click',
+            function() {
+                let searchRecipeQuery = $('#search-recipe-query').val() || "",
+                    searchRecipeDiet = $('#search-recipe-diet').val() || "",
+                    searchRecipeNumberOfRecipes = $('#search-recipe-numberOfRecipes').val(),
+                    searchRecipeCuisine = $('#search-recipe-cuisine').val() || "";
+
+                Sammy(function() {
+                    this.trigger('recipeSearch',
+                    {
+                        searchRecipeQuery,
+                        searchRecipeDiet,
+                        searchRecipeNumberOfRecipes,
+                        searchRecipeCuisine
+                    });
+                });
+            });
+}
+
+
+function getInstructionsForSearchedRecipe() {
+    $('#get-instruction')
+        .on('click', '.btn.btn-info.btn-round.recipe-buttons',
+            function(event) {
+                let recipeId = $(event.target).data('recipe-id');
+
+                Sammy(function() {
+                    this.trigger('getSearchedRecipeById', recipeId);
+                });
+            });
+
+}
+
 function addToFavoritesEvent() {
     $('.btn-add-favorite').on('click', function () {
         let recipeId = $(this).attr('recipe-id');
@@ -91,6 +126,7 @@ function detectBottomOfThePage() {
 class PageView {
     showHomePage(context, selector, data) {
         let $selectedElement = $(selector);
+
         $selectedElement.empty();
         return $.get('templates/home-recipes.handlebars',
             htmlTemplate => {
@@ -104,9 +140,55 @@ class PageView {
             });
     }
 
-    showMainNavigationWhenUserIsLoggedIn(context, selector, data) {
+    showRecipeSearchMenu(context, selector,data) {
         let $selectedElement = $(selector);
 
+        $selectedElement.empty();
+        return $.get('templates/home-recipes-search.handlebars',
+        htmTemplate => {
+            let template = Handlebars.compile(htmTemplate),
+                html = template(data);
+
+            $selectedElement.append(html);
+            recipeSearchEvent();
+        });
+    }
+
+    showRecipeSearchResult(selector, data) {
+        let $selectedElement = $(selector);
+
+        $selectedElement.empty();
+        return $.get('templates/home-recipes-search-results.handlebars',
+            htmlTempalate => {
+                let template = Handlebars.compile(htmlTempalate),
+                    html = template(data);
+
+                $selectedElement.append(html);
+                getInstructionsForSearchedRecipe();
+                //todo reset form data
+            });
+    }
+
+    showSearchedRecipeInstuctions(data) {
+        console.log(data);
+        let buttonToEdit = $("#btn-instructions-" + data.id);
+        console.log(buttonToEdit);
+
+        let $selectedElement = $("#btn-instructions-" + data.id);
+
+        return $.get('templates/disply-searched-recipe.handlebars',
+            htmlTemplate => {
+                let template = Handlebars.compile(htmlTemplate),
+                    html = template(data);
+
+                $selectedElement.after(html);
+                buttonToEdit.remove();
+            });
+    }
+
+    showMainNavigationWhenUserIsLoggedIn(context, selector, data) {
+        let $selectedElement = $(selector);
+        console.log(data);
         $selectedElement.empty();
 
         return $.get('templates/main-navigation-logged-in.handlebars',

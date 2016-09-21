@@ -1,0 +1,41 @@
+<div id="guest-recipe-container" class="col-md-12">
+
+    <div class="row" id="get-instruction">
+        {{#each results}}
+        <div class="col-md-offset-2 col-md-8">
+            <div class="thumbnail box">
+                <!--<div class="ribbon"><span>Favorite</span></div>-->
+                <div class="caption">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="text-center">{{this.title}}</h3>
+                            <p class="text-center">
+                                {{#if this.readyInMinutes}}
+                                <button class="btn btn-success btn-just-icon recipe-status servings-btn">
+                                    <img src="../images/timer-icon.png" alt="Ready in time" class="recipe-status-icon" />
+                                    <span class="servings-icon">{{this.readyInMinutes}}m</span>
+                                </button>
+                                {{/if}}
+                            </p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <img alt="{{this.title}}" class="img-responsive img-thumbnail img-recipe" src="https://spoonacular.com/recipeImages/{{this.imageUrls}}" data-holder-rendered="true">
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a id="btn-instructions-{{this.id}}" data-recipe-id="{{this.id}}" class="btn btn-info btn-round recipe-buttons" data-toggle="modal" data-target="#instuctions-modal-{{this.id}}">
+                                <i class="material-icons">receipt</i> Get instructions for this recipe
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+

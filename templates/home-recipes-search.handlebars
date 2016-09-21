@@ -1,0 +1,53 @@
+<div class="search">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group" id="adv-search">
+                    <input id="search-recipe-query" type="text" class="form-control" placeholder="Search recipe category ... salad, burger" />
+                    <div class="input-group-btn">
+                        <div class="btn-group" role="group">
+                            <div class="dropdown dropdown-lg">
+                                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                <div class="dropdown-menu dropdown-menu-right" role="menu" style="background-color: #03a9f4;">
+                                    <form class="contact-form" role="form">
+                                        <fieldset class="">
+                                            <label for="search-recipe-diet">Diet</label>
+                                            <select id="search-recipe-diet" class="form-control">
+                                                <!-- pescetarian, lacto vegetarian, ovo vegetarian, vegan, and vegetarian. -->
+                                                <option value="" selected> </option>
+                                                <option value="pescetarian">Pescetarian</option>
+                                                <option value="lacto+vegetarian">Lacto vegetarian</option>
+                                                <option value="vegan">Vegan</option>
+                                                <option value="vegetarian">Vegetarian</option>
+                                            </select>
+                                        </fieldset>
+                                        <fieldset class="">
+                                            <label for="search-recipe-numberOfRecipes">Number (1-100)</label>
+                                            <input id="search-recipe-numberOfRecipes" class="form-control" type="number" min="1" max="100" />
+                                        </fieldset>
+                                        <fieldset class="">
+                                            <label class="control-label" for="search-recipe-cuisine">Cuisine</label>
+                                            <input id="search-recipe-cuisine" class="form-control" type="text" />
+                                        </fieldset>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p>
+                                                    The cuisine(s) of the recipes. One or more (comma separated)<br/>
+                                                    of the following: african, chinese, japanese, korean, vietnamese,<br/>
+                                                    thai, indian, british, irish, french, italian, mexican, spanish,<br/>
+                                                    middle eastern, jewish, american, cajun, southern, greek, german,<br/>
+                                                    nordic, eastern european, caribbean, or latin american
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <button type="button" id="search-recipe-btn-normal" class="btn btn-success"><i class="material-icons">search</i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
