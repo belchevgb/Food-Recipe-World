@@ -90,6 +90,10 @@ class PageController {
     addNewRecipes(selector, data) {
         return pageView.addNewRecipes(selector, data);
     }
+
+    loadOtherUserFavourites(favouriteRecipes) {
+        return pageView.showOtherUserFavourites(favouriteRecipes);
+    }
 }
 
 let pageController = new PageController();

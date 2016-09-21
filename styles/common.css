@@ -24,10 +24,26 @@ body {
     margin-top: 5%;
 }
 
+.username-holder {
+    margin: 0;
+    display: inline-block;
+    float: left;
+}
+
+#btn-user-favourites {
+    margin: 0 !important;
+    float: left;
+    padding: 5px;
+}
+
 #app-logo {
     font-family: LogoFont;
     font-size: 65px !important;
     font-weight: normal !important;
+}
+
+#username-container {
+    overflow: auto !important;
 }
 
 #logo {

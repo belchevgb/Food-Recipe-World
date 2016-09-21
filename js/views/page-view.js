@@ -143,6 +143,17 @@ function showUserFavoriteRecipes() {
     });
 }
 
+function showOtherUserFavouriteRecipesEvent() {
+    $('#btn-user-favourites').on('click', function () {
+        let userId = $('#username-container').attr('user-id');
+
+        console.log(userId);
+        Sammy(function () {
+            this.trigger('showOtherUserFavourites', userId);
+        });
+    });
+}
+
 class PageView {
     showHomePage(context, selector, data) {
         let $selectedElement = $(selector);
@@ -151,9 +162,12 @@ class PageView {
         return $.get('templates/home-recipes.handlebars',
             htmlTemplate => {
                 let template = Handlebars.compile(htmlTemplate),
-                    html = template(data);
+                    html = template(data),
+                    $body = $('body');
 
                 $selectedElement.append(html);
+                $body.off('click', '.btn-like');
+                $body.off('click', '.btn-add-favorite');
                 addToFavoritesEvent();
                 addToLikesEvent();
                 detectBottomOfThePage();
@@ -265,6 +279,7 @@ class PageView {
 
             $selectedElement.empty();
             $selectedElement.append(html);
+            showOtherUserFavouriteRecipesEvent();
         });
     }
 
@@ -311,6 +326,24 @@ class PageView {
             $selectedElement.empty();
             $selectedElement.append(html);
             removeFromFavoritesEvent();
+        });
+    }
+
+    showOtherUserFavourites(favouriteRecipes) {
+        return $.get('templates/home-recipes.handlebars', function (htmlTemplate) {
+            let $selectedElement = $('#content'),
+                recipesToShow = {
+                    recipes: favouriteRecipes
+                },
+                template = Handlebars.compile(htmlTemplate),
+                html = template(recipesToShow),
+                $body = $('body');
+
+            $selectedElement.append(html);
+            $body.off('click', '.btn-like');
+            $body.off('click', '.btn-add-favorite');
+            addToFavoritesEvent();
+            addToLikesEvent();
         });
     }
 }

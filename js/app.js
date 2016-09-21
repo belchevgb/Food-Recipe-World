@@ -140,6 +140,15 @@ let router = new Sammy(function () {
                     });
             });
     });
+
+    this.bind('showOtherUserFavourites', function (event, data) {
+        userController
+            .getFoundUserFavourites(data)
+            .then(function (response) {
+                let favouriteRecipes = response.favoriteRecipes;
+                pageController.loadOtherUserFavourites(favouriteRecipes);
+            });
+    });
 });
 
 router.run(appUrls.BASE_URL);

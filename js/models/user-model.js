@@ -118,6 +118,13 @@ class UserModel {
 
         return requester.get(userUrl, headersToSend);
     }
+
+    getFoundUserFavourites(userId) {
+        let headersToSend = headers.getKinveyHeaders('false' , true),
+            userUrl = `${kinveyUrls.KINVEY_USER_URL}/${userId}`;
+
+        return requester.get(userUrl, headersToSend);
+    }
 }
 
 let userModel = new UserModel();
