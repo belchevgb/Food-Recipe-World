@@ -16,6 +16,10 @@
                                     <span class="servings-icon">{{this.readyInMinutes}}m</span>
                                 </button>
                                 {{/if}}
+                                <button class="btn btn-warning btn-just-icon btn-add-favorite" recipe-id="{{this.id}}">
+                                    <i class="material-icons">star_rate</i>
+                                    <span class="text-normalize">Add to favorites</span>
+                                </button>
                             </p>
                         </div>
 
@@ -27,10 +31,6 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn btn-warning btn-just-icon btn-add-favorite" recipe-id="{{this.id}}">
-                                <i class="material-icons">star_rate</i>
-                                <span class="text-normalize">Add to favorites</span>
-                            </button>
                             <a id="btn-instructions-{{this.id}}" data-recipe-id="{{this.id}}" class="btn btn-info btn-round recipe-buttons" data-toggle="modal" data-target="#instuctions-modal-{{this.id}}">
                                 <i class="material-icons">receipt</i> Get instructions for this recipe
                             </a>
@@ -43,3 +43,4 @@
     </div>
 </div>
 
+{{pagination}}

@@ -1,5 +1,4 @@
 <div id="guest-recipe-container" class="col-md-12">
-
     <div class="row">
         {{#each recipes}}
         <div class="col-md-offset-2 col-md-8">
@@ -12,41 +11,43 @@
                                 <button class="btn {{#if this.veryHealthy}}btn-success{{else}}btn-danger{{/if}} btn-just-icon recipe-status">
                                     <i class="material-icons">favorite</i>
                                 </button>
-
                                 <button class="btn {{#if this.vegetarian}}btn-success{{else}}btn-danger{{/if}} btn-just-icon recipe-status">
                                     <img src="../images/vegetable-icon.png" alt="Vegetarian" class="recipe-status-icon">
                                 </button>
-
                                 <button class="btn btn-warning btn-just-icon recipe-status servings-btn">
                                     <img src="../images/servings-icon.png" alt="Servings" class="recipe-status-icon">
                                     <span class="servings-icon">{{this.servings}}</span>
                                 </button>
-
                                 {{#if this.readyInMinutes}}
                                 <button class="btn btn-success btn-just-icon recipe-status servings-btn">
                                     <img src="../images/timer-icon.png" alt="Ready in time" class="recipe-status-icon" />
                                     <span class="servings-icon">{{this.readyInMinutes}}m</span>
                                 </button>
                                 {{/if}}
-                                
+
                                 <div class="text-center">
                                     <button class="btn btn-warning btn-just-icon btn-add-favorite" recipe-id="{{this.id}}">
                                         <i class="material-icons">star_rate</i>
                                         <span class="text-normalize">Add to favorites</span>
                                     </button>
-                                    <button class="btn btn-primary btn-just-icon btn-like" recipe-id="{{this.id}}"> 
-                                        <i class="material-icons">thumb_up</i> 
+                                    <button class="btn btn-primary btn-just-icon btn-like" recipe-id="{{this.id}}">
+                                        <i class="material-icons">thumb_up</i>
                                         <span class="text-normalize">Like</span>
                                     </button>
+                                    <div class="fb-share-button" data-href="{{this.sourceUrl}}" data-layout="button"
+                                         data-size="large" data-mobile-iframe="true">
+                                        <a class="fb-xfbml-parse-ignore  btn btn-info btn-round" target="_blank"
+                                           href="https://www.facebook.com/sharer/sharer.php?u={{this.sourceUrl}}&amp;src=sdkpreparse">
+                                            <i class="fa fa-facebook-official" aria-hidden="true"></i>&nbsp;Share
+                                        </a>
+                                    </div>
                                 </div>
                             </p>
                         </div>
-
                         <div class="col-md-6">
                             <img alt="{{this.title}}" class="img-responsive img-thumbnail img-recipe" src="{{this.image}}" data-holder-rendered="true">
                         </div>
                     </div>
-
 
                     <div class="row">
                         <div class="col-md-6">
@@ -83,7 +84,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Instuctions modal -->
             <div class="modal fade" id="instuctions-modal-{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -126,4 +126,3 @@
         {{/each}}
     </div>
 </div>
-

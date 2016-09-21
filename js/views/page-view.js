@@ -166,6 +166,8 @@ class PageView {
             console.log(window.location.hash);
         });
 
+        console.log(data);   
+
         $selectedElement.empty();
         return $.get('templates/home-recipes.handlebars',
             htmlTemplate => {
@@ -199,6 +201,8 @@ class PageView {
 
     showRecipeSearchResult(selector, data) {
         let $selectedElement = $(selector);
+
+        console.log(data);        
 
         $selectedElement.empty();
         return $.get('templates/home-recipes-search-results.handlebars',
