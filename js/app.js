@@ -62,7 +62,7 @@ let router = new Sammy(function () {
             });
     });
 
-    this.get('#/found-recipes', function () {
+    this.get(appUrls.FOUND_RECIPES_URL, function () {
         pageController.loadRecipeSearchResult(MAIN_CONTENT_SELECTOR, app.reasultOfRecipeSearch);
     });
 
@@ -87,10 +87,6 @@ let router = new Sammy(function () {
         userController.getFoundUser(MAIN_CONTENT_SELECTOR, data);
     });
 
-    /* this.bind('recipeSearch', function (event, data) {
-        pageController.loadRecipeSearchResult(MAIN_CONTENT_SELECTOR, data);
-    }); */
-
     this.bind('getSearchedRecipeById', function (event, data) {
         pageController.loadSearchedRecipeById(data);
     });
@@ -102,6 +98,15 @@ let router = new Sammy(function () {
             });
     });
 
+    this.bind('removeRecipeFromFavorites', function (event, data) {
+        recipeController.getRecipeById(data)
+            .then(response => {
+                return userController.removeRecipeFromFavorites(response);
+            }).then(response => {
+                this.trigger('showFavoriteRecipes');
+            });
+    });
+
     this.bind('addRecipeToLikes', function (event, data) {
         recipeController.getRecipeById(data)
             .then(response => {
@@ -110,7 +115,8 @@ let router = new Sammy(function () {
     });
 
     this.bind('showFavoriteRecipes', function (event) {
-        userController.getUserFavoriteRecipes()
+        userController
+            .getUserFavoriteRecipes()
             .then(response => {
                 let recipes = response.favoriteRecipes,
                     favoriteRecipesSelector = '#favorite-recipes-container';
@@ -132,6 +138,15 @@ let router = new Sammy(function () {
                     .then(success => {
                         pageView.hideMiniLoader();
                     });
+            });
+    });
+
+    this.bind('showOtherUserFavourites', function (event, data) {
+        userController
+            .getFoundUserFavourites(data)
+            .then(function (response) {
+                let favouriteRecipes = response.favoriteRecipes;
+                pageController.loadOtherUserFavourites(favouriteRecipes);
             });
     });
 });

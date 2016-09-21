@@ -47,40 +47,37 @@ function searchUsersEvent() {
 }
 
 function logoutUserEvent() {
-    $('#btn-logout')
-        .on('click', function () {
-            Sammy(function () {
-                this.trigger('logoutUser');
-            });
+    $('#btn-logout').on('click', function () {
+        Sammy(function () {
+            this.trigger('logoutUser');
         });
+    });
 }
 
 function recipeSearchEvent() {
-    $('#search-recipe-btn-normal')
-        .on('click',
-        function () {
-            let searchRecipeQuery = $('#search-recipe-query').val() || "",
-                searchRecipeDiet = $('#search-recipe-diet').val() || "",
-                searchRecipeNumberOfRecipes = $('#search-recipe-numberOfRecipes').val(),
-                searchRecipeCuisine = $('#search-recipe-cuisine').val() || "";
+    $('#search-recipe-btn-normal').on('click', function () {
+        let searchRecipeQuery = $('#search-recipe-query').val() || "",
+            searchRecipeDiet = $('#search-recipe-diet').val() || "",
+            searchRecipeNumberOfRecipes = $('#search-recipe-numberOfRecipes').val(),
+            searchRecipeCuisine = $('#search-recipe-cuisine').val() || "";
 
-            app.reasultOfRecipeSearch = {
-                searchRecipeQuery,
-                searchRecipeDiet,
-                searchRecipeNumberOfRecipes,
-                searchRecipeCuisine
-            };
+        app.reasultOfRecipeSearch = {
+            searchRecipeQuery,
+            searchRecipeDiet,
+            searchRecipeNumberOfRecipes,
+            searchRecipeCuisine
+        };
 
-            Sammy(function () {
-                this.trigger('redirectToUrl', '#/found-recipes');
-            });
+        Sammy(function () {
+            $('#loader-wrapper').show();
+            this.trigger('redirectToUrl', '#/found-recipes');
         });
+    });
 }
 
 
 function getInstructionsForSearchedRecipe() {
-    $('#get-instruction')
-        .on('click', '.btn.btn-info.btn-round.recipe-buttons',
+    $('#get-instruction').on('click', '.btn.btn-info.btn-round.recipe-buttons',
         function (event) {
             let recipeId = $(event.target).data('recipe-id');
 
@@ -98,6 +95,17 @@ function addToFavoritesEvent() {
         Sammy(function () {
             notificator.showNotification(messages.RECIPE_ADDED_TO_FAVORITES, 'success');
             this.trigger('addRecipeToFavorites', recipeId);
+        });
+    });
+}
+
+function removeFromFavoritesEvent() {
+    $('.btn-remove-favorite').on('click', function () {
+        let recipeId = $(this).attr('recipe-id');
+
+        Sammy(function () {
+            notificator.showNotification(messages.RECIPE_REMOVED_FROM_FAVORITES, 'success');
+            this.trigger('removeRecipeFromFavorites', recipeId);
         });
     });
 }
@@ -127,6 +135,25 @@ function detectBottomOfThePage() {
     });
 }
 
+function showUserFavoriteRecipes() {
+    $('#btn-favourites').on('click', function () {
+        Sammy(function () {
+            this.trigger('showFavoriteRecipes');
+        });
+    });
+}
+
+function showOtherUserFavouriteRecipesEvent() {
+    $('#btn-user-favourites').on('click', function () {
+        let userId = $('#username-container').attr('user-id');
+
+        console.log(userId);
+        Sammy(function () {
+            this.trigger('showOtherUserFavourites', userId);
+        });
+    });
+}
+
 class PageView {
     showHomePage(context, selector, data) {
         let $selectedElement = $(selector);
@@ -135,9 +162,12 @@ class PageView {
         return $.get('templates/home-recipes.handlebars',
             htmlTemplate => {
                 let template = Handlebars.compile(htmlTemplate),
-                    html = template(data);
+                    html = template(data),
+                    $body = $('body');
 
                 $selectedElement.append(html);
+                $body.off('click', '.btn-like');
+                $body.off('click', '.btn-add-favorite');
                 addToFavoritesEvent();
                 addToLikesEvent();
                 detectBottomOfThePage();
@@ -249,6 +279,7 @@ class PageView {
 
             $selectedElement.empty();
             $selectedElement.append(html);
+            showOtherUserFavouriteRecipesEvent();
         });
     }
 
@@ -260,6 +291,7 @@ class PageView {
 
             $selectedElement.empty();
             $selectedElement.append(html);
+            showUserFavoriteRecipes();
         });
     }
 
@@ -280,6 +312,39 @@ class PageView {
 
     hideMiniLoader() {
         $('#mini-loader').fadeOut(700);
+    }
+
+    showFavoriteRecipes(selector, data) {
+        return $.get('templates/display-favorite-recipes.handlebars', function (htmlTemplate) {
+            let $selectedElement = $(selector),
+                recipesToShow = {
+                    recipes: data
+                },
+                template = Handlebars.compile(htmlTemplate),
+                html = template(recipesToShow);
+
+            $selectedElement.empty();
+            $selectedElement.append(html);
+            removeFromFavoritesEvent();
+        });
+    }
+
+    showOtherUserFavourites(favouriteRecipes) {
+        return $.get('templates/home-recipes.handlebars', function (htmlTemplate) {
+            let $selectedElement = $('#content'),
+                recipesToShow = {
+                    recipes: favouriteRecipes
+                },
+                template = Handlebars.compile(htmlTemplate),
+                html = template(recipesToShow),
+                $body = $('body');
+
+            $selectedElement.append(html);
+            $body.off('click', '.btn-like');
+            $body.off('click', '.btn-add-favorite');
+            addToFavoritesEvent();
+            addToLikesEvent();
+        });
     }
 }
 

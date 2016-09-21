@@ -54,6 +54,36 @@ class UserModel {
             });
     }
 
+    removeRecipeFromFavorites(recipe) {
+        let headersToSend = headers.getKinveyHeaders(true, true),
+            userUrl = `${kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
+
+        return requester
+            .get(userUrl, headersToSend)
+            .then(response => {
+                let oldRecipes = response.favoriteRecipes;
+                let indexToRemove = -1;
+                let len = oldRecipes.length;
+
+                for(let i = 0; i < len; i += 1) {
+                    if (oldRecipes[i].id == recipe.id) {
+                        indexToRemove = i;
+                    }
+                }
+                //console.log(indexToRemove);
+                if (indexToRemove > -1) {
+                    oldRecipes.splice(indexToRemove, 1);
+                    let updatedRecipes = {
+                        "favoriteRecipes": oldRecipes,
+                        "likedRecipes": response.likedRecipes
+                    };
+
+                    return requester.put(userUrl, headersToSend, updatedRecipes);
+                }
+                return;    
+            });
+    }
+
     addRecipeToLikes(recipe){
         let headersToSend = headers.getKinveyHeaders(true,true),
             userUrl = `${kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
@@ -71,7 +101,7 @@ class UserModel {
                 };
 
                 return requester.put(userUrl, headersToSend, updatedRecipes);
-            })
+            });
 
     }
 
@@ -83,8 +113,15 @@ class UserModel {
     }
 
     getUserLikedRecipes(){
-        let headersToSend = headers.getKinveyHeaders('false' , truse),
+        let headersToSend = headers.getKinveyHeaders('false' , true),
             userUrl = `${kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
+
+        return requester.get(userUrl, headersToSend);
+    }
+
+    getFoundUserFavourites(userId) {
+        let headersToSend = headers.getKinveyHeaders('false' , true),
+            userUrl = `${kinveyUrls.KINVEY_USER_URL}/${userId}`;
 
         return requester.get(userUrl, headersToSend);
     }
