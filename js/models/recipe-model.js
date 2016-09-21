@@ -4,31 +4,32 @@ import {requester} from 'requester';
 import {notificator} from 'notificator';
 import {spoonacularUrls} from 'spoonacular-urls';
 import {headers} from 'headers';
+import {messages} from 'messages';
 
 class RecipeModel {
     getGuestRecipes() {
         let headersToSend = headers.getSpoonacularHeaders(false);
         return requester.get(spoonacularUrls.FIVE_RANDOM_RECIPES_URL, headersToSend);
     }
-    
+
     getRecipes(data) {
 
         if (!data.searchRecipeQuery) {
-            notificator.showNotification("Please enter something to search for.", "error");
+            notificator.showNotification(messages.EMPTY_RECIPE_SEARCH, "error");
             return;
         }
 
         let headersToSend = headers.getSpoonacularHeaders(true);
         let urlToSend = `${spoonacularUrls.RECIPE_SEARCH_URL}cuisine=${data.searchRecipeCuisine}
             &diet=${data.searchRecipeDiet}&number=${data.searchRecipeNumberOfRecipes}&query=${data.searchRecipeQuery}`;
-        
+
         return requester.get(urlToSend, headersToSend);
     }
 
     getSearchedRecipeById(recipeId) {
         if (!recipeId) {
-            notificator.showNotification("Something wierd broke", "error");
-            return;   
+            notificator.showNotification(messages.RECIPE_BY_ID_WASNT_FOUND, "error");
+            return;
         }
 
         let headersToSend = headers.getSpoonacularHeaders(true);

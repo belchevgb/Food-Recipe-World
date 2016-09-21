@@ -47,40 +47,37 @@ function searchUsersEvent() {
 }
 
 function logoutUserEvent() {
-    $('#btn-logout')
-        .on('click', function () {
-            Sammy(function () {
-                this.trigger('logoutUser');
-            });
+    $('#btn-logout').on('click', function () {
+        Sammy(function () {
+            this.trigger('logoutUser');
         });
+    });
 }
 
 function recipeSearchEvent() {
-    $('#search-recipe-btn-normal')
-        .on('click',
-        function () {
-            let searchRecipeQuery = $('#search-recipe-query').val() || "",
-                searchRecipeDiet = $('#search-recipe-diet').val() || "",
-                searchRecipeNumberOfRecipes = $('#search-recipe-numberOfRecipes').val(),
-                searchRecipeCuisine = $('#search-recipe-cuisine').val() || "";
+    $('#search-recipe-btn-normal').on('click', function () {
+        let searchRecipeQuery = $('#search-recipe-query').val() || "",
+            searchRecipeDiet = $('#search-recipe-diet').val() || "",
+            searchRecipeNumberOfRecipes = $('#search-recipe-numberOfRecipes').val(),
+            searchRecipeCuisine = $('#search-recipe-cuisine').val() || "";
 
-            app.reasultOfRecipeSearch = {
-                searchRecipeQuery,
-                searchRecipeDiet,
-                searchRecipeNumberOfRecipes,
-                searchRecipeCuisine
-            };
+        app.reasultOfRecipeSearch = {
+            searchRecipeQuery,
+            searchRecipeDiet,
+            searchRecipeNumberOfRecipes,
+            searchRecipeCuisine
+        };
 
-            Sammy(function () {
-                this.trigger('redirectToUrl', '#/found-recipes');
-            });
+        Sammy(function () {
+            $('#loader-wrapper').show();
+            this.trigger('redirectToUrl', '#/found-recipes');
         });
+    });
 }
 
 
 function getInstructionsForSearchedRecipe() {
-    $('#get-instruction')
-        .on('click', '.btn.btn-info.btn-round.recipe-buttons',
+    $('#get-instruction').on('click', '.btn.btn-info.btn-round.recipe-buttons',
         function (event) {
             let recipeId = $(event.target).data('recipe-id');
 

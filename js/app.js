@@ -62,7 +62,7 @@ let router = new Sammy(function () {
             });
     });
 
-    this.get('#/found-recipes', function () {
+    this.get(appUrls.FOUND_RECIPES_URL, function () {
         pageController.loadRecipeSearchResult(MAIN_CONTENT_SELECTOR, app.reasultOfRecipeSearch);
     });
 
@@ -87,10 +87,6 @@ let router = new Sammy(function () {
         userController.getFoundUser(MAIN_CONTENT_SELECTOR, data);
     });
 
-    /* this.bind('recipeSearch', function (event, data) {
-        pageController.loadRecipeSearchResult(MAIN_CONTENT_SELECTOR, data);
-    }); */
-
     this.bind('getSearchedRecipeById', function (event, data) {
         pageController.loadSearchedRecipeById(data);
     });
@@ -110,7 +106,8 @@ let router = new Sammy(function () {
     });
 
     this.bind('showFavoriteRecipes', function (event) {
-        userController.getUserFavoriteRecipes()
+        userController
+            .getUserFavoriteRecipes()
             .then(response => {
                 let recipes = response.favoriteRecipes,
                     favoriteRecipesSelector = '#favorite-recipes-container';

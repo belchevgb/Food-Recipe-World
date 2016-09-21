@@ -83,7 +83,7 @@ class UserModel {
     }
 
     getUserLikedRecipes(){
-        let headersToSend = headers.getKinveyHeaders('false' , truse),
+        let headersToSend = headers.getKinveyHeaders('false' , true),
             userUrl = `${kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
 
         return requester.get(userUrl, headersToSend);
