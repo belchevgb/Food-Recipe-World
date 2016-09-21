@@ -70,7 +70,7 @@ class UserModel {
                         indexToRemove = i;
                     }
                 }
-
+                //console.log(indexToRemove);
                 if (indexToRemove > -1) {
                     oldRecipes.splice(indexToRemove, 1);
                     let updatedRecipes = {
@@ -101,7 +101,7 @@ class UserModel {
                 };
 
                 return requester.put(userUrl, headersToSend, updatedRecipes);
-            })
+            });
 
     }
 
