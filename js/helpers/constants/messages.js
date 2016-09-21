@@ -8,7 +8,8 @@ let INVALID_CONFIRM_PASSWORD = 'The confirmation password is not the same as the
 // SUCCESS MESSAGES
 let REGISTRATION_SUCCESSFUL = 'Registration successful!',
     LOGIN_SUCCESSFUL = 'Login successful!',
-    LOGOUT_SUCCESSFUL = 'Logout successful!';
+    LOGOUT_SUCCESSFUL = 'Logout successful!',
+    RECIPE_ADDED_TO_FAVORITES = 'The recipe was added successfuly to Favorites!';;
 
 let messages = {
     INVALID_CONFIRM_PASSWORD,
@@ -17,6 +18,7 @@ let messages = {
 
     REGISTRATION_SUCCESSFUL,
     LOGIN_SUCCESSFUL,
-    LOGOUT_SUCCESSFUL
+    LOGOUT_SUCCESSFUL,
+    RECIPE_ADDED_TO_FAVORITES
 };
-export {messages as messages};
+export {messages};

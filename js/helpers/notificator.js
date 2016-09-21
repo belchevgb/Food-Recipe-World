@@ -16,4 +16,4 @@ class Notificator {
 }
 
 let notificator = new Notificator();
-export {notificator as notificator};
+export {notificator};

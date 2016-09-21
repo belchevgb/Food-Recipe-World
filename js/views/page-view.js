@@ -54,6 +54,16 @@ function logoutUserEvent() {
         });
 }
 
+function addToFavoritesEvent() {
+    $('.btn-add-favorite').on('click', function () {
+        let recipeId = $(this).attr('recipe-id');
+
+        Sammy(function () {
+            this.trigger('addRecipeToFavorites', recipeId);
+        });
+    });
+}
+
 class PageView {
     showHomePage(context, selector, data) {
         let $selectedElement = $(selector);
@@ -65,6 +75,7 @@ class PageView {
                     html = template(data);
 
                 $selectedElement.append(html);
+                addToFavoritesEvent();
             });
     }
 
@@ -148,4 +159,4 @@ class PageView {
 }
 
 let pageView = new PageView();
-export {pageView as pageView};
+export {pageView};

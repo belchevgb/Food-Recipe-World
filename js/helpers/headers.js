@@ -33,4 +33,4 @@ class Headers {
 }
 
 let headers = new Headers();
-export {headers as headers};
+export {headers};

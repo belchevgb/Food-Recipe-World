@@ -5,6 +5,9 @@ import {appUrls} from 'app-urls';
 import {pageController} from 'page-controller';
 import {userController} from 'user-controller';
 import {headers} from 'headers';
+import {recipeController} from 'recipe-controller';
+import {notificator} from 'notificator';
+import {messages} from 'messages';
 
 let MAIN_CONTENT_SELECTOR = '#content',
     MAIN_NAVIGATION_SELECTOR = '#main-navigation';
@@ -63,8 +66,18 @@ let router = new Sammy(function () {
     this.bind('searchUsers', function (event, data) {
         userController.getFoundUser(MAIN_CONTENT_SELECTOR, data);
     });
+
+    this.bind('addRecipeToFavorites', function (event, data) {
+        recipeController.getRecipeById(data)
+            .then(response => {
+                return userController.addRecipeToFavorites(response);
+            })
+            .then(response => {
+                notificator.showNotification(messages.RECIPE_ADDED_TO_FAVORITES, 'success');
+            });
+    });
 });
 
 router.run(appUrls.BASE_URL);
 let app = {};
-export {app as app};
+export {app};

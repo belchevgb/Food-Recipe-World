@@ -31,6 +31,8 @@ SystemJS.config({
         // Controllers
         'page-controller': './js/controllers/page-controller.js',
         'user-controller': './js/controllers/user-controller.js',
+        'recipe-controller': './js/controllers/recipe-controller.js',
+        'recipe-module': './js/models/recipe-model.js',
 
         // Main
         'app': './js/app.js'

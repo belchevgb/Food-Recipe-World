@@ -16,4 +16,4 @@ let kinveyUrls = {
     KINVEY_LOGOUT_USER_URL,
     KINVEY_BASE_USER_URL
 };
-export {kinveyUrls as kinveyUrls};
+export {kinveyUrls};

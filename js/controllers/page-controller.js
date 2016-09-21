@@ -53,4 +53,4 @@ class PageController {
 }
 
 let pageController = new PageController();
-export {pageController as pageController};
+export {pageController};

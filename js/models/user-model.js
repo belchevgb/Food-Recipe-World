@@ -34,7 +34,25 @@ class UserModel {
 
         return requester.get(url, headersToSend);
     }
+
+    addRecipeToFavorites(recipe) {
+        let headersToSend = headers.getKinveyHeaders(true, true),
+            userUrl = `${kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
+
+        return requester
+            .get(userUrl, headersToSend)
+            .then(response => {
+                let oldRecipes = response.favoriteRecipes;
+
+                oldRecipes.push(recipe);
+                let updatedRecipes = {
+                    "favoriteRecipes": oldRecipes
+                };
+
+                return requester.put(userUrl, headersToSend, updatedRecipes);
+            });
+    }
 }
 
 let userModel = new UserModel();
-export {userModel as userModel};
+export {userModel};
