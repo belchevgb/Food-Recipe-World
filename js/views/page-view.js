@@ -99,6 +99,17 @@ function addToFavoritesEvent() {
     });
 }
 
+function removeFromFavoritesEvent() {
+    $('.btn-remove-favorite').on('click', function () {
+        let recipeId = $(this).attr('recipe-id');
+
+        Sammy(function () {
+            notificator.showNotification(messages.RECIPE_REMOVED_FROM_FAVORITES, 'success');
+            this.trigger('removeRecipeFromFavorites', recipeId);
+        });
+    });
+}
+
 function addToLikesEvent() {
     $('.btn-like').on('click', function () {
         let recipeId = $(this).attr('recipe-id');
@@ -317,7 +328,7 @@ class PageView {
     }
 
     showFavoriteRecipes(selector, data) {
-        return $.get('templates/home-recipes.handlebars', function (htmlTemplate) {
+        return $.get('templates/display-favorite-recipes.handlebars', function (htmlTemplate) {
             let $selectedElement = $(selector),
                 recipesToShow = {
                     recipes: data
@@ -327,6 +338,7 @@ class PageView {
 
             $selectedElement.empty();
             $selectedElement.append(html);
+            removeFromFavoritesEvent();
             removeDetectionOfTheBottom();
         });
     }

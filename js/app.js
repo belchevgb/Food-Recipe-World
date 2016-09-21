@@ -98,6 +98,15 @@ let router = new Sammy(function () {
             });
     });
 
+    this.bind('removeRecipeFromFavorites', function (event, data) {
+        recipeController.getRecipeById(data)
+            .then(response => {
+                return userController.removeRecipeFromFavorites(response);
+            }).then(response => {
+                this.trigger('showFavoriteRecipes');
+            });
+    });
+
     this.bind('addRecipeToLikes', function (event, data) {
         recipeController.getRecipeById(data)
             .then(response => {

@@ -78,7 +78,13 @@ class PageController {
     }
 
     loadFavoriteRecipes(selector, data) {
-        return pageView.showFavoriteRecipes(selector, data);
+        $loader.show();
+        return pageView.showFavoriteRecipes(selector, data)
+        .then(success => {
+            setTimeout(function () {
+                    $loader.fadeOut(500);
+                }, 1000);
+        });
     }
 
     addNewRecipes(selector, data) {
