@@ -124,6 +124,14 @@ function detectBottomOfThePage() {
     });
 }
 
+function showUserFavoriteRecipes() {
+    $('#btn-favourites').on('click', function () {
+        Sammy(function () {
+            this.trigger('showFavoriteRecipes');
+        });
+    });
+}
+
 class PageView {
     showHomePage(context, selector, data) {
         let $selectedElement = $(selector);
@@ -257,6 +265,7 @@ class PageView {
 
             $selectedElement.empty();
             $selectedElement.append(html);
+            showUserFavoriteRecipes();
         });
     }
 
@@ -277,6 +286,20 @@ class PageView {
 
     hideMiniLoader() {
         $('#mini-loader').fadeOut(700);
+    }
+
+    showFavoriteRecipes(selector, data) {
+        return $.get('templates/home-recipes.handlebars', function (htmlTemplate) {
+            let $selectedElement = $(selector),
+                recipesToShow = {
+                    recipes: data
+                },
+                template = Handlebars.compile(htmlTemplate),
+                html = template(recipesToShow);
+
+            $selectedElement.empty();
+            $selectedElement.append(html);
+        });
     }
 }
 
