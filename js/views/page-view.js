@@ -143,9 +143,17 @@ function showOtherUserFavouriteRecipesEvent() {
     });
 }
 
+function removeDetectionOfTheBottom() {
+    $(window).off('scroll');
+}
+
 class PageView {
     showHomePage(context, selector, data) {
         let $selectedElement = $(selector);
+
+        Sammy(function () {
+            console.log(window.location.hash);
+        });
 
         $selectedElement.empty();
         return $.get('templates/home-recipes.handlebars',
@@ -174,6 +182,7 @@ class PageView {
 
                 $selectedElement.append(html);
                 recipeSearchEvent();
+                removeDetectionOfTheBottom();
             });
     }
 
@@ -188,6 +197,7 @@ class PageView {
 
                 $selectedElement.append(html);
                 getInstructionsForSearchedRecipe();
+                removeDetectionOfTheBottom();
                 //todo reset form data
             });
     }
@@ -203,6 +213,7 @@ class PageView {
 
                 $selectedElement.after(html);
                 buttonToEdit.remove();
+                removeDetectionOfTheBottom();
             });
     }
 
@@ -269,6 +280,7 @@ class PageView {
             $selectedElement.empty();
             $selectedElement.append(html);
             showOtherUserFavouriteRecipesEvent();
+            removeDetectionOfTheBottom();
         });
     }
 
@@ -281,6 +293,7 @@ class PageView {
             $selectedElement.empty();
             $selectedElement.append(html);
             showUserFavoriteRecipes();
+            removeDetectionOfTheBottom();
         });
     }
 
@@ -314,6 +327,7 @@ class PageView {
 
             $selectedElement.empty();
             $selectedElement.append(html);
+            removeDetectionOfTheBottom();
         });
     }
 
@@ -332,6 +346,7 @@ class PageView {
             $body.off('click', '.btn-add-favorite');
             addToFavoritesEvent();
             addToLikesEvent();
+            removeDetectionOfTheBottom();
         });
     }
 }
