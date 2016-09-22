@@ -1,19 +1,20 @@
-'use strict';
+var app = app || {};
 
-import toastr from 'toastr';
+(function () {
+    'use strict';
 
-class Notificator {
-    showNotification(text, type) {
-        toastr.options.closeMethod = 'fadeOut';
-        toastr.options.timeOut = 1000;
+    class Notificator {
+        showNotification(text, type) {
+            toastr.options.closeMethod = 'fadeOut';
+            toastr.options.timeOut = 1000;
 
-        if (type === 'success') {
-            toastr.success(text);
-        } else if (type === 'error') {
-            toastr.error(text);
+            if (type === 'success') {
+                toastr.success(text);
+            } else if (type === 'error') {
+                toastr.error(text);
+            }
         }
     }
-}
 
-let notificator = new Notificator();
-export {notificator};
+    app.notificator = new Notificator();
+} ());

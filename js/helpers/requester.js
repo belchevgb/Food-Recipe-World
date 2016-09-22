@@ -1,43 +1,44 @@
-'use strict';
+var app = app || {};
 
-import $ from 'jquery';
+(function () {
+    'use strict';
 
-function makeRequest(method, url, headers, data) {
-    let promise = new Promise((resolve, reject) => {
-        $.ajax({
-            url,
-            headers,
-            data: data ? JSON.stringify(data) : null,
-            method,
-            success(response) {
-                resolve(response);
-            },
-            error(error) {
-                reject(error);
-            }
+    function makeRequest(method, url, headers, data) {
+        let promise = new Promise((resolve, reject) => {
+            $.ajax({
+                url,
+                headers,
+                data: data ? JSON.stringify(data) : null,
+                method,
+                success(response) {
+                    resolve(response);
+                },
+                error(error) {
+                    reject(error);
+                }
+            });
         });
-    });
 
-    return promise;
-}
-
-class Requester {
-    get(url, headers) {
-        return makeRequest('GET', url, headers);
+        return promise;
     }
 
-    post(url, headers, data) {
-        return makeRequest('POST', url, headers, data);
+    class Requester {
+        get(url, headers) {
+            return makeRequest('GET', url, headers);
+        }
+
+        post(url, headers, data) {
+            return makeRequest('POST', url, headers, data);
+        }
+
+        put(url, headers, data) {
+            return makeRequest('PUT', url, headers, data);
+        }
+
+        delete(url, headers) {
+            return makeRequest('DELETE', url, headers);
+        }
     }
 
-    put(url, headers, data) {
-        return makeRequest('PUT', url, headers, data);
-    }
-
-    delete(url, headers) {
-        return makeRequest('DELETE', url, headers);
-    }
-}
-
-let requester = new Requester();
-export {requester};
+    app.requester = new Requester();
+} ());

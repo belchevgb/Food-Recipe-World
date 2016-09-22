@@ -1,16 +1,17 @@
-import {headers} from 'headers';
-import {requester} from 'requester';
-import {recipeModel} from 'recipe-model';
+var app = app || {};
 
-class RecipeController {
-    getRecipeById(recipeId) {
-        return recipeModel.getRecipeById(recipeId)
+(function () {
+    'use strict';
+
+    class RecipeController {
+        getRecipeById(recipeId) {
+            return app.recipeModel.getRecipeById(recipeId);
+        }
+
+        getRandomRecipes() {
+            return app.recipeModel.getGuestRecipes();
+        }
     }
 
-    getRandomRecipes() {
-        return recipeModel.getGuestRecipes();
-    }
-}
-
-let recipeController = new RecipeController();
-export {recipeController};
+    app.recipeController = new RecipeController();
+} ());

@@ -1,49 +1,45 @@
-'use strict';
+var app = app || {};
 
-import {requester} from 'requester';
-import {notificator} from 'notificator';
-import {spoonacularUrls} from 'spoonacular-urls';
-import {headers} from 'headers';
-import {messages} from 'messages';
+(function () {
+    'use strict';
 
-class RecipeModel {
-    getGuestRecipes() {
-        let headersToSend = headers.getSpoonacularHeaders(false);
-        return requester.get(spoonacularUrls.FIVE_RANDOM_RECIPES_URL, headersToSend);
-    }
-
-    getRecipes(data) {
-
-        if (!data.searchRecipeQuery) {
-            notificator.showNotification(messages.EMPTY_RECIPE_SEARCH, "error");
-            return;
+    class RecipeModel {
+        getGuestRecipes() {
+            let headersToSend = app.headers.getSpoonacularHeaders(false);
+            return app.requester.get(app.spoonacularUrls.FIVE_RANDOM_RECIPES_URL, headersToSend);
         }
 
-        let headersToSend = headers.getSpoonacularHeaders(true);
-        let urlToSend = `${spoonacularUrls.RECIPE_SEARCH_URL}cuisine=${data.searchRecipeCuisine}
+        getRecipes(data) {
+            if (!data.searchRecipeQuery) {
+                app.notificator.showNotification(app.messages.EMPTY_RECIPE_SEARCH, "error");
+                return;
+            }
+
+            let headersToSend = app.headers.getSpoonacularHeaders(true);
+            let urlToSend = `${app.spoonacularUrls.RECIPE_SEARCH_URL}cuisine=${data.searchRecipeCuisine}
             &diet=${data.searchRecipeDiet}&number=${data.searchRecipeNumberOfRecipes}&query=${data.searchRecipeQuery}`;
 
-        return requester.get(urlToSend, headersToSend);
-    }
-
-    getSearchedRecipeById(recipeId) {
-        if (!recipeId) {
-            notificator.showNotification(messages.RECIPE_BY_ID_WASNT_FOUND, "error");
-            return;
+            return app.requester.get(urlToSend, headersToSend);
         }
 
-        let headersToSend = headers.getSpoonacularHeaders(true);
-        let urlToSend = `${spoonacularUrls.GET_RECIPE_BY_ID_URL}${recipeId}/information?includeNutrition=true`;
+        getSearchedRecipeById(recipeId) {
+            if (!recipeId) {
+                app.notificator.showNotification(messages.RECIPE_BY_ID_WASNT_FOUND, "error");
+                return;
+            }
 
-        return requester.get(urlToSend, headersToSend);
+            let headersToSend = app.headers.getSpoonacularHeaders(true);
+            let urlToSend = `${app.spoonacularUrls.GET_RECIPE_BY_ID_URL}${recipeId}/information?includeNutrition=true`;
+
+            return app.requester.get(urlToSend, headersToSend);
+        }
+
+        getRecipeById(recipeId) {
+            let headersToSend = app.headers.getSpoonacularHeaders(false),
+                recipeUrl = `${app.spoonacularUrls.GET_RECIPE_URL}${recipeId}/information`;
+            return app.requester.get(recipeUrl, headersToSend);
+        }
     }
 
-    getRecipeById(recipeId) {
-        let headersToSend = headers.getSpoonacularHeaders(false),
-            recipeUrl = `${spoonacularUrls.GET_RECIPE_URL}${recipeId}/information`;
-        return requester.get(recipeUrl, headersToSend);
-    }
-}
-
-let recipeModel = new RecipeModel();
-export {recipeModel};
+    app.recipeModel = new RecipeModel();
+} ());

@@ -1,100 +1,94 @@
-'use strict';
+(function () {
+    'use strict';
 
-import Sammy from 'sammy';
-import {userModel} from 'user-model';
-import {notificator} from 'notificator';
-import {messages} from 'messages';
-import {appUrls} from 'app-urls';
-import {app} from 'app';
-
-function redirect(url) {
-    Sammy(function () {
-        this.trigger('redirectToUrl', url);
-    });
-}
-
-class UserController {
-    registerUser(data) {
-        userModel
-            .registerUser(data)
-            .then(success => {
-                notificator.showNotification(messages.REGISTRATION_SUCCESSFUL, 'success');
-                setTimeout(function () {
-                    redirect(appUrls.LOGIN_URL);
-                }, 500);
-            }, error => {
-                notificator.showNotification(messages.REGISTRATION_FAILED, 'error');
-            });
+    function redirect(url) {
+        Sammy(function () {
+            this.trigger('redirectToUrl', url);
+        });
     }
 
-    loginUser(data) {
-        userModel
-            .loginUser(data)
-            .then(success => {
-                localStorage.setItem('username', success.username);
-                localStorage.setItem('userId', success._id);
-                localStorage.setItem('authKey', success._kmd.authtoken);
-                notificator.showNotification(messages.LOGIN_SUCCESSFUL, 'success');
-                setTimeout(function () {
-                    redirect(appUrls.BASE_URL);
-                }, 500);
-            }, error => {
-                notificator.showNotification(messages.LOGIN_FAILED, 'error');
-            });
-    }
-
-    logoutUser() {
-        userModel.logoutUser()
-            .then(success => {
-                localStorage.clear();
-                notificator.showNotification(messages.LOGOUT_SUCCESSFUL, 'success');
-                setTimeout(function () {
-                    Sammy(function () {
-                        this.trigger("redirectToUrl", appUrls.BASE_URL);
-                    });
-                }, 500);
-            });
-    }
-
-    getFoundUser(selector, data) {
-        userModel
-            .findUser(data)
-            .then(success => {
-                Sammy(function () {
-                    app.foundUsers = success;
-                    this.trigger('redirectToUrl', appUrls.FOUND_USERS_URL);
+    class UserController {
+        registerUser(data) {
+            app.userModel
+                .registerUser(data)
+                .then(success => {
+                    app.notificator.showNotification(app.messages.REGISTRATION_SUCCESSFUL, 'success');
+                    setTimeout(function () {
+                        redirect(app.appUrls.LOGIN_URL);
+                    }, 500);
+                }, error => {
+                    app.notificator.showNotification(app.messages.REGISTRATION_FAILED, 'error');
                 });
-            });
+        }
+
+        loginUser(data) {
+            app.userModel
+                .loginUser(data)
+                .then(success => {
+                    localStorage.setItem('username', success.username);
+                    localStorage.setItem('userId', success._id);
+                    localStorage.setItem('authKey', success._kmd.authtoken);
+                    app.notificator.showNotification(app.messages.LOGIN_SUCCESSFUL, 'success');
+                    setTimeout(function () {
+                        redirect(app.appUrls.BASE_URL);
+                    }, 500);
+                }, error => {
+                    notificator.showNotification(app.messages.LOGIN_FAILED, 'error');
+                });
+        }
+
+        logoutUser() {
+            app.userModel.logoutUser()
+                .then(success => {
+                    localStorage.clear();
+                    app.notificator.showNotification(app.messages.LOGOUT_SUCCESSFUL, 'success');
+                    setTimeout(function () {
+                        Sammy(function () {
+                            this.trigger("redirectToUrl", app.appUrls.BASE_URL);
+                        });
+                    }, 500);
+                });
+        }
+
+        getFoundUser(selector, data) {
+            app.userModel
+                .findUser(data)
+                .then(success => {
+                    Sammy(function () {
+                        app.foundUsers = success;
+                        this.trigger('redirectToUrl', app.appUrls.FOUND_USERS_URL);
+                    });
+                });
+        }
+
+        getUserData() {
+            return app.userModel.getUserData();
+        }
+
+        addRecipeToFavorites(recipe) {
+            return app.userModel.addRecipeToFavorites(recipe);
+        }
+
+        removeRecipeFromFavorites(recipe) {
+            return app.userModel.removeRecipeFromFavorites(recipe);
+        }
+
+        addRecipeToLikes(recipe) {
+            return app.userModel.addRecipeToLikes(recipe);
+        }
+
+        getUserFavoriteRecipes() {
+            return app.userModel.getUserFavoriteRecipes();
+        }
+
+        getUserLikedRecipes() {
+            return app.userModel.getUserLikedRecipes();
+        }
+
+        getFoundUserFavourites(userId) {
+            return app.userModel.getFoundUserFavourites(userId);
+        }
     }
 
-    getUserData(){
-        return userModel.getUserData();
-    }
-
-    addRecipeToFavorites(recipe) {
-        return userModel.addRecipeToFavorites(recipe);
-    }
-
-    removeRecipeFromFavorites(recipe) {
-        return userModel.removeRecipeFromFavorites(recipe);
-    }
-
-    addRecipeToLikes(recipe){
-        return userModel.addRecipeToLikes(recipe);
-    }
-
-    getUserFavoriteRecipes() {
-        return userModel.getUserFavoriteRecipes();
-    }
-
-    getUserLikedRecipes(){
-        return userModel.getUserLikedRecipes();
-    }
-
-    getFoundUserFavourites(userId) {
-        return userModel.getFoundUserFavourites(userId);
-    }
-}
-
-let userController = new UserController();
-export {userController};
+    app.userController = new UserController();
+} ());

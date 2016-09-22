@@ -1,131 +1,131 @@
-'use strict';
+var app = app || {};
 
-import {headers} from 'headers';
-import {requester} from 'requester';
-import {kinveyUrls} from 'kinvey-urls';
+(function () {
+    'use strict';
 
-class UserModel {
-    registerUser(data) {
-        let headersToSend = headers.getKinveyHeaders(true, false);
-        return requester.post(kinveyUrls.KINVEY_REGISTER_USER_URL, headersToSend, data);
-    }
+    class UserModel {
+        registerUser(data) {
+            let headersToSend = app.headers.getKinveyHeaders(true, false);
+            return app.requester.post(app.kinveyUrls.KINVEY_REGISTER_USER_URL, headersToSend, data);
+        }
 
-    loginUser(data) {
-        let headersToSend = headers.getKinveyHeaders(true, false);
-        return requester.post(kinveyUrls.KINVEY_LOGIN_USER_URL, headersToSend, data);
-    }
+        loginUser(data) {
+            let headersToSend = app.headers.getKinveyHeaders(true, false);
+            return app.requester.post(app.kinveyUrls.KINVEY_LOGIN_USER_URL, headersToSend, data);
+        }
 
-    logoutUser() {
-        let headersToSend = headers.getKinveyHeaders(false, true);
-        return requester.post(kinveyUrls.KINVEY_LOGOUT_USER_URL, headersToSend);
-    }
+        logoutUser() {
+            let headersToSend = app.headers.getKinveyHeaders(false, true);
+            return app.requester.post(app.kinveyUrls.KINVEY_LOGOUT_USER_URL, headersToSend);
+        }
 
-    findUser(data) {
-        let headersToSend = headers.getKinveyHeaders(false, true),
-            query = `?query={"username":"${data}"}`,
-            url = `${kinveyUrls.KINVEY_USER_URL}${query}`;
+        findUser(data) {
+            let headersToSend = app.headers.getKinveyHeaders(false, true),
+                query = `?query={"username":"${data}"}`,
+                url = `${app.kinveyUrls.KINVEY_USER_URL}${query}`;
 
-        return requester.get(url, headersToSend);
-    }
+            return app.requester.get(url, headersToSend);
+        }
 
-    getUserData(){
-        let headersToSend = headers.getKinveyHeaders(false, true),
-            url = kinveyUrls.KINVEY_USER_URL + '/' + localStorage.userId;
+        getUserData() {
+            let headersToSend = app.headers.getKinveyHeaders(false, true),
+                url = app.kinveyUrls.KINVEY_USER_URL + '/' + localStorage.userId;
 
-        return requester.get(url, headersToSend);
-    }
+            return app.requester.get(url, headersToSend);
+        }
 
-    addRecipeToFavorites(recipe) {
-        let headersToSend = headers.getKinveyHeaders(true, true),
-            userUrl = `${kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
+        addRecipeToFavorites(recipe) {
+            let headersToSend = app.headers.getKinveyHeaders(true, true),
+                userUrl = `${app.kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
 
-        return requester
-            .get(userUrl, headersToSend)
-            .then(response => {
-                let oldRecipes = response.favoriteRecipes;
+            return app.requester
+                .get(userUrl, headersToSend)
+                .then(response => {
+                    let oldRecipes = response.favoriteRecipes;
 
-                oldRecipes.push(recipe);
-                let updatedRecipes = {
-                    "favoriteRecipes": oldRecipes,
-                    "likedRecipes": response.likedRecipes
-                };
-
-                return requester.put(userUrl, headersToSend, updatedRecipes);
-            });
-    }
-
-    removeRecipeFromFavorites(recipe) {
-        let headersToSend = headers.getKinveyHeaders(true, true),
-            userUrl = `${kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
-
-        return requester
-            .get(userUrl, headersToSend)
-            .then(response => {
-                let oldRecipes = response.favoriteRecipes;
-                let indexToRemove = -1;
-                let len = oldRecipes.length;
-
-                for(let i = 0; i < len; i += 1) {
-                    if (oldRecipes[i].id == recipe.id) {
-                        indexToRemove = i;
-                    }
-                }
-                //console.log(indexToRemove);
-                if (indexToRemove > -1) {
-                    oldRecipes.splice(indexToRemove, 1);
+                    oldRecipes.push(recipe);
                     let updatedRecipes = {
                         "favoriteRecipes": oldRecipes,
                         "likedRecipes": response.likedRecipes
                     };
 
-                    return requester.put(userUrl, headersToSend, updatedRecipes);
-                }
-                return;    
-            });
+                    return app.requester.put(userUrl, headersToSend, updatedRecipes);
+                });
+        }
+
+        removeRecipeFromFavorites(recipe) {
+            let headersToSend = app.headers.getKinveyHeaders(true, true),
+                userUrl = `${app.kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
+
+            return app.requester
+                .get(userUrl, headersToSend)
+                .then(response => {
+                    let oldRecipes = response.favoriteRecipes;
+                    let indexToRemove = -1;
+                    let len = oldRecipes.length;
+
+                    for (let i = 0; i < len; i += 1) {
+                        if (oldRecipes[i].id == recipe.id) {
+                            indexToRemove = i;
+                        }
+                    }
+
+                    if (indexToRemove > -1) {
+                        oldRecipes.splice(indexToRemove, 1);
+                        let updatedRecipes = {
+                            "favoriteRecipes": oldRecipes,
+                            "likedRecipes": response.likedRecipes
+                        };
+
+                        return app.requester.put(userUrl, headersToSend, updatedRecipes);
+                    }
+
+                    return;
+                });
+        }
+
+        addRecipeToLikes(recipe) {
+            let headersToSend = app.headers.getKinveyHeaders(true, true),
+                userUrl = `${app.kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
+
+            return app.requester
+                .get(userUrl, headersToSend)
+                .then(response => {
+                    let oldRecipes = response.likedRecipes;
+
+                    oldRecipes.push(recipe);
+
+                    let updatedRecipes = {
+                        "likedRecipes": oldRecipes,
+                        "favoriteRecipes": response.favoriteRecipes
+                    };
+
+                    return app.requester.put(userUrl, headersToSend, updatedRecipes);
+                });
+
+        }
+
+        getUserFavoriteRecipes() {
+            let headersToSend = app.headers.getKinveyHeaders('false', true),
+                userUrl = `${app.kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
+
+            return app.requester.get(userUrl, headersToSend);
+        }
+
+        getUserLikedRecipes() {
+            let headersToSend = app.headers.getKinveyHeaders('false', true),
+                userUrl = `${app.kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
+
+            return app.requester.get(userUrl, headersToSend);
+        }
+
+        getFoundUserFavourites(userId) {
+            let headersToSend = app.headers.getKinveyHeaders('false', true),
+                userUrl = `${app.kinveyUrls.KINVEY_USER_URL}/${userId}`;
+
+            return app.requester.get(userUrl, headersToSend);
+        }
     }
 
-    addRecipeToLikes(recipe){
-        let headersToSend = headers.getKinveyHeaders(true,true),
-            userUrl = `${kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
-
-        return requester
-            .get(userUrl, headersToSend)
-            .then(response => {
-                let oldRecipes = response.likedRecipes;
-
-                oldRecipes.push(recipe);
-
-                let updatedRecipes = {
-                    "likedRecipes" : oldRecipes,
-                    "favoriteRecipes": response.favoriteRecipes
-                };
-
-                return requester.put(userUrl, headersToSend, updatedRecipes);
-            });
-
-    }
-
-    getUserFavoriteRecipes() {
-        let headersToSend = headers.getKinveyHeaders('false', true),
-            userUrl = `${kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
-
-        return requester.get(userUrl, headersToSend);
-    }
-
-    getUserLikedRecipes(){
-        let headersToSend = headers.getKinveyHeaders('false' , true),
-            userUrl = `${kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
-
-        return requester.get(userUrl, headersToSend);
-    }
-
-    getFoundUserFavourites(userId) {
-        let headersToSend = headers.getKinveyHeaders('false' , true),
-            userUrl = `${kinveyUrls.KINVEY_USER_URL}/${userId}`;
-
-        return requester.get(userUrl, headersToSend);
-    }
-}
-
-let userModel = new UserModel();
-export {userModel};
+    app.userModel = new UserModel();
+} ());
