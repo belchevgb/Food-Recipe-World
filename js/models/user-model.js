@@ -3,7 +3,7 @@ var app = app || {};
 (function () {
     'use strict';
 
-    class UserModel {
+  class UserModel {
         registerUser(data) {
             let headersToSend = app.headers.getKinveyHeaders(true, false);
             return app.requester.post(app.kinveyUrls.KINVEY_REGISTER_USER_URL, headersToSend, data);
@@ -92,6 +92,13 @@ var app = app || {};
                 .get(userUrl, headersToSend)
                 .then(response => {
                     let oldRecipes = response.likedRecipes;
+                   
+                    let len = oldRecipes.length;
+                    for (var i = 0; i < len; i += 1) {
+                        if (oldRecipes[i].id === recipe.id) {
+                            oldRecipes.splice(i, 1);
+                        }
+                    }
 
                     oldRecipes.push(recipe);
 
@@ -128,4 +135,4 @@ var app = app || {};
     }
 
     app.userModel = new UserModel();
-} ());
+}());

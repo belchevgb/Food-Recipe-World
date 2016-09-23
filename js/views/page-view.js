@@ -327,14 +327,15 @@ var app = app || {};
         }
 
         addNewRecipes(selector, data) {
+            console.log($('.btn.btn-warning.btn-just-icon.btn-add-favorite').events);
             return $.get('templates/home-recipes.handlebars', htmlTempalte => {
                 let $selectedElement = $(selector),
                     template = Handlebars.compile(htmlTempalte),
                     html = template(data),
                     $body = $('body');
 
-                $body.off('click', '.btn-like');
-                $body.off('click', '.btn-add-favorite');
+                $('.btn.btn-primary.btn-just-icon.btn-like').off();
+                $('.btn.btn-warning.btn-just-icon.btn-add-favorite').off();
                 $selectedElement.append(html);
                 addToFavoritesEvent();
                 addToLikesEvent();
