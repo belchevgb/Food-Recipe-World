@@ -9,7 +9,9 @@ var app = app || {};
         LOGIN_FAILED = 'Login failed. Please try again.',
         EMPTY_RECIPE_SEARCH = 'Please enter something to search for.',
         RECIPE_BY_ID_WASNT_FOUND = 'The recipe could not be found. Please try again.',
-        NOT_FOUND_FAVOURITE_RECIPES = 'There aren\'t any favourite recipes!';
+        NOT_FOUND_FAVOURITE_RECIPES = 'There aren\'t any favourite recipes!',
+        UNAUTHORISED_ACTION = "Unauthorised action!";
+
 
     // SUCCESS MESSAGES
     let REGISTRATION_SUCCESSFUL = 'Registration successful!',
@@ -27,6 +29,7 @@ var app = app || {};
         EMPTY_RECIPE_SEARCH,
         RECIPE_BY_ID_WASNT_FOUND,
         NOT_FOUND_FAVOURITE_RECIPES,
+        UNAUTHORISED_ACTION,
 
         REGISTRATION_SUCCESSFUL,
         LOGIN_SUCCESSFUL,

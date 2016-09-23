@@ -54,7 +54,7 @@ var app = app || {};
         $('#search-recipe-btn-normal').on('click', function () {
             let searchRecipeQuery = $('#search-recipe-query').val() || "",
                 searchRecipeDiet = $('#search-recipe-diet').val() || "",
-                searchRecipeNumberOfRecipes = $('#search-recipe-numberOfRecipes').val(),
+                searchRecipeNumberOfRecipes = $('#search-recipe-numberOfRecipes').val() || 10,
                 searchRecipeCuisine = $('#search-recipe-cuisine').val() || "";
 
             app.reasultOfRecipeSearch = {
@@ -71,8 +71,7 @@ var app = app || {};
         });
     }
 
-
-    function getInstructionsForSearchedRecipe() {
+    function getInstructionsForSearchedRecipeEvent() {
         $('#get-instruction').on('click', '.btn.btn-info.btn-round.recipe-buttons',
             function (event) {
                 let recipeId = $(event.target).data('recipe-id');
@@ -149,9 +148,9 @@ var app = app || {};
         });
     }
 
-    function showUserLikedRecipes(){
-        $('#btn-liked').on('click',function(){
-            Sammy(function(){
+    function showUserLikedRecipes() {
+        $('#btn-liked').on('click', function () {
+            Sammy(function () {
                 this.trigger('showLikedRecipes');
             })
         })
@@ -172,6 +171,7 @@ var app = app || {};
     }
 
     class PageView {
+
         showHomePage(context, selector, data) {
             let $selectedElement = $(selector);
 
@@ -191,7 +191,7 @@ var app = app || {};
                     detectBottomOfThePage();
 
                     if (!localStorage.authKey) {
-                        $recipeSearchContainer.hide();   
+                        $recipeSearchContainer.hide();
                     } else {
                         $recipeSearchContainer.show();
                     }
@@ -223,7 +223,7 @@ var app = app || {};
                         html = template(data);
 
                     $selectedElement.append(html);
-                    getInstructionsForSearchedRecipe();
+                    getInstructionsForSearchedRecipeEvent();
                     addToFavoritesEvent();
                     removeDetectionOfTheBottom();
                     //todo reset form data
@@ -296,6 +296,17 @@ var app = app || {};
         }
 
         showFoundUsersPage(selector, data) {
+
+            if (!data) {
+                app.notificator.showNotification(app.messages.UNAUTHORISED_ACTION, "error");
+
+                Sammy(function () {
+                    this.trigger('redirectToUrl', app.appUrls.BASE_URL);
+                });
+
+                return;
+            };
+
             data = {
                 users: data
             };
@@ -361,7 +372,7 @@ var app = app || {};
             });
         }
 
-        showLikedRecipes(selector, data){
+        showLikedRecipes(selector, data) {
             return $.get('templates/display-liked-recipes.handlebars', function (htmlTemplate) {
                 let $selectedElement = $(selector),
                     recipesToShow = {
@@ -398,4 +409,4 @@ var app = app || {};
     }
 
     app.pageView = new PageView();
-} ());
+}());
