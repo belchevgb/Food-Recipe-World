@@ -3,9 +3,9 @@ var app = app || {};
 (function () {
     'use strict';
 
-    let MAIN_CONTENT_SELECTOR = '#content',
-        MAIN_NAVIGATION_SELECTOR = '#main-navigation',
-        MAIN_RECIPE_SEARCH_MENU_SELECTOR = '#recipe-search';
+    const MAIN_CONTENT_SELECTOR = '#content',
+          MAIN_NAVIGATION_SELECTOR = '#main-navigation',
+          MAIN_RECIPE_SEARCH_MENU_SELECTOR = '#recipe-search';
 
     function loadHeader(context, data) {
         if (localStorage.authKey) {
@@ -52,6 +52,9 @@ var app = app || {};
                 .getUserData()
                 .then(response => {
                     app.pageController.loadProfilePage(MAIN_CONTENT_SELECTOR, response);
+                })
+                .then(() => {
+                    this.trigger('showFavoriteRecipes');
                 });
         });
 
@@ -119,12 +122,13 @@ var app = app || {};
         });
 
         this.bind('showLikedRecipes', function (event) {
-            app.userController.getUserLikedRecipes().then(response => {
-                let recipes = response.likedRecipes,
-                    likedRecipesSelector = '#favorite-recipes-container';
+            app.userController.getUserLikedRecipes()
+                .then(response => {
+                    let recipes = response.likedRecipes,
+                        likedRecipesSelector = '#favorite-recipes-container';
 
-                app.pageController.loadLikedRecipes(likedRecipesSelector, recipes);
-            })
+                    app.pageController.loadLikedRecipes(likedRecipesSelector, recipes);
+                });
         });
 
         this.bind('loadMoreRecipes', function (event) {
@@ -155,4 +159,4 @@ var app = app || {};
     });
 
     router.run(app.appUrls.BASE_URL);
-} ());
+}());

@@ -21,16 +21,26 @@ var app = app || {};
         }
 
         loadRecipeSearchResult(selector, data) {
+            console.log(data);
+            if (!data) {
+                app.notificator.showNotification(app.messages.UNAUTHORISED_ACTION, "error");
+
+                Sammy(function() {
+                    this.trigger('redirectToUrl', app.appUrls.BASE_URL);
+                });
+
+                return;
+            }
             app.recipeModel
                 .getRecipes(data)
                 .then(response => {
                     return app.pageView.showRecipeSearchResult(selector, response);
                 })
-                .then(success => {
-                    setTimeout(function () {
-                        $loader.fadeOut(500);
-                    }, 1000);
-                });
+            .then(success => {
+                setTimeout(function () {
+                    $loader.fadeOut(500);
+                }, 1000);
+            });
         }
 
         loadSearchedRecipeById(data) {
@@ -85,14 +95,14 @@ var app = app || {};
                 });
         }
 
-        loadLikedRecipes(selector, data){
+        loadLikedRecipes(selector, data) {
             $loader.show();
             return app.pageView.showLikedRecipes(selector, data)
                     .then(success => {
                         setTimeout(function () {
-                        $loader.fadeOut(500);
-                    }, 1000);
-                });
+                            $loader.fadeOut(500);
+                        }, 1000);
+                    });
         }
 
 
@@ -107,4 +117,4 @@ var app = app || {};
     }
 
     app.pageController = new PageController();
-} ());
+}());
