@@ -115,6 +115,17 @@ var app = app || {};
         });
     }
 
+    function removeFromLikesEvent() {
+        $('.btn-dislike').on('click', function () {
+            let recipeId = $(this).attr('recipe-id');
+            console.log('fired');
+            Sammy(function () {
+                app.notificator.showNotification(app.messages.RECIPE_REMOVED_FROM_LIKES, 'success');
+                this.trigger('removeRecipeFromLikes', recipeId);
+            });
+        });
+    }
+
     function detectBottomOfThePage() {
         $(window).scroll(function () {
             let currentWindowHeight = $(window).scrollTop() + $(window).height(),
@@ -373,7 +384,7 @@ var app = app || {};
 
                 $selectedElement.empty();
                 $selectedElement.append(html);
-                removeFromFavoritesEvent();
+                removeFromLikesEvent();
                 removeDetectionOfTheBottom();
             });
         }

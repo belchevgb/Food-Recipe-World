@@ -110,6 +110,15 @@ var app = app || {};
                 });
         });
 
+        this.bind('removeRecipeFromLikes', function (event, data) {
+            app.recipeController.getRecipeById(data)
+                .then(response => {
+                    return app.userController.removeRecipeFromLikes(response);
+                }).then(response => {
+                    this.trigger('showLikedRecipes');
+                });
+        });
+
         this.bind('showFavoriteRecipes', function (event) {
             app.userController
                 .getUserFavoriteRecipes()

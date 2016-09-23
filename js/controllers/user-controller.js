@@ -77,6 +77,10 @@
             return app.userModel.addRecipeToLikes(recipe);
         }
 
+        removeRecipeFromLikes(recipe) {
+            return app.userModel.removeRecipeFromLikes(recipe);
+        }
+
         getUserFavoriteRecipes() {
             return app.userModel.getUserFavoriteRecipes();
         }
