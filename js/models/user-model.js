@@ -105,6 +105,37 @@ var app = app || {};
 
         }
 
+        removeRecipeFromLikes(recipe) {
+            let headersToSend = app.headers.getKinveyHeaders(true, true),
+                userUrl = `${app.kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;
+
+            return app.requester
+                .get(userUrl, headersToSend)
+                .then(response => {
+                    let oldRecipes = response.likedRecipes;
+                    let indexToRemove = -1;
+                    let len = oldRecipes.length;
+
+                    for (let i = 0; i < len; i += 1) {
+                        if (oldRecipes[i].id == recipe.id) {
+                            indexToRemove = i;
+                        }
+                    }
+                    
+                    if (indexToRemove > -1) {
+                        oldRecipes.splice(indexToRemove, 1);
+                        let updatedRecipes = {
+                            "likedRecipes": oldRecipes,
+                            "favoriteRecipes": response.favoriteRecipes
+                        };
+
+                        return app.requester.put(userUrl, headersToSend, updatedRecipes);
+                    }
+
+                    return;
+                });
+        }
+
         getUserFavoriteRecipes() {
             let headersToSend = app.headers.getKinveyHeaders('false', true),
                 userUrl = `${app.kinveyUrls.KINVEY_USER_URL}/${localStorage.userId}`;

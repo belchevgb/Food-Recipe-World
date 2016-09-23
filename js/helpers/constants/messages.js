@@ -17,7 +17,8 @@ var app = app || {};
         LOGOUT_SUCCESSFUL = 'Logout successful!',
         RECIPE_ADDED_TO_FAVORITES = 'The recipe was added successfuly to Favorites!',
         RECIPE_REMOVED_FROM_FAVORITES = 'The recipe was successfully removed from Favorites!',
-        RECIPE_ADDED_TO_LIKES = 'This recipe was liked and added to Liked list in your profile!';
+        RECIPE_ADDED_TO_LIKES = 'This recipe was liked and added to Liked list in your profile!',
+        RECIPE_REMOVED_FROM_LIKES = 'The recipe was successfully removed from Liked!';
 
     app.messages = {
         INVALID_CONFIRM_PASSWORD,
@@ -32,6 +33,7 @@ var app = app || {};
         LOGOUT_SUCCESSFUL,
         RECIPE_ADDED_TO_FAVORITES,
         RECIPE_REMOVED_FROM_FAVORITES,
-        RECIPE_ADDED_TO_LIKES
+        RECIPE_ADDED_TO_LIKES,
+        RECIPE_REMOVED_FROM_LIKES
     };
 } ());
