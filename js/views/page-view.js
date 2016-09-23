@@ -138,6 +138,14 @@ var app = app || {};
         });
     }
 
+    function showUserLikedRecipes(){
+        $('#btn-liked').on('click',function(){
+            Sammy(function(){
+                this.trigger('showLikedRecipes');
+            })
+        })
+    }
+
     function showOtherUserFavouriteRecipesEvent() {
         $('#btn-user-favourites').on('click', function () {
             let userId = $('#username-container').attr('user-id');
@@ -302,6 +310,7 @@ var app = app || {};
                 $selectedElement.empty();
                 $selectedElement.append(html);
                 showUserFavoriteRecipes();
+                showUserLikedRecipes();
                 removeDetectionOfTheBottom();
             });
         }
@@ -327,6 +336,22 @@ var app = app || {};
 
         showFavoriteRecipes(selector, data) {
             return $.get('templates/display-favorite-recipes.handlebars', function (htmlTemplate) {
+                let $selectedElement = $(selector),
+                    recipesToShow = {
+                        recipes: data
+                    },
+                    template = Handlebars.compile(htmlTemplate),
+                    html = template(recipesToShow);
+
+                $selectedElement.empty();
+                $selectedElement.append(html);
+                removeFromFavoritesEvent();
+                removeDetectionOfTheBottom();
+            });
+        }
+
+        showLikedRecipes(selector, data){
+            return $.get('templates/display-liked-recipes.handlebars', function (htmlTemplate) {
                 let $selectedElement = $(selector),
                     recipesToShow = {
                         recipes: data

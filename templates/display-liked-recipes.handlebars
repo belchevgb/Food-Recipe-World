@@ -1,0 +1,102 @@
+<div id="guest-recipe-container" class="col-md-12">
+
+    <div class="row">
+        {{#each recipes}}
+        <div class="col-md-offset-2 col-md-8">
+            <div class="thumbnail box">
+                <div class="ribbon"><span>Liked</span></div>
+                <div class="caption">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="text-center">{{this.title}}</h3>
+                            <p class="text-center">
+                                <button class="btn {{#if this.veryHealthy}}btn-success{{else}}btn-danger{{/if}} btn-just-icon recipe-status">
+                                    <i class="material-icons">favorite</i>
+                                </button>
+
+                                <button class="btn {{#if this.vegetarian}}btn-success{{else}}btn-danger{{/if}} btn-just-icon recipe-status">
+                                    <img src="../images/vegetable-icon.png" alt="Vegetarian" class="recipe-status-icon">
+                                </button>
+
+                                <button class="btn btn-warning btn-just-icon recipe-status servings-btn">
+                                    <img src="../images/servings-icon.png" alt="Servings" class="recipe-status-icon">
+                                    <span class="servings-icon">{{this.servings}}</span>
+                                </button>
+
+                                {{#if this.readyInMinutes}}
+                                <button class="btn btn-success btn-just-icon recipe-status servings-btn">
+                                    <img src="../images/timer-icon.png" alt="Ready in time" class="recipe-status-icon" />
+                                    <span class="servings-icon">{{this.readyInMinutes}}m</span>
+                                </button>
+                                {{/if}}
+                                
+                                <div class="text-center">
+                                    <button class="btn btn-danger" recipe-id="{{this.id}}">
+                                        <i class="material-icons">thumb_down</i>
+                                        <span class="text-normalize">Dislike</span>
+                                    </button>
+                                    <!--<button class="btn btn-primary btn-just-icon btn-like" recipe-id="{{this.id}}"> 
+                                        <i class="material-icons">thumb_up</i> 
+                                        <span class="text-normalize">Like</span>
+                                    </button>-->
+                                </div>
+                            </p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <img alt="{{this.title}}" class="img-responsive img-thumbnail img-recipe" src="{{this.image}}" data-holder-rendered="true">
+                        </div>
+                    </div>
+
+                    <div class="panel-group" id="accordion-{{this.id}}" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="Ingredients">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion-{{this.id}}" href="#ingredients-{{this.id}}" aria-expanded="false" aria-controls="Ingredients">
+                                        Ingredients
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="ingredients-{{this.id}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="Ingredients">
+                                <div class="panel-body">
+                                    <ul class="with-tick">
+                                        {{#each this.extendedIngredients}}
+                                        <li>{{originalString}}</li>
+                                        {{/each}}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="Instructions">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion-{{this.id}}" href="#Instructions-{{this.id}}" aria-expanded="false" aria-controls="Instructions">
+                                        Instructions
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="Instructions-{{this.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="Instructions">
+                                <div class="panel-body">
+                                    {{#if this.instructions}}
+                                    <p>{{this.instructions}}</p>
+                                    {{else}}
+                                    <div class="alert alert-warning">
+                                        <div class="container-fluid">
+                                            <div class="alert-icon">
+                                                <i class="material-icons">warning</i>
+                                            </div>
+                                            <strong>We're sorry!</strong> The server has no instructions for this recipe.
+                                        </div>
+                                    </div>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+

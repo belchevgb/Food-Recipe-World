@@ -119,7 +119,12 @@ var app = app || {};
         });
 
         this.bind('showLikedRecipes', function (event) {
+            app.userController.getUserLikedRecipes().then(response => {
+                let recipes = response.likedRecipes,
+                    likedRecipesSelector = '#favorite-recipes-container';
 
+                app.pageController.loadLikedRecipes(likedRecipesSelector, recipes);
+            })
         });
 
         this.bind('loadMoreRecipes', function (event) {

@@ -85,6 +85,18 @@ var app = app || {};
                 });
         }
 
+        loadLikedRecipes(selector, data){
+            $loader.show();
+            return app.pageView.showLikedRecipes(selector, data)
+                    .then(success => {
+                        setTimeout(function () {
+                        $loader.fadeOut(500);
+                    }, 1000);
+                });
+        }
+
+
+
         addNewRecipes(selector, data) {
             return app.pageView.addNewRecipes(selector, data);
         }
