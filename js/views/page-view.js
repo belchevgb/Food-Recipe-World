@@ -171,7 +171,6 @@ var app = app || {};
     }
 
     class PageView {
-
         showHomePage(context, selector, data) {
             let $selectedElement = $(selector);
 
@@ -305,11 +304,9 @@ var app = app || {};
                 });
 
                 return;
-            };
+            }
 
-            data = {
-                users: data
-            };
+            data = { users: data };
 
             $.get('templates/found-users.handlebars', function (htmlTemplate) {
                 let $selectedElement = $(selector),

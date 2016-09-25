@@ -4,8 +4,8 @@ var app = app || {};
     'use strict';
 
     const MAIN_CONTENT_SELECTOR = '#content',
-          MAIN_NAVIGATION_SELECTOR = '#main-navigation',
-          MAIN_RECIPE_SEARCH_MENU_SELECTOR = '#recipe-search';
+        MAIN_NAVIGATION_SELECTOR = '#main-navigation',
+        MAIN_RECIPE_SEARCH_MENU_SELECTOR = '#recipe-search';
 
     function loadHeader(context, data) {
         if (localStorage.authKey) {
@@ -19,6 +19,25 @@ var app = app || {};
         if (localStorage.authKey) {
             app.pageController.loadRecipeSearchMenu(context, selector);
         }
+    }
+
+    function loadProfilePage() {
+        $('#loader-wrapper').show();
+        app.userController
+            .getUserData()
+            .then(response => {
+                app.pageController.loadProfilePage(MAIN_CONTENT_SELECTOR, response);
+            })
+            .then(() => {
+                return app.userController.getUserFavoriteRecipes();
+            })
+            .then(response => {
+                let recipes = response.favoriteRecipes,
+                    favoriteRecipesSelector = '#favorite-recipes-container';
+
+                return app.pageController.loadFavoriteRecipes(favoriteRecipesSelector, recipes, false);
+            })
+            .then(() => $('#loader-wrapper').fadeOut(1500));
     }
 
     let router = new Sammy(function () {
@@ -47,15 +66,8 @@ var app = app || {};
             app.pageController.loadFoundUsersPage(MAIN_CONTENT_SELECTOR, app.foundUsers);
         });
 
-        this.get(app.appUrls.PROFILE_URL, function (content) {
-            app.userController
-                .getUserData()
-                .then(response => {
-                    app.pageController.loadProfilePage(MAIN_CONTENT_SELECTOR, response);
-                })
-                .then(() => {
-                    this.trigger('showFavoriteRecipes');
-                });
+        this.get(app.appUrls.PROFILE_URL, function (context) {
+            loadProfilePage();
         });
 
         this.get(app.appUrls.FOUND_RECIPES_URL, function () {
@@ -126,7 +138,7 @@ var app = app || {};
                     let recipes = response.favoriteRecipes,
                         favoriteRecipesSelector = '#favorite-recipes-container';
 
-                    app.pageController.loadFavoriteRecipes(favoriteRecipesSelector, recipes);
+                    app.pageController.loadFavoriteRecipes(favoriteRecipesSelector, recipes, true);
                 });
         });
 
@@ -168,4 +180,4 @@ var app = app || {};
     });
 
     router.run(app.appUrls.BASE_URL);
-}());
+} ());

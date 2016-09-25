@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/material-kit.css"> 
+    <link rel="stylesheet" href="styles/material-kit.css">
     <link rel="stylesheet" href="./bower_components/toastr/toastr.min.css">
 
     <link rel="stylesheet" href="styles/loader.css">
@@ -26,21 +26,11 @@
     <script src="js/theme-scripts/bootstrap.min.js"></script>
     <script src="js/theme-scripts/material.min.js"></script>
     <script src="js/theme-scripts/material-kit.js"></script>
+    <script src="js/third-party/share-facebook.js"></script>
 </head>
 
 <body>
     <div id="fb-root"></div>
-    <script>
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.7&appId=367117653332419";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
-
-
     <div id="loader-wrapper">
         <div id="loader"></div>
 
@@ -65,13 +55,9 @@
 
     <header id="main-navigation"></header>
 
-    <div id="recipe-search">
+    <div id="recipe-search"></div>
 
-    </div>
-
-    <div id="content">
-
-    </div>
+    <div id="content"></div>
 
     <!-- Libraries -->
     <script src="./bower_components/cryptojslib/rollups/sha1.js"></script>
