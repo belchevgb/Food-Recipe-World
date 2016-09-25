@@ -25,7 +25,7 @@ var app = app || {};
             if (!data) {
                 app.notificator.showNotification(app.messages.UNAUTHORISED_ACTION, "error");
 
-                Sammy(function() {
+                Sammy(function () {
                     this.trigger('redirectToUrl', app.appUrls.BASE_URL);
                 });
 
@@ -36,11 +36,11 @@ var app = app || {};
                 .then(response => {
                     return app.pageView.showRecipeSearchResult(selector, response);
                 })
-            .then(success => {
-                setTimeout(function () {
-                    $loader.fadeOut(500);
-                }, 1000);
-            });
+                .then(success => {
+                    setTimeout(function () {
+                        $loader.fadeOut(500);
+                    }, 1000);
+                });
         }
 
         loadSearchedRecipeById(data) {
@@ -77,32 +77,32 @@ var app = app || {};
 
         loadProfilePage(selector, data) {
             $loader.show();
-            return app.pageView.showProfilePage(selector, data)
-                .then(success => {
-                    setTimeout(function () {
-                        $loader.fadeOut(500);
-                    }, 1000);
-                });
+            return app.pageView.showProfilePage(selector, data);
         }
 
-        loadFavoriteRecipes(selector, data) {
-            $loader.show();
+        loadFavoriteRecipes(selector, data, showLoader) {
+            if (showLoader) {
+                $loader.show();
+            }
+
             return app.pageView.showFavoriteRecipes(selector, data)
                 .then(success => {
-                    setTimeout(function () {
-                        $loader.fadeOut(500);
-                    }, 1000);
+                    if (showLoader) {
+                        setTimeout(function () {
+                            $loader.fadeOut(500);
+                        }, 1000);
+                    }
                 });
         }
 
         loadLikedRecipes(selector, data) {
             $loader.show();
             return app.pageView.showLikedRecipes(selector, data)
-                    .then(success => {
-                        setTimeout(function () {
-                            $loader.fadeOut(500);
-                        }, 1000);
-                    });
+                .then(success => {
+                    setTimeout(function () {
+                        $loader.fadeOut(500);
+                    }, 1000);
+                });
         }
 
 
@@ -117,4 +117,4 @@ var app = app || {};
     }
 
     app.pageController = new PageController();
-}());
+} ());
