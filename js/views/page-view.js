@@ -118,7 +118,6 @@ var app = app || {};
     function removeFromLikesEvent() {
         $('.btn-dislike').on('click', function () {
             let recipeId = $(this).attr('recipe-id');
-            console.log('fired');
             Sammy(function () {
                 app.notificator.showNotification(app.messages.RECIPE_REMOVED_FROM_LIKES, 'success');
                 this.trigger('removeRecipeFromLikes', recipeId);
@@ -174,8 +173,8 @@ var app = app || {};
 
         showHomePage(context, selector, data) {
             let $selectedElement = $(selector);
-
             $selectedElement.empty();
+            data.username = localStorage.username;
             return $.get('templates/home-recipes.handlebars',
                 htmlTemplate => {
                     let template = Handlebars.compile(htmlTemplate),
@@ -338,7 +337,7 @@ var app = app || {};
         }
 
         addNewRecipes(selector, data) {
-            console.log($('.btn.btn-warning.btn-just-icon.btn-add-favorite').events);
+            data.username = localStorage.username;
             return $.get('templates/home-recipes.handlebars', htmlTempalte => {
                 let $selectedElement = $(selector),
                     template = Handlebars.compile(htmlTempalte),
