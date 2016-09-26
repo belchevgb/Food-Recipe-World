@@ -70,9 +70,75 @@ var app = app || {};
             loadProfilePage();
         });
 
+        //this.get(`${app.appUrls.FOUND_RECIPES_URL}\/(.*)\/|\/(.*)\/`,
+        //   function () {
+
+        //       var params = this.params['splat'][1].split("/");
+
+        //       //TODO: must fix this *qualifier* ...
+        //       var data = {
+        //           searchRecipeQuery: params[0 + 2],
+        //           searchRecipeDiet: params[1 + 2] || "",
+        //           searchRecipeCuisine: params[2 + 2] || "",
+        //           searchRecipeNumberOfRecipes: params[3 + 2] || 10
+        //       }
+        //       app.pageController.loadRecipeSearchResult(MAIN_CONTENT_SELECTOR, data);
+
+        //   });
+
         this.get(app.appUrls.FOUND_RECIPES_URL, function () {
             app.pageController.loadRecipeSearchResult(MAIN_CONTENT_SELECTOR, app.reasultOfRecipeSearch);
         });
+
+        // START recipes search URLs
+        this.get(app.appUrls.FOUND_RECIPES_URL +
+            "/:searchRecipeQuery" +
+            "/:searchRecipeNumberOfRecipes",
+            function () {
+                let data = {
+                    searchRecipeQuery: this.params['searchRecipeQuery'],
+                    searchRecipeDiet: this.params['searchRecipeDiet'] || "",
+                    searchRecipeNumberOfRecipes: this.params['searchRecipeNumberOfRecipes'],
+                    searchRecipeCuisine: this.params['searchRecipeCuisine'] || ""
+
+                }
+
+                app.pageController.loadRecipeSearchResult(MAIN_CONTENT_SELECTOR, data);
+            });
+
+        this.get(app.appUrls.FOUND_RECIPES_URL +
+            "/:searchRecipeQuery" +
+            "/:searchRecipeDiet" +
+            "/:searchRecipeNumberOfRecipes",
+            function () {
+                let data = {
+                    searchRecipeQuery: this.params['searchRecipeQuery'],
+                    searchRecipeDiet: this.params['searchRecipeDiet'] || "",
+                    searchRecipeNumberOfRecipes: this.params['searchRecipeNumberOfRecipes'],
+                    searchRecipeCuisine: this.params['searchRecipeCuisine'] || ""
+
+                }
+
+                app.pageController.loadRecipeSearchResult(MAIN_CONTENT_SELECTOR, data);
+            });
+
+        this.get(app.appUrls.FOUND_RECIPES_URL +
+            "/:searchRecipeQuery" +
+            "/:searchRecipeDiet" +
+            "/:searchRecipeCuisine" +
+            "/:searchRecipeNumberOfRecipes",
+            function () {
+                let data = {
+                    searchRecipeQuery: this.params['searchRecipeQuery'],
+                    searchRecipeDiet: this.params['searchRecipeDiet'],
+                    searchRecipeNumberOfRecipes: this.params['searchRecipeNumberOfRecipes'],
+                    searchRecipeCuisine: this.params['searchRecipeCuisine']
+
+                }
+
+                app.pageController.loadRecipeSearchResult(MAIN_CONTENT_SELECTOR, data);
+            });
+        // END recipes search URLs
 
         // Events
         this.bind('redirectToUrl', function (event, url) {
@@ -180,4 +246,4 @@ var app = app || {};
     });
 
     router.run(app.appUrls.BASE_URL);
-} ());
+}());

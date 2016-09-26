@@ -52,21 +52,40 @@ var app = app || {};
 
     function recipeSearchEvent() {
         $('#search-recipe-btn-normal').on('click', function () {
-            let searchRecipeQuery = $('#search-recipe-query').val() || "",
-                searchRecipeDiet = $('#search-recipe-diet').val() || "",
+            let searchRecipeQuery = $('#search-recipe-query').val(),
+                searchRecipeDiet = $('#search-recipe-diet').val(),
                 searchRecipeNumberOfRecipes = $('#search-recipe-numberOfRecipes').val() || 10,
-                searchRecipeCuisine = $('#search-recipe-cuisine').val() || "";
+                searchRecipeCuisine = $('#search-recipe-cuisine').val();
+
 
             app.reasultOfRecipeSearch = {
-                searchRecipeQuery,
-                searchRecipeDiet,
-                searchRecipeNumberOfRecipes,
-                searchRecipeCuisine
+                searchRecipeQuery: searchRecipeQuery,
+                searchRecipeDiet: searchRecipeDiet || "",
+                searchRecipeNumberOfRecipes: searchRecipeNumberOfRecipes,
+                searchRecipeCuisine: searchRecipeCuisine || ""
             };
+
+            if (searchRecipeQuery.split(' ').length >= 1) {
+                searchRecipeQuery = searchRecipeQuery.replace(" ", "+");
+            }
+
+            if (searchRecipeCuisine.split(',').length >= 1) {
+                searchRecipeCuisine = searchRecipeCuisine.replace(" ", "+");
+                searchRecipeCuisine = searchRecipeCuisine.replace(",", "&");
+            }
 
             Sammy(function () {
                 $('#loader-wrapper').show();
-                this.trigger('redirectToUrl', '#/found-recipes');
+
+                if (searchRecipeQuery && searchRecipeDiet && searchRecipeCuisine) {
+                    this.trigger('redirectToUrl', `#/found-recipes/${searchRecipeQuery}/${searchRecipeDiet}/${searchRecipeCuisine}/${searchRecipeNumberOfRecipes}`);
+                } else if (searchRecipeQuery && searchRecipeCuisine) {
+                    this.trigger('redirectToUrl', `#/found-recipes/${searchRecipeQuery}/${searchRecipeCuisine}/${searchRecipeNumberOfRecipes}`);
+                } else if (searchRecipeQuery && searchRecipeDiet) {
+                    this.trigger('redirectToUrl', `#/found-recipes/${searchRecipeQuery}/${searchRecipeDiet}/${searchRecipeNumberOfRecipes}`);
+                } else if (searchRecipeQuery) {
+                    this.trigger('redirectToUrl', `#/found-recipes/${searchRecipeQuery}/${searchRecipeNumberOfRecipes}`);
+                }
             });
         });
     }
@@ -200,15 +219,14 @@ var app = app || {};
             let $selectedElement = $(selector);
 
             $selectedElement.empty();
-            return $.get('templates/home-recipes-search.handlebars',
-                htmTemplate => {
-                    let template = Handlebars.compile(htmTemplate),
-                        html = template(data);
+            return $.get('templates/home-recipes-search.handlebars', htmTemplate => {
+                let template = Handlebars.compile(htmTemplate),
+                    html = template(data);
 
-                    $selectedElement.append(html);
-                    recipeSearchEvent();
-                    removeDetectionOfTheBottom();
-                });
+                $selectedElement.append(html);
+                recipeSearchEvent();
+                removeDetectionOfTheBottom();
+            });
         }
 
         showRecipeSearchResult(selector, data) {
