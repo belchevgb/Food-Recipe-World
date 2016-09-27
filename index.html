@@ -2,92 +2,93 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+  <meta charset="UTF-8">
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
-    <title>Food World</title>
+  <title>Food World</title>
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="styles/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/material-kit.css">
-    <link rel="stylesheet" href="./bower_components/toastr/toastr.min.css">
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="styles/bootstrap.min.css">
+  <link rel="stylesheet" href="styles/material-kit.css">
+  <link rel="stylesheet" href="./bower_components/toastr/toastr.min.css">
 
-    <link rel="stylesheet" href="styles/loader.css">
-    <link rel="stylesheet" href="styles/common.css">
-    <link rel="stylesheet" href="styles/login-register.css">
-    <link rel="stylesheet" href="styles/guest-page-recipes.css">
-    <link rel="stylesheet" href="styles/mini-loader.css">
+  <link rel="stylesheet" href="styles/loader.css">
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/login-register.css">
+  <link rel="stylesheet" href="styles/guest-page-recipes.css">
+  <link rel="stylesheet" href="styles/mini-loader.css">
 
-    <!-- Scripts -->
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
-    <script src="js/theme-scripts/bootstrap.min.js"></script>
-    <script src="js/theme-scripts/material.min.js"></script>
-    <script src="js/theme-scripts/material-kit.js"></script>
-    <script src="js/third-party/share-facebook.js"></script>
+  <!-- Scripts -->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  <script src="js/theme-scripts/bootstrap.min.js"></script>
+  <script src="js/theme-scripts/material.min.js"></script>
+  <script src="js/theme-scripts/material-kit.js"></script>
+  <script src="js/third-party/share-facebook.js"></script>
 </head>
 
 <body>
-    <div id="fb-root"></div>
-    <div id="loader-wrapper">
-        <div id="loader"></div>
+  <div id="fb-root"></div>
+  <div id="loader-wrapper">
+    <div id="loader"></div>
 
-        <div class="loader-section section-left"></div>
-        <div class="loader-section section-right"></div>
-    </div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+  </div>
 
-    <div class="sk-circle" id="mini-loader">
-        <div class="sk-circle1 sk-child"></div>
-        <div class="sk-circle2 sk-child"></div>
-        <div class="sk-circle3 sk-child"></div>
-        <div class="sk-circle4 sk-child"></div>
-        <div class="sk-circle5 sk-child"></div>
-        <div class="sk-circle6 sk-child"></div>
-        <div class="sk-circle7 sk-child"></div>
-        <div class="sk-circle8 sk-child"></div>
-        <div class="sk-circle9 sk-child"></div>
-        <div class="sk-circle10 sk-child"></div>
-        <div class="sk-circle11 sk-child"></div>
-        <div class="sk-circle12 sk-child"></div>
-    </div>
+  <div class="sk-circle" id="mini-loader">
+    <div class="sk-circle1 sk-child"></div>
+    <div class="sk-circle2 sk-child"></div>
+    <div class="sk-circle3 sk-child"></div>
+    <div class="sk-circle4 sk-child"></div>
+    <div class="sk-circle5 sk-child"></div>
+    <div class="sk-circle6 sk-child"></div>
+    <div class="sk-circle7 sk-child"></div>
+    <div class="sk-circle8 sk-child"></div>
+    <div class="sk-circle9 sk-child"></div>
+    <div class="sk-circle10 sk-child"></div>
+    <div class="sk-circle11 sk-child"></div>
+    <div class="sk-circle12 sk-child"></div>
+  </div>
 
-    <header id="main-navigation"></header>
+  <header id="main-navigation"></header>
 
-    <div id="recipe-search"></div>
+  <div id="recipe-search"></div>
 
-    <div id="content"></div>
+  <div id="content"></div>
 
-    <!-- Libraries -->
-    <script src="./bower_components/cryptojslib/rollups/sha1.js"></script>
-    <script src="./bower_components/handlebars/handlebars.min.js"></script>
-    <script src="./bower_components/sammy/lib/min/sammy-latest.min.js"></script>
-    <script src="./bower_components/toastr/toastr.js"></script>
+  <!-- Libraries -->
+  <script src="./bower_components/cryptojslib/rollups/sha1.js"></script>
+  <script src="./bower_components/handlebars/handlebars.min.js"></script>
+  <script src="./bower_components/sammy/lib/min/sammy-latest.min.js"></script>
+  <script src="./bower_components/toastr/toastr.js"></script>
 
-    <!-- Helpers -->
-    <script src="./js/helpers/constants/app-keys.js"></script>
-    <script src="./js/helpers/constants/app-urls.js"></script>
-    <script src="./js/helpers/constants/kinvey-urls.js"></script>
-    <script src="./js/helpers/constants/messages.js"></script>
-    <script src="./js/helpers/constants/spoonacular-urls.js"></script>
-    <script src="./js/helpers/headers.js"></script>
-    <script src="./js/helpers/notificator.js"></script>
-    <script src="./js/helpers/requester.js"></script>
+  <!-- Helpers -->
+  <script src="./js/helpers/constants/app-keys.js"></script>
+  <script src="./js/helpers/constants/app-urls.js"></script>
+  <script src="./js/helpers/constants/kinvey-urls.js"></script>
+  <script src="./js/helpers/constants/messages.js"></script>
+  <script src="./js/helpers/constants/spoonacular-urls.js"></script>
+  <script src="./js/helpers/headers.js"></script>
+  <script src="./js/helpers/notificator.js"></script>
+  <script src="./js/helpers/requester.js"></script>
 
-    <!-- Models -->
-    <script src="./js/models/recipe-model.js"></script>
-    <script src="./js/models/user-model.js"></script>
+  <!-- Models -->
+  <script src="./js/models/recipe-model.js"></script>
+  <script src="./js/models/user-model.js"></script>
 
-    <!-- Views -->
-    <script src="./js/views/page-view.js"></script>
+  <!-- Views -->
+  <script src="./js/views/event-attacher.js"></script>
+  <script src="./js/views/page-view.js"></script>
 
-    <!-- Controllers -->
-    <script src="./js/controllers/page-controller.js"></script>
-    <script src="./js/controllers/user-controller.js"></script>
-    <script src="./js/controllers/recipe-controller.js"></script>
+  <!-- Controllers -->
+  <script src="./js/controllers/page-controller.js"></script>
+  <script src="./js/controllers/user-controller.js"></script>
+  <script src="./js/controllers/recipe-controller.js"></script>
 
-    <script src="./js/app.js"></script>
+  <script src="./js/app.js"></script>
 </body>
 
 </html>
