@@ -4,7 +4,7 @@ var app = app || {};
   'use strict'
 
   class Notificator {
-    showNotification(text, type) {
+    showNotification (text, type) {
       toastr.options.closeMethod = 'fadeOut'
       toastr.options.timeOut = 1000
 
@@ -17,4 +17,4 @@ var app = app || {};
   }
 
   app.notificator = new Notificator()
-} ());
+}())

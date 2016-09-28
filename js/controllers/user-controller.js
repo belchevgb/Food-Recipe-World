@@ -3,14 +3,14 @@ var app = app || {};
 (function () {
   'use strict'
 
-  function redirect(url) {
+  function redirect (url) {
     Sammy(function () {
       this.trigger('redirectToUrl', url)
     })
   }
 
   class UserController {
-    registerUser(data) {
+    registerUser (data) {
       app.userModel
         .registerUser(data)
         .then(success => {
@@ -23,7 +23,7 @@ var app = app || {};
         })
     }
 
-    loginUser(data) {
+    loginUser (data) {
       app.userModel
         .loginUser(data)
         .then(success => {
@@ -35,11 +35,11 @@ var app = app || {};
             redirect(app.appUrls.BASE_URL)
           }, 500)
         }, error => {
-          notificator.showNotification(app.messages.LOGIN_FAILED, 'error')
+          app.notificator.showNotification(app.messages.LOGIN_FAILED, 'error')
         })
     }
 
-    logoutUser() {
+    logoutUser () {
       app.userModel.logoutUser()
         .then(success => {
           localStorage.clear()
@@ -52,7 +52,7 @@ var app = app || {};
         })
     }
 
-    getFoundUser(selector, data) {
+    getFoundUser (selector, data) {
       app.userModel
         .findUser(data)
         .then(success => {
@@ -63,38 +63,38 @@ var app = app || {};
         })
     }
 
-    getUserData() {
+    getUserData () {
       return app.userModel.getUserData()
     }
 
-    addRecipeToFavorites(recipe) {
+    addRecipeToFavorites (recipe) {
       return app.userModel.addRecipeToFavorites(recipe)
     }
 
-    removeRecipeFromFavorites(recipe) {
+    removeRecipeFromFavorites (recipe) {
       return app.userModel.removeRecipeFromFavorites(recipe)
     }
 
-    addRecipeToLikes(recipe) {
+    addRecipeToLikes (recipe) {
       return app.userModel.addRecipeToLikes(recipe)
     }
 
-    removeRecipeFromLikes(recipe) {
+    removeRecipeFromLikes (recipe) {
       return app.userModel.removeRecipeFromLikes(recipe)
     }
 
-    getUserFavoriteRecipes() {
+    getUserFavoriteRecipes () {
       return app.userModel.getUserFavoriteRecipes()
     }
 
-    getUserLikedRecipes() {
+    getUserLikedRecipes () {
       return app.userModel.getUserLikedRecipes()
     }
 
-    getFoundUserFavourites(userId) {
+    getFoundUserFavourites (userId) {
       return app.userModel.getFoundUserFavourites(userId)
     }
   }
 
   app.userController = new UserController()
-} ())
+}())

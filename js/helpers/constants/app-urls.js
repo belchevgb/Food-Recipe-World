@@ -3,13 +3,13 @@ var app = app || {};
 (function () {
   'use strict'
 
-  let BASE_URL = '#/',
-    LOGIN_URL = '#/login',
-    REGISTER_URL = '#/register',
-    FRIENDS_URL = '#/friends',
-    FOUND_USERS_URL = '#/found-users',
-    PROFILE_URL = '#/profile',
-    FOUND_RECIPES_URL = '#/found-recipes'
+  let BASE_URL = '#/'
+  let LOGIN_URL = '#/login'
+  let REGISTER_URL = '#/register'
+  let FRIENDS_URL = '#/friends'
+  let FOUND_USERS_URL = '#/found-users'
+  let PROFILE_URL = '#/profile'
+  let FOUND_RECIPES_URL = '#/found-recipes'
 
   app.appUrls = {
     BASE_URL,
@@ -20,4 +20,4 @@ var app = app || {};
     PROFILE_URL,
     FOUND_RECIPES_URL
   }
-} ())
+}())

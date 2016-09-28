@@ -4,16 +4,16 @@ var app = app || {};
   'use strict'
 
   class PageView {
-    showHomePage(context, selector, data) {
+    showHomePage (context, selector, data) {
       let $selectedElement = $(selector)
       $selectedElement.empty()
       data.username = localStorage.username
       return $.get('templates/home-recipes.handlebars',
         htmlTemplate => {
-          let template = Handlebars.compile(htmlTemplate),
-            html = template(data),
-            $body = $('body'),
-            $recipeSearchContainer = $('#recipe-search')
+          let template = Handlebars.compile(htmlTemplate)
+          let html = template(data)
+          let $body = $('body')
+          let $recipeSearchContainer = $('#recipe-search')
 
           $selectedElement.append(html)
           $body.off('click', '.btn-like')
@@ -30,12 +30,12 @@ var app = app || {};
         })
     }
 
-    showRecipeSearchMenu(context, selector, data) {
+    showRecipeSearchMenu (context, selector, data) {
       let $selectedElement = $(selector)
       $selectedElement.empty()
       return $.get('templates/home-recipes-search.handlebars', htmTemplate => {
-        let template = Handlebars.compile(htmTemplate),
-          html = template(data)
+        let template = Handlebars.compile(htmTemplate)
+        let html = template(data)
 
         $selectedElement.append(html)
         app.eventAttacher.recipeSearchEvent()
@@ -43,13 +43,13 @@ var app = app || {};
       })
     }
 
-    showRecipeSearchResult(selector, data) {
+    showRecipeSearchResult (selector, data) {
       let $selectedElement = $(selector)
       $selectedElement.empty()
       return $.get('templates/home-recipes-search-results.handlebars',
         htmlTempalate => {
-          let template = Handlebars.compile(htmlTempalate),
-            html = template(data)
+          let template = Handlebars.compile(htmlTempalate)
+          let html = template(data)
 
           $selectedElement.append(html)
           app.eventAttacher.getInstructionsForSearchedRecipeEvent()
@@ -58,45 +58,45 @@ var app = app || {};
         })
     }
 
-    showSearchedRecipeInstuctions(data) {
-      let buttonToEdit = $("#btn-instructions-" + data.id),
-        $selectedElement = $("#btn-instructions-" + data.id)
+    showSearchedRecipeInstuctions (data) {
+      let buttonToEdit = $('#btn-instructions-' + data.id),
+        $selectedElement = $('#btn-instructions-' + data.id)
       return $.get('templates/disply-searched-recipe.handlebars', htmlTemplate => {
-          let template = Handlebars.compile(htmlTemplate),
-            html = template(data)
+        let template = Handlebars.compile(htmlTemplate)
+        let html = template(data)
 
-          $selectedElement.after(html)
-          buttonToEdit.remove()
-          app.eventAttacher.removeDetectionOfTheBottom()
-        })
+        $selectedElement.after(html)
+        buttonToEdit.remove()
+        app.eventAttacher.removeDetectionOfTheBottom()
+      })
     }
 
-    showMainNavigationWhenUserIsLoggedIn(context, selector, data) {
+    showMainNavigationWhenUserIsLoggedIn (context, selector, data) {
       let $selectedElement = $(selector)
       $selectedElement.empty()
 
       return $.get('templates/main-navigation-logged-in.handlebars', htmlTemplate => {
-          let template = Handlebars.compile(htmlTemplate),
-            html = template(data)
-          $selectedElement.append(html)
-          app.eventAttacher.logoutUserEvent(context)
-          app.eventAttacher.searchUsersEvent()
-        })
+        let template = Handlebars.compile(htmlTemplate)
+        let html = template(data)
+        $selectedElement.append(html)
+        app.eventAttacher.logoutUserEvent(context)
+        app.eventAttacher.searchUsersEvent()
+      })
     }
 
-    showMainNavigationWhenNoUserIsLoggedIn(context, selector, data) {
+    showMainNavigationWhenNoUserIsLoggedIn (context, selector, data) {
       let $selectedElement = $(selector)
       $selectedElement.empty()
       return $.get('templates/main-navigation-not-logged-in.handlebars',
         htmlTemplate => {
-          let template = Handlebars.compile(htmlTemplate),
-            html = template(data)
+          let template = Handlebars.compile(htmlTemplate)
+          let html = template(data)
 
           $selectedElement.append(html)
         })
     }
 
-    showLoginPage(context, selector) {
+    showLoginPage (context, selector) {
       let $selectedElement = $(selector)
       $selectedElement.empty()
       return $.get('templates/login.handlebars',
@@ -106,18 +106,18 @@ var app = app || {};
         })
     }
 
-    showRegisterPage(context, selector) {
+    showRegisterPage (context, selector) {
       let $selectedElement = $(selector)
       $selectedElement.empty()
-      return $.get('templates/register.handlebars',htmlTemplate => {
-          $selectedElement.append(htmlTemplate)
-          app.eventAttacher.registerUserEvent(context)
-        })
+      return $.get('templates/register.handlebars', htmlTemplate => {
+        $selectedElement.append(htmlTemplate)
+        app.eventAttacher.registerUserEvent(context)
+      })
     }
 
-    showFoundUsersPage(selector, data) {
+    showFoundUsersPage (selector, data) {
       if (!data) {
-        app.notificator.showNotification(app.messages.UNAUTHORISED_ACTION, "error")
+        app.notificator.showNotification(app.messages.UNAUTHORISED_ACTION, 'error')
         Sammy(function () {
           this.trigger('redirectToUrl', app.appUrls.BASE_URL)
         })
@@ -125,10 +125,10 @@ var app = app || {};
 
       data = { users: data }
 
-      $.get('templates/found-users.handlebars', htmlTempalate => {
-        let $selectedElement = $(selector),
-          template = Handlebars.compile(htmlTemplate),
-          html = template(data)
+      $.get('templates/found-users.handlebars', htmlTemplate => {
+        let $selectedElement = $(selector)
+        let template = Handlebars.compile(htmlTemplate)
+        let html = template(data)
 
         $selectedElement.empty()
         $selectedElement.append(html)
@@ -137,11 +137,11 @@ var app = app || {};
       })
     }
 
-    showProfilePage(selector, data) {
+    showProfilePage (selector, data) {
       return $.get('templates/profile.handlebars', htmlTemplate => {
-        let $selectedElement = $(selector),
-          template = Handlebars.compile(htmlTemplate),
-          html = template(data)
+        let $selectedElement = $(selector)
+        let template = Handlebars.compile(htmlTemplate)
+        let html = template(data)
 
         $selectedElement.empty()
         $selectedElement.append(html)
@@ -151,13 +151,13 @@ var app = app || {};
       })
     }
 
-    addNewRecipes(selector, data) {
+    addNewRecipes (selector, data) {
       data.username = localStorage.username
       return $.get('templates/home-recipes.handlebars', htmlTempalte => {
-        let $selectedElement = $(selector),
-          template = Handlebars.compile(htmlTempalte),
-          html = template(data),
-          $body = $('body')
+        let $selectedElement = $(selector)
+        let template = Handlebars.compile(htmlTempalte)
+        let html = template(data)
+        let $body = $('body')
 
         $('.btn.btn-primary.btn-just-icon.btn-like').off()
         $('.btn.btn-warning.btn-just-icon.btn-add-favorite').off()
@@ -167,18 +167,18 @@ var app = app || {};
       })
     }
 
-    hideMiniLoader() {
+    hideMiniLoader () {
       $('#mini-loader').fadeOut(700)
     }
 
-    showFavoriteRecipes(selector, data) {
+    showFavoriteRecipes (selector, data) {
       return $.get('templates/display-favorite-recipes.handlebars', htmlTemplate => {
-        let $selectedElement = $(selector),
-          recipesToShow = {
-            recipes: data
-          },
-          template = Handlebars.compile(htmlTemplate),
-          html = template(recipesToShow)
+        let $selectedElement = $(selector)
+        let recipesToShow = {
+          recipes: data
+        }
+        let template = Handlebars.compile(htmlTemplate)
+        let html = template(recipesToShow)
 
         $selectedElement.empty()
         $selectedElement.append(html)
@@ -187,14 +187,14 @@ var app = app || {};
       })
     }
 
-    showLikedRecipes(selector, data) {
-      return $.get('templates/display-liked-recipes.handlebars', htmlTempalate => {
-        let $selectedElement = $(selector),
-          recipesToShow = {
-            recipes: data
-          },
-          template = Handlebars.compile(htmlTemplate),
-          html = template(recipesToShow)
+    showLikedRecipes (selector, data) {
+      return $.get('templates/display-liked-recipes.handlebars', htmlTemplate => {
+        let $selectedElement = $(selector)
+        let recipesToShow = {
+          recipes: data
+        }
+        let template = Handlebars.compile(htmlTemplate)
+        let html = template(recipesToShow)
 
         $selectedElement.empty()
         $selectedElement.append(html)
@@ -203,15 +203,15 @@ var app = app || {};
       })
     }
 
-    showOtherUserFavourites(favouriteRecipes) {
-      return $.get('templates/home-recipes.handlebars', htmlTempalate => {
-        let $selectedElement = $('#content'),
-          recipesToShow = {
-            recipes: favouriteRecipes
-          },
-          template = Handlebars.compile(htmlTemplate),
-          html = template(recipesToShow),
-          $body = $('body')
+    showOtherUserFavourites (favouriteRecipes) {
+      return $.get('templates/home-recipes.handlebars', htmlTemplate => {
+        let $selectedElement = $('#content')
+        let recipesToShow = {
+          recipes: favouriteRecipes
+        }
+        let template = Handlebars.compile(htmlTemplate)
+        let html = template(recipesToShow)
+        let $body = $('body')
 
         $selectedElement.append(html)
         $body.off('click', '.btn-like')
@@ -224,4 +224,4 @@ var app = app || {};
   }
 
   app.pageView = new PageView()
-} ())
+}())

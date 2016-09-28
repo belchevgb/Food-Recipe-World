@@ -6,12 +6,12 @@ var app = app || {};
   let $loader = $('#loader-wrapper')
 
   class PageController {
-    loadHomePage(context, selector) {
+    loadHomePage (context, selector) {
       $loader.show()
       app.recipeModel
         .getGuestRecipes()
         .then(response => {
-          return app.pageView.showHomePage(context, selector, response);
+          return app.pageView.showHomePage(context, selector, response)
         })
         .then(success => {
           setTimeout(() => {
@@ -20,7 +20,7 @@ var app = app || {};
         })
     }
 
-    loadRecipeSearchResult(selector, data) {
+    loadRecipeSearchResult (selector, data) {
       if (!data) {
         app.notificator.showNotification(app.messages.UNAUTHORISED_ACTION, 'error')
         Sammy(function () {
@@ -40,7 +40,7 @@ var app = app || {};
         })
     }
 
-    loadSearchedRecipeById(data) {
+    loadSearchedRecipeById (data) {
       app.recipeModel
         .getSearchedRecipeById(data)
         .then(response => {
@@ -48,36 +48,36 @@ var app = app || {};
         })
     }
 
-    loadRecipeSearchMenu(context, selector) {
+    loadRecipeSearchMenu (context, selector) {
       return app.pageView.showRecipeSearchMenu(context, selector)
     }
 
-    loadMainNavigationWhenUserIsLoggedIn(context, selector, data) {
+    loadMainNavigationWhenUserIsLoggedIn (context, selector, data) {
       return app.pageView.showMainNavigationWhenUserIsLoggedIn(context, selector, data)
     }
 
-    loadMainNavigationWhenNoUserIsLoggedIn(context, selector, data) {
+    loadMainNavigationWhenNoUserIsLoggedIn (context, selector, data) {
       return app.pageView.showMainNavigationWhenNoUserIsLoggedIn(context, selector, data)
     }
 
-    loadLoginPage(context, selector) {
+    loadLoginPage (context, selector) {
       return app.pageView.showLoginPage(context, selector)
     }
 
-    loadRegisterPage(context, selector) {
+    loadRegisterPage (context, selector) {
       return app.pageView.showRegisterPage(context, selector)
     }
 
-    loadFoundUsersPage(selector, data) {
+    loadFoundUsersPage (selector, data) {
       return app.pageView.showFoundUsersPage(selector, data)
     }
 
-    loadProfilePage(selector, data) {
+    loadProfilePage (selector, data) {
       $loader.show()
       return app.pageView.showProfilePage(selector, data)
     }
 
-    loadFavoriteRecipes(selector, data, showLoader) {
+    loadFavoriteRecipes (selector, data, showLoader) {
       if (showLoader) {
         $loader.show()
       }
@@ -89,10 +89,10 @@ var app = app || {};
               $loader.fadeOut(500)
             }, 1000)
           }
-        });
+        })
     }
 
-    loadLikedRecipes(selector, data) {
+    loadLikedRecipes (selector, data) {
       $loader.show()
       return app.pageView.showLikedRecipes(selector, data)
         .then(success => {
@@ -102,16 +102,14 @@ var app = app || {};
         })
     }
 
-
-
-    addNewRecipes(selector, data) {
+    addNewRecipes (selector, data) {
       return app.pageView.addNewRecipes(selector, data)
     }
 
-    loadOtherUserFavourites(favouriteRecipes) {
+    loadOtherUserFavourites (favouriteRecipes) {
       return app.pageView.showOtherUserFavourites(favouriteRecipes)
     }
   }
 
   app.pageController = new PageController()
-} ())
+}())

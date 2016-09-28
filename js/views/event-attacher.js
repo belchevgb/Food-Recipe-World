@@ -1,13 +1,13 @@
 var app = app || {};
 
 (function () {
-  'use strict';
+  'use strict'
 
-  function registerUserEvent(context) {
+  function registerUserEvent (context) {
     $('#btn-register').on('click', () => {
-      let username = $('#tb-register-username').val(),
-        password = $('#tb-register-password').val(),
-        confirmPassword = $('#tb-register-confirm-password').val()
+      let username = $('#tb-register-username').val()
+      let password = $('#tb-register-password').val()
+      let confirmPassword = $('#tb-register-confirm-password').val()
 
       if (confirmPassword !== password) {
         app.notificator.showNotification(app.messages.INVALID_CONFIRM_PASSWORD, 'error')
@@ -15,15 +15,15 @@ var app = app || {};
         context.trigger('registerUser', {
           username,
           password
-        });
+        })
       }
-    });
+    })
   }
 
-  function loginUserEvent(context) {
+  function loginUserEvent (context) {
     $('#btn-login').on('click', () => {
-      let username = $('#tb-login-username').val(),
-        password = $('#tb-login-password').val()
+      let username = $('#tb-login-username').val()
+      let password = $('#tb-login-password').val()
 
       context.trigger('loginUser', {
         username,
@@ -32,7 +32,7 @@ var app = app || {};
     })
   }
 
-  function searchUsersEvent() {
+  function searchUsersEvent () {
     $('#btn-search-users').on('click', () => {
       let searchData = $('#tb-search-user').val()
       Sammy(function () {
@@ -41,7 +41,7 @@ var app = app || {};
     })
   }
 
-  function logoutUserEvent() {
+  function logoutUserEvent () {
     $('#btn-logout').on('click', () => {
       Sammy(function () {
         this.trigger('logoutUser')
@@ -49,31 +49,30 @@ var app = app || {};
     })
   }
 
-  function recipeSearchEvent() {
+  function recipeSearchEvent () {
     $('#search-recipe-btn-normal').on('click', () => {
-      let searchRecipeQuery = $('#search-recipe-query').val(),
-        searchRecipeDiet = $('#search-recipe-diet').val(),
-        searchRecipeNumberOfRecipes = $('#search-recipe-numberOfRecipes').val() || 10,
-        searchRecipeCuisine = $('#search-recipe-cuisine').val()
-
+      let searchRecipeQuery = $('#search-recipe-query').val()
+      let searchRecipeDiet = $('#search-recipe-diet').val()
+      let searchRecipeNumberOfRecipes = $('#search-recipe-numberOfRecipes').val() || 10
+      let searchRecipeCuisine = $('#search-recipe-cuisine').val()
 
       app.reasultOfRecipeSearch = {
         searchRecipeQuery: searchRecipeQuery,
-        searchRecipeDiet: searchRecipeDiet || "",
+        searchRecipeDiet: searchRecipeDiet || '',
         searchRecipeNumberOfRecipes: searchRecipeNumberOfRecipes,
-        searchRecipeCuisine: searchRecipeCuisine || ""
+        searchRecipeCuisine: searchRecipeCuisine || ''
       }
 
       if (searchRecipeQuery.split(' ').length >= 1) {
-        searchRecipeQuery = searchRecipeQuery.replace(" ", "+");
+        searchRecipeQuery = searchRecipeQuery.replace(' ', '+')
       }
       if (searchRecipeCuisine.split(',').length >= 1) {
-        searchRecipeCuisine = searchRecipeCuisine.replace(" ", "+")
-        searchRecipeCuisine = searchRecipeCuisine.replace(",", "&")
+        searchRecipeCuisine = searchRecipeCuisine.replace(' ', '+')
+        searchRecipeCuisine = searchRecipeCuisine.replace(',', '&')
       }
 
       Sammy(function () {
-        $('#loader-wrapper').show();
+        $('#loader-wrapper').show()
         if (searchRecipeQuery && searchRecipeDiet && searchRecipeCuisine) {
           this.trigger('redirectToUrl', `#/found-recipes/${searchRecipeQuery}/${searchRecipeDiet}/${searchRecipeCuisine}/${searchRecipeNumberOfRecipes}`)
         } else if (searchRecipeQuery && searchRecipeCuisine) {
@@ -87,7 +86,7 @@ var app = app || {};
     })
   }
 
-  function getInstructionsForSearchedRecipeEvent() {
+  function getInstructionsForSearchedRecipeEvent () {
     $('#get-instruction').on('click', '.btn.btn-info.btn-round.recipe-buttons', event => {
       let recipeId = $(event.target).data('recipe-id')
       Sammy(function () {
@@ -96,7 +95,7 @@ var app = app || {};
     })
   }
 
-  function addToFavoritesEvent() {
+  function addToFavoritesEvent () {
     $('.btn-add-favorite').on('click', () => {
       let recipeId = $(this).attr('recipe-id')
       Sammy(function () {
@@ -106,7 +105,7 @@ var app = app || {};
     })
   }
 
-  function removeFromFavoritesEvent() {
+  function removeFromFavoritesEvent () {
     $('.btn-remove-favorite').on('click', () => {
       let recipeId = $(this).attr('recipe-id')
       Sammy(function () {
@@ -116,7 +115,7 @@ var app = app || {};
     })
   }
 
-  function addToLikesEvent() {
+  function addToLikesEvent () {
     $('.btn-like').on('click', () => {
       let recipeId = $(this).attr('recipe-id')
       Sammy(function () {
@@ -126,7 +125,7 @@ var app = app || {};
     })
   }
 
-  function removeFromLikesEvent() {
+  function removeFromLikesEvent () {
     $('.btn-dislike').on('click', () => {
       let recipeId = $(this).attr('recipe-id')
       Sammy(function () {
@@ -136,12 +135,12 @@ var app = app || {};
     })
   }
 
-  function detectBottomOfThePage() {
+  function detectBottomOfThePage () {
     $(window).scroll(() => {
-      let currentWindowHeight = $(window).scrollTop() + $(window).height(),
-        maxWindowHeight = $(document).height()
-     
-      if (currentWindowHeight == maxWindowHeight) {
+      let currentWindowHeight = $(window).scrollTop() + $(window).height()
+      let maxWindowHeight = $(document).height()
+
+      if (currentWindowHeight === maxWindowHeight) {
         Sammy(function () {
           $('#mini-loader').show()
           this.trigger('loadMoreRecipes')
@@ -150,7 +149,7 @@ var app = app || {};
     })
   }
 
-  function showUserFavoriteRecipes() {
+  function showUserFavoriteRecipes () {
     $('#btn-favourites').on('click', () => {
       Sammy(function () {
         this.trigger('showFavoriteRecipes')
@@ -158,7 +157,7 @@ var app = app || {};
     })
   }
 
-  function showUserLikedRecipes() {
+  function showUserLikedRecipes () {
     $('#btn-liked').on('click', () => {
       Sammy(function () {
         this.trigger('showLikedRecipes')
@@ -166,7 +165,7 @@ var app = app || {};
     })
   }
 
-  function showOtherUserFavouriteRecipesEvent() {
+  function showOtherUserFavouriteRecipesEvent () {
     $('#btn-user-favourites').on('click', () => {
       let userId = $('#username-container').attr('user-id')
       Sammy(function () {
@@ -175,7 +174,7 @@ var app = app || {};
     })
   }
 
-  function removeDetectionOfTheBottom() {
+  function removeDetectionOfTheBottom () {
     $(window).off('scroll')
   }
 
@@ -195,5 +194,5 @@ var app = app || {};
     showUserLikedRecipes,
     showOtherUserFavouriteRecipesEvent,
     removeDetectionOfTheBottom
-  };
-} ());
+  }
+}())

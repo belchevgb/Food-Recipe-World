@@ -4,14 +4,14 @@ var app = app || {};
   'use strict'
 
   class RecipeController {
-    getRecipeById(recipeId) {
+    getRecipeById (recipeId) {
       return app.recipeModel.getRecipeById(recipeId)
     }
 
-    getRandomRecipes() {
+    getRandomRecipes () {
       return app.recipeModel.getGuestRecipes()
     }
   }
 
   app.recipeController = new RecipeController()
-} ())
+}())

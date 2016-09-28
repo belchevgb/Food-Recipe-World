@@ -3,11 +3,11 @@ var app = app || {};
 (function () {
   'use strict'
 
-  const MAIN_CONTENT_SELECTOR = '#content',
-    MAIN_NAVIGATION_SELECTOR = '#main-navigation',
-    MAIN_RECIPE_SEARCH_MENU_SELECTOR = '#recipe-search'
+  const MAIN_CONTENT_SELECTOR = '#content'
+  const MAIN_NAVIGATION_SELECTOR = '#main-navigation'
+  const MAIN_RECIPE_SEARCH_MENU_SELECTOR = '#recipe-search'
 
-  function loadHeader(context, data) {
+  function loadHeader (context, data) {
     if (localStorage.authKey) {
       app.pageController.loadMainNavigationWhenUserIsLoggedIn(context, MAIN_NAVIGATION_SELECTOR, data)
     } else {
@@ -15,13 +15,13 @@ var app = app || {};
     }
   }
 
-  function loadRecipeSearchMenu(context, selector) {
+  function loadRecipeSearchMenu (context, selector) {
     if (localStorage.authKey) {
       app.pageController.loadRecipeSearchMenu(context, selector)
     }
   }
 
-  function loadProfilePage() {
+  function loadProfilePage () {
     $('#loader-wrapper').show()
     app.userController
       .getUserData()
@@ -32,8 +32,8 @@ var app = app || {};
         return app.userController.getUserFavoriteRecipes()
       })
       .then(response => {
-        let recipes = response.favoriteRecipes,
-          favoriteRecipesSelector = '#favorite-recipes-container'
+        let recipes = response.favoriteRecipes
+        let favoriteRecipesSelector = '#favorite-recipes-container'
 
         return app.pageController.loadFavoriteRecipes(favoriteRecipesSelector, recipes, false)
       })
@@ -41,7 +41,7 @@ var app = app || {};
   }
 
   let router = new Sammy(function () {
-    this.before({ except: { path: '#\/(login|register)?' } }, function () {
+    this.before({ except: { path: '#/(login|register)?' } }, function () {
       if (!localStorage.authKey) {
         this.redirect('#/')
         return false
@@ -76,37 +76,37 @@ var app = app || {};
 
     // START recipes search URLs
     this.get(app.appUrls.FOUND_RECIPES_URL +
-      "/:searchRecipeQuery" +
-      "/:searchRecipeNumberOfRecipes",
+      '/:searchRecipeQuery' +
+      '/:searchRecipeNumberOfRecipes',
       function () {
         let data = {
           searchRecipeQuery: this.params['searchRecipeQuery'],
-          searchRecipeDiet: this.params['searchRecipeDiet'] || "",
+          searchRecipeDiet: this.params['searchRecipeDiet'] || '',
           searchRecipeNumberOfRecipes: this.params['searchRecipeNumberOfRecipes'],
-          searchRecipeCuisine: this.params['searchRecipeCuisine'] || ""
+          searchRecipeCuisine: this.params['searchRecipeCuisine'] || ''
         }
         app.pageController.loadRecipeSearchResult(MAIN_CONTENT_SELECTOR, data)
       })
 
     this.get(app.appUrls.FOUND_RECIPES_URL +
-      "/:searchRecipeQuery" +
-      "/:searchRecipeDiet" +
-      "/:searchRecipeNumberOfRecipes",
+      '/:searchRecipeQuery' +
+      '/:searchRecipeDiet' +
+      '/:searchRecipeNumberOfRecipes',
       function () {
         let data = {
           searchRecipeQuery: this.params['searchRecipeQuery'],
-          searchRecipeDiet: this.params['searchRecipeDiet'] || "",
+          searchRecipeDiet: this.params['searchRecipeDiet'] || '',
           searchRecipeNumberOfRecipes: this.params['searchRecipeNumberOfRecipes'],
-          searchRecipeCuisine: this.params['searchRecipeCuisine'] || ""
+          searchRecipeCuisine: this.params['searchRecipeCuisine'] || ''
         }
         app.pageController.loadRecipeSearchResult(MAIN_CONTENT_SELECTOR, data)
       })
 
     this.get(app.appUrls.FOUND_RECIPES_URL +
-      "/:searchRecipeQuery" +
-      "/:searchRecipeDiet" +
-      "/:searchRecipeCuisine" +
-      "/:searchRecipeNumberOfRecipes",
+      '/:searchRecipeQuery' +
+      '/:searchRecipeDiet' +
+      '/:searchRecipeCuisine' +
+      '/:searchRecipeNumberOfRecipes',
       function () {
         let data = {
           searchRecipeQuery: this.params['searchRecipeQuery'],
@@ -179,8 +179,8 @@ var app = app || {};
       app.userController
         .getUserFavoriteRecipes()
         .then(response => {
-          let recipes = response.favoriteRecipes,
-            favoriteRecipesSelector = '#favorite-recipes-container'
+          let recipes = response.favoriteRecipes
+          let favoriteRecipesSelector = '#favorite-recipes-container'
 
           app.pageController.loadFavoriteRecipes(favoriteRecipesSelector, recipes, true)
         })
@@ -189,8 +189,8 @@ var app = app || {};
     this.bind('showLikedRecipes', function (event) {
       app.userController.getUserLikedRecipes()
         .then(response => {
-          let recipes = response.likedRecipes,
-            likedRecipesSelector = '#favorite-recipes-container'
+          let recipes = response.likedRecipes
+          let likedRecipesSelector = '#favorite-recipes-container'
 
           app.pageController.loadLikedRecipes(likedRecipesSelector, recipes)
         })
@@ -224,4 +224,4 @@ var app = app || {};
   })
 
   router.run(app.appUrls.BASE_URL)
-} ())
+}())

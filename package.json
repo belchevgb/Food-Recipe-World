@@ -1,0 +1,5 @@
+{
+  "standard": {
+    "globals": [ "localStorage", "Sammy", "$", "Handlebars", "btoa", "toastr" ]
+  }
+}

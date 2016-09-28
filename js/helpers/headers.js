@@ -4,7 +4,7 @@ var app = app || {};
   'use strict'
 
   class Headers {
-    getKinveyHeaders(sendData, userCredentials) {
+    getKinveyHeaders (sendData, userCredentials) {
       let headers = {}
       if (sendData) {
         headers['Content-Type'] = 'application/json'
@@ -19,7 +19,7 @@ var app = app || {};
       return headers
     }
 
-    getSpoonacularHeaders(sendData) {
+    getSpoonacularHeaders (sendData) {
       let headers = {}
 
       if (sendData) {
@@ -32,4 +32,4 @@ var app = app || {};
   }
 
   app.headers = new Headers()
-} ())
+}())
