@@ -1,17 +1,17 @@
-var app = app || {};
+'use strict';
 
-(function () {
-  'use strict'
+import {recipeModel} from 'recipe-model';
 
-  class RecipeController {
-    getRecipeById (recipeId) {
-      return app.recipeModel.getRecipeById(recipeId)
-    }
-
-    getRandomRecipes () {
-      return app.recipeModel.getGuestRecipes()
-    }
+class RecipeController {
+  getRecipeById(recipeId) {
+    return recipeModel.getRecipeById(recipeId);
   }
 
-  app.recipeController = new RecipeController()
-}())
+  getRandomRecipes() {
+    return recipeModel.getGuestRecipes();
+  }
+}
+
+const recipeController = new RecipeController();
+export {recipeController};
+

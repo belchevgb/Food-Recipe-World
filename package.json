@@ -1,5 +1,21 @@
 {
   "standard": {
-    "globals": [ "localStorage", "Sammy", "$", "Handlebars", "btoa", "toastr" ]
-  }
+    "globals": [
+      "localStorage",
+      "Sammy",
+      "$",
+      "Handlebars",
+      "btoa",
+      "toastr"
+    ]
+  },
+  "name": "food-recipe-world",
+  "version": "1.0.0",
+  "main": "system-config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "GB",
+  "license": "ISC",
+  "description": ""
 }
