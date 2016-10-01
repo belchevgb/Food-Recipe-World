@@ -5,13 +5,13 @@ var app = app || {};
 
   class RecipeController {
     getRecipeById (recipeId) {
-      return app.recipeModel.getRecipeById(recipeId)
+      return app.recipeModel.getRecipeById(recipeId);
     }
 
     getRandomRecipes () {
-      return app.recipeModel.getGuestRecipes()
+      return app.recipeModel.getGuestRecipes();
     }
   }
 
-  app.recipeController = new RecipeController()
-}())
+  app.recipeController = new RecipeController();
+}());
