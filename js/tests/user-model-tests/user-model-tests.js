@@ -1,4 +1,4 @@
-describe('=== RECIPE MODEL ===', () => {
+describe('=== USER MODEL ===', () => {
   describe('registerUser() tests', () => {
     let requester,
       users = [];

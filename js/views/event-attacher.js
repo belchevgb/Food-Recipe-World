@@ -61,7 +61,7 @@ var app = app || {};
         searchRecipeDiet: searchRecipeDiet || '',
         searchRecipeNumberOfRecipes: searchRecipeNumberOfRecipes,
         searchRecipeCuisine: searchRecipeCuisine || ''
-      }
+      };
 
       if (searchRecipeQuery.split(' ').length >= 1) {
         searchRecipeQuery = searchRecipeQuery.replace(' ', '+')

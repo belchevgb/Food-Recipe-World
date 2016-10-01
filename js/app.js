@@ -56,23 +56,23 @@ var app = app || {};
 
     this.get(app.appUrls.LOGIN_URL, function (context) {
       app.pageController.loadLoginPage(context, MAIN_CONTENT_SELECTOR)
-    })
+    });
 
     this.get(app.appUrls.REGISTER_URL, function (context) {
       app.pageController.loadRegisterPage(context, MAIN_CONTENT_SELECTOR)
-    })
+    });
 
     this.get(app.appUrls.FOUND_USERS_URL, function (context) {
       app.pageController.loadFoundUsersPage(MAIN_CONTENT_SELECTOR, app.foundUsers)
-    })
+    });
 
     this.get(app.appUrls.PROFILE_URL, function (context) {
       loadProfilePage()
-    })
+    });
 
     this.get(app.appUrls.FOUND_RECIPES_URL, function () {
-      app.pageController.loadRecipeSearchResult(MAIN_CONTENT_SELECTOR, app.reasultOfRecipeSearch)
-    })
+      app.pageController.loadRecipeSearchResult(MAIN_CONTENT_SELECTOR, app.reasultOfRecipeSearch);
+    });
 
     // START recipes search URLs
     this.get(app.appUrls.FOUND_RECIPES_URL +

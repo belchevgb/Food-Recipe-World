@@ -7,7 +7,7 @@ var app = app || {};
 
   class PageController {
     loadHomePage (context, selector) {
-      $loader.show()
+      $loader.show();
       app.recipeModel
         .getGuestRecipes()
         .then(response => {
