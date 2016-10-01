@@ -129,7 +129,7 @@ describe('=== RECIPE MODEL ===', () => {
         .then(done, done);
     });
 
-    it('Login with non existing user, should cause error', () => {
+    it('Login with non existing user, should cause error', done => {
       let userData = {
         username: 'dsadsa',
         password: 'password'
@@ -141,13 +141,65 @@ describe('=== RECIPE MODEL ===', () => {
         reject => done());
     });
 
-    it('Login with invalid creadentials should cause error', () => {
+    it('Login with invalid creadentials should cause error', done => {
       let userData = {};
 
       app.userModel
         .loginUser(userData)
         .then(response => done(new Error()),
         reject => done());
+    });
+  });
+
+  describe('addRecipeToFavorites() tests', () => {
+    let users = [];
+    const authToken = '6sadadsfb9xcv7vc6xv00rw0we7vds9';
+
+    beforeEach(() => {
+      users = [
+        {
+          username: 'username',
+          authToken,
+          favoriteRecipes: []
+        }
+      ];
+
+      sinon.stub(app.requester, 'get', (url, headers) => {
+        return new Promise((resolve, reject) => {
+          resolve(users[0]);
+        });
+      });
+
+      sinon.stub(app.requester, 'put', (url, headers, data) => {
+        return new Promise((resolve, reject) => {
+          users = [];
+          users.push(data);
+          resolve(users[0]);
+        });
+      });
+    });
+
+    afterEach(() => {
+      app.requester.put.restore();
+      app.requester.get.restore();
+    });
+
+    it('Adding recipe should add it to all user recipes', done => {
+      app.requester
+        .get()
+        .then(response => {
+          let recipe = {
+            title: 'Chorba',
+            id: '8989219',
+            text: ''
+          };
+
+          return app.userModel.addRecipeToFavorites(recipe);
+        })
+        .then(() => {
+          expect(users[0].favoriteRecipes).to.have.lengthOf(1);
+        })
+        .then(done, done);
     });
   });
 });
