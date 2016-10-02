@@ -4,8 +4,6 @@ typings.json
 
 # Webstorm
 .idea/
-bower_components/
-node_modules/
 
 # Visual Studio
 .vs/
