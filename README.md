@@ -1,4 +1,4 @@
-# Telerikstone Heroes Of Progress 
+# Food Recipe World 
 Teamwork in Javascript Applications Course in Telerik Academy 2016-2017 Season.
 
 ### Team "Blue Beetle"
