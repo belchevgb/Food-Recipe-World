@@ -238,3 +238,7 @@ ul.with-tick {
 #adv-search * {
     color: #000;
 }
+
+#recipe-search {
+    margin-top: 100px;
+}
