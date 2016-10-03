@@ -24,7 +24,7 @@ var app = app || {};
             if (!data) {
                 app.notificator.showNotification(app.messages.UNAUTHORISED_ACTION, 'error');
                 Sammy(function () {
-                    this.trigger('redirectToUrl', app.appUrls.BASE_URL);
+                    window.location.hash = `${app.appUrls.BASE_URL}`;
                 });
             }
 

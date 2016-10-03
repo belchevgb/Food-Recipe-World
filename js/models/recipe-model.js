@@ -12,9 +12,7 @@ var app = app || {};
         getRecipes(data) {
             if (!data.searchRecipeQuery) {
                 app.notificator.showNotification(app.messages.EMPTY_RECIPE_SEARCH, 'error');
-                Sammy(function () {
-                    this.trigger('redirectToUrl', app.appUrls.BASE_URL);
-                });
+                window.location.hash = `${app.appUrls.BASE_URL}`;
             }
 
             let headersToSend = app.headers.getSpoonacularHeaders(true);

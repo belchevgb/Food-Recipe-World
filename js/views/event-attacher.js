@@ -74,13 +74,13 @@ var app = app || {};
             Sammy(function () {
                 $('#loader-wrapper').show()
                 if (searchRecipeQuery && searchRecipeDiet && searchRecipeCuisine) {
-                    this.trigger('redirectToUrl', `#/found-recipes/${searchRecipeQuery}/${searchRecipeDiet}/${searchRecipeCuisine}/${searchRecipeNumberOfRecipes}`);
+                    window.location.hash =  `#/found-recipes/${searchRecipeQuery}/${searchRecipeDiet}/${searchRecipeCuisine}/${searchRecipeNumberOfRecipes}`;
                 } else if (searchRecipeQuery && searchRecipeCuisine) {
-                    this.trigger('redirectToUrl', `#/found-recipes/${searchRecipeQuery}/${searchRecipeCuisine}/${searchRecipeNumberOfRecipes}`);
+                    window.location.hash = `#/found-recipes/${searchRecipeQuery}/${searchRecipeCuisine}/${searchRecipeNumberOfRecipes}`;
                 } else if (searchRecipeQuery && searchRecipeDiet) {
-                    this.trigger('redirectToUrl', `#/found-recipes/${searchRecipeQuery}/${searchRecipeDiet}/${searchRecipeNumberOfRecipes}`);
+                    window.location.hash = `#/found-recipes/${searchRecipeQuery}/${searchRecipeDiet}/${searchRecipeNumberOfRecipes}`;
                 } else if (searchRecipeQuery) {
-                    this.trigger('redirectToUrl', `#/found-recipes/${searchRecipeQuery}/${searchRecipeNumberOfRecipes}`);
+                    window.location.hash = `#/found-recipes/${searchRecipeQuery}/${searchRecipeNumberOfRecipes}`;
                 }
             });
         });

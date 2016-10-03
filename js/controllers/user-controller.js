@@ -4,9 +4,7 @@ var app = app || {};
     'use strict';
 
     function redirect(url) {
-        Sammy(function () {
-            this.trigger('redirectToUrl', url);
-        });
+        window.location.hash = `${url}`;
     }
 
     class UserController {
@@ -45,9 +43,7 @@ var app = app || {};
                     localStorage.clear();
                     app.notificator.showNotification(app.messages.LOGOUT_SUCCESSFUL, 'success');
                     setTimeout(() => {
-                        Sammy(function () {
-                            this.trigger('redirectToUrl', app.appUrls.BASE_URL);
-                        });
+                        window.location.hash = `${app.appUrls.BASE_URL}`;
                     }, 500);
                 });
         }
@@ -56,10 +52,8 @@ var app = app || {};
             app.userModel
                 .findUser(data)
                 .then(success => {
-                    Sammy(function () {
-                        app.foundUsers = success;
-                        this.trigger('redirectToUrl', app.appUrls.FOUND_USERS_URL);
-                    });
+                    app.foundUsers = success;
+                    window.location.hash = `${app.appUrls.FOUND_USERS_URL}`;
                 });
         }
 
@@ -97,4 +91,4 @@ var app = app || {};
     }
 
     app.userController = new UserController();
-} ());
+}());
