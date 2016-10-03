@@ -15,17 +15,17 @@
                                 </button>
 
                                 <button class="btn {{#if this.vegetarian}}btn-success{{else}}btn-danger{{/if}} btn-just-icon recipe-status">
-                                    <img src="../images/vegetable-icon.png" alt="Vegetarian" class="recipe-status-icon">
+                                    <img src="images/vegetable-icon.png" alt="Vegetarian" class="recipe-status-icon">
                                 </button>
 
                                 <button class="btn btn-warning btn-just-icon recipe-status servings-btn">
-                                    <img src="../images/servings-icon.png" alt="Servings" class="recipe-status-icon">
+                                    <img src="images/servings-icon.png" alt="Servings" class="recipe-status-icon">
                                     <span class="servings-icon">{{this.servings}}</span>
                                 </button>
 
                                 {{#if this.readyInMinutes}}
                                 <button class="btn btn-success btn-just-icon recipe-status servings-btn">
-                                    <img src="../images/timer-icon.png" alt="Ready in time" class="recipe-status-icon" />
+                                    <img src="images/timer-icon.png" alt="Ready in time" class="recipe-status-icon" />
                                     <span class="servings-icon">{{this.readyInMinutes}}m</span>
                                 </button>
                                 {{/if}}
@@ -35,10 +35,6 @@
                                         <i class="material-icons">star_rate</i>
                                         <span class="text-normalize">Remove from favorites</span>
                                     </button>
-                                    <!--<button class="btn btn-primary btn-just-icon btn-like" recipe-id="{{this.id}}"> 
-                                        <i class="material-icons">thumb_up</i> 
-                                        <span class="text-normalize">Like</span>
-                                    </button>-->
                                 </div>
                             </p>
                         </div>
