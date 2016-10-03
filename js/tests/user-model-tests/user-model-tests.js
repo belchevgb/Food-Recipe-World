@@ -194,12 +194,152 @@ describe('=== USER MODEL ===', () => {
                         text: ''
                     };
 
-                    return app.userModel.addRecipeToFavorites(recipe);
-                })
-                .then(() => {
-                    expect(users[0].favoriteRecipes).to.have.lengthOf(1);
-                })
-                .then(done, done);
-        });
+          return app.userModel.addRecipeToFavorites(recipe);
+        })
+        .then(() => {
+          expect(users[0].favoriteRecipes).to.have.lengthOf(1);
+        })
+        .then(done, done);
     });
+  });
+
+  describe('logoutUser() tests', () => {
+
+    // Not sure if these should be hard coded
+    var expectedUrl = app.kinveyUrls.KINVEY_LOGOUT_USER_URL,
+        expectedHeaders = app.headers.getKinveyHeaders(false, true);
+
+    beforeEach(() => {
+      sinon.stub(app.requester, 'post', (url, headers) => {
+        return new Promise((resolve, reject) => {
+          resolve({ url, headers });
+        });
+      });
+    });
+
+    afterEach(() => {
+      app.requester.post.restore();
+    });
+
+    it('Expect logoutUser() url to be correct.', (done) => {
+      app.userModel.logoutUser()
+        .then((response) => {
+          expect(response.url).to.equal(expectedUrl);
+        })
+        .then(done, done);
+    });
+    it('Expect logoutUser() headers to be correct.', (done) => {
+      app.userModel.logoutUser()
+        .then((response) => {
+          expect(response.headers).to.eql(expectedHeaders);
+        })
+        .then(done, done);
+    });
+  });
+
+  describe('findUser() tests', () => {
+
+    const data = "TEST_USERNAME",
+          headersToSend = app.headers.getKinveyHeaders(false, true),
+          query = `?query={"username":"${data}"}`,
+          url = `${app.kinveyUrls.KINVEY_USER_URL}${query}`;
+
+    beforeEach(() => {
+      sinon.stub(app.requester, 'get', (url, headers) => {
+        return new Promise((resolve, reject) => {
+          resolve({
+            username: data
+          });
+        });
+      });
+    });
+    afterEach(() => {
+      app.requester.get.restore();
+    });
+    it('Expect app.requester.get() to be called', (done) => {
+      app.userModel.findUser(data)
+       .then(() => {
+         expect(app.requester.get.called).to.be.true;
+       })
+      .then(done, done);
+    });
+    it('Expect app.requester.get() to be called with correct parameters', (done) => {
+      app.userModel.findUser(data)
+       .then(() => {
+         expect(app.requester.get.calledWithExactly(url, headersToSend)).to.be.true;
+       })
+      .then(done, done);
+    });
+
+  });
+
+  describe('getUserData() tests', () => {
+
+    const data = "TEST_USERNAME",
+          headersToSend = app.headers.getKinveyHeaders(false, true),
+          url = app.kinveyUrls.KINVEY_USER_URL + '/' + localStorage.userId;
+
+    beforeEach(() => {
+      sinon.stub(app.requester, 'get', (url, headers) => {
+        return new Promise((resolve, reject) => {
+          resolve({
+            username: data
+          });
+        });
+      });
+    });
+    afterEach(() => {
+      app.requester.get.restore();
+    });
+    it('Expect app.requester.get() to be called exactly once', (done) => {
+      app.userModel.getUserData(data)
+       .then(() => {
+         expect(app.requester.get.calledOnce).to.be.true;
+       })
+      .then(done, done);
+    });
+    it('Expect app.requester.get() to be called with correct parameters', (done) => {
+      app.userModel.getUserData(data)
+       .then(() => {
+         expect(app.requester.get.calledWithExactly(url, headersToSend)).to.be.true;
+       })
+      .then(done, done);
+    });
+
+  });
+
+  describe('getFoundUserFavourites() tests', () => {
+
+    const userId = "TEST_USER_ID",
+          headersToSend = app.headers.getKinveyHeaders('false', true),
+          userUrl = `${app.kinveyUrls.KINVEY_USER_URL}/${userId}`;
+
+    beforeEach(() => {
+      sinon.stub(app.requester, 'get', (url, headers) => {
+        return new Promise((resolve, reject) => {
+          resolve({
+            username: userId
+          });
+        });
+      });
+    });
+    afterEach(() => {
+      app.requester.get.restore();
+    });
+    it('Expect app.requester.get() to be called exactly once', (done) => {
+      app.userModel.getFoundUserFavourites(userId)
+       .then(() => {
+         expect(app.requester.get.calledOnce).to.be.true;
+       })
+      .then(done, done);
+    });
+    it('Expect app.requester.get() to be called with correct parameters', (done) => {
+      app.userModel.getFoundUserFavourites(userId)
+       .then(() => {
+         expect(app.requester.get.calledWithExactly(userUrl, headersToSend)).to.be.true;
+       })
+      .then(done, done);
+    });
+
+  });
 });
