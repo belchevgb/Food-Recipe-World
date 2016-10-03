@@ -11,7 +11,6 @@ Teamwork in Javascript Applications Course in Telerik Academy 2016-2017 Season.
 | Emil Todorov      |           EmoTodorov               | [emakkaa](https://github.com/emakkaa)                 |
 | Stefan Koserkov   |           Sparx92                  | [Sparx92](https://github.com/Sparx92)                 |
 | Vasil Petkov      |           vaspet                   | [v4ss1l](https://github.com/nadejdanicolova)          |
-| Mihail Malamov    |           mmalamov                 | [malamov](https://github.com/malamov)                 |
 
 
 [The brief video in YouTube](https://www.youtube.com/watch?v=sMq9Xs7U104&feature=youtu.be)
